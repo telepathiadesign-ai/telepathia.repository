@@ -236,20 +236,56 @@ systemctl enable --now vps-mcp
 systemctl restart vps-mcp
 sleep 2
 
-# Remove the temporary nginx site from the certbot attempt
-rm -f /etc/nginx/sites-enabled/mcp /etc/nginx/sites-available/mcp
-nginx -t >/dev/null 2>&1 && systemctl reload nginx
+# nginx: HTTPS on 443 (Let's Encrypt cert) proxied to the local MCP server.
+# access_log is off because the secret token is part of the URL path.
+DOMAIN=mcp.telepathiadesign.com
+cat > /etc/nginx/sites-available/mcp <<NGINX_EOF
+server {
+    listen 80;
+    listen [::]:80;
+    server_name $DOMAIN;
+    return 301 https://\$host\$request_uri;
+}
+
+server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+    server_name $DOMAIN;
+
+    ssl_certificate /etc/letsencrypt/live/$DOMAIN/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/$DOMAIN/privkey.pem;
+    include /etc/letsencrypt/options-ssl-nginx.conf;
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+
+    access_log off;
+    client_max_body_size 25m;
+
+    location / {
+        proxy_pass http://127.0.0.1:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Host \$host;
+        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto \$scheme;
+        proxy_buffering off;
+        proxy_cache off;
+        proxy_read_timeout 1900s;
+        proxy_send_timeout 1900s;
+    }
+}
+NGINX_EOF
+ln -sf /etc/nginx/sites-available/mcp /etc/nginx/sites-enabled/mcp
+nginx -t && systemctl reload nginx
 
 TOKEN=$(grep MCP_TOKEN /etc/vps-mcp.env | cut -d= -f2)
+INIT='{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-06-18","capabilities":{},"clientInfo":{"name":"test","version":"1"}}}'
 echo
 echo "=== service ==="; systemctl is-active vps-mcp
 echo "=== local test (expect 200) ==="
 curl -s -o /dev/null -w "%{http_code}\n" -H 'Content-Type: application/json' -H 'Accept: application/json, text/event-stream' \
-  "http://127.0.0.1:3000/$TOKEN/mcp" \
-  -d '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-06-18","capabilities":{},"clientInfo":{"name":"test","version":"1"}}}'
-echo "=== cloudflared ==="
-systemctl cat cloudflared 2>/dev/null | grep -E '^ExecStart' | sed -E 's/(--token|run) [A-Za-z0-9=_-]{20,}/\1 <redacted>/' || echo "no cloudflared systemd unit"
-ls /etc/cloudflared/ ~/.cloudflared/ 2>/dev/null
+  "http://127.0.0.1:3000/$TOKEN/mcp" -d "$INIT"
+echo "=== public HTTPS test (expect 200) ==="
+curl -s -o /dev/null -w "%{http_code}\n" -H 'Content-Type: application/json' -H 'Accept: application/json, text/event-stream' \
+  "https://$DOMAIN/$TOKEN/mcp" -d "$INIT"
 echo
 echo "Connector URL (keep this secret):"
 echo "https://mcp.telepathiadesign.com/$TOKEN/mcp"
