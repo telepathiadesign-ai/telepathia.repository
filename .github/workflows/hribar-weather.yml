@@ -1,0 +1,29 @@
+name: Hribar daily weather
+on:
+  schedule:
+    - cron: '30 4 * * *'   # 07:30 Bucharest (summer time)
+  workflow_dispatch: {}
+permissions:
+  contents: write
+concurrency: hribar-weather
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    defaults: { run: { working-directory: hribar } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - run: pip install requests numpy
+      - name: Fetch Open-Meteo grid (0.2°, paced for the free tier)
+        run: python3 scripts/fetch_weather.py --grid 0.2 --sleep 11 --out data/weather.json
+      - name: Build
+        run: python3 build.py
+      - name: Commit refreshed weather
+        run: |
+          git config user.name "hribar-bot"
+          git config user.email "hribar-bot@users.noreply.github.com"
+          git add data/weather.json
+          git diff --cached --quiet || git commit -m "weather: refresh $(date -u +%Y-%m-%dT%H:%MZ)"
+          git push
