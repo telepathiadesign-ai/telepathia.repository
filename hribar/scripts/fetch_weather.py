@@ -62,10 +62,10 @@ def main():
         lats = ",".join(f"{LA0 + r*st:.2f}" for r, c in batch)
         lons = ",".join(f"{LO0 + c*st:.2f}" for r, c in batch)
         params = dict(latitude=lats, longitude=lons, hourly=HOURLY, daily=DAILY,
-                      past_days=30, forecast_days=11, timezone="UTC", models="icon_seamless")
+                      past_days=30, forecast_days=11, timezone="UTC")  # default "best match": ICON alone stops after ~7.5 days and would leave the last forecast days empty
         for attempt in range(12):
             try:
-                rr = requests.get(URL, params=params, timeout=60)
+                rr = requests.get(URL, params=params, timeout=150)
             except requests.RequestException as e:
                 print(f"  batch {b}: {e}", file=sys.stderr); time.sleep(20); continue
             if rr.status_code == 429 or rr.status_code >= 500:
@@ -110,7 +110,7 @@ def main():
                 arr_[d*NP + k] = fill
     grid = dict(lo0=LO0, la0=LA0, st=st, w=W, h=H)
     obj = dict(t0=t0, issued=time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
-               model="icon_seamless", src=f"Open-Meteo (ICON-EU/D2), {time.strftime('%Y-%m-%d')}",
+               model="best_match", src=f"Open-Meteo best match (ICON-D2/EU first days), {time.strftime('%Y-%m-%d')}",
                grid=grid, days=DAYS, gaps=gaps,
                rain=enc(rain, DAYS, H, W), tsoil=enc(tsoil, DAYS, H, W),
                smoist=enc(smoist, DAYS, H, W), tmin=enc(tmin, DAYS, H, W), snow=enc(snow, DAYS, H, W))
