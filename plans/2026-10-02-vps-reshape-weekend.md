@@ -42,7 +42,7 @@ Use `mcp__VPS_MCP__run_command` (runs as root, default cwd `/root`, 120 s defaul
 | Enrich queue | `pending_enrich.jsonl` 369 lines · `pending_flags.jsonl` 2 · quarantine 3 |
 | Steward | FAIL: uncommitted `FOUNDRY.md`, `STATUS.md` · WARN: branch `foundry/task-112` unmerged · 4 stale worktrees under `foodlabel/.claude/worktrees/` |
 | foodlabel git | **no remote** (`git remote -v` empty) |
-| Public holes | docker `ttyd` (`ttyd -W /bin/bash`, no auth) via nginx `:8080/terminal/` · code-server `bind-addr: 0.0.0.0:9090` (password auth) also via `:8080/code/` · nginx `:8082` → `127.0.0.1:8081` which is dead (502) · foodlabel `:8000` bound `0.0.0.0` · FreqUI ×3 on `:8080/bot-*/` with `admin/admin123` |
+| Public holes | docker `ttyd` (`ttyd -W /bin/bash`, no auth) via nginx `:8080/terminal/` · code-server `bind-addr: 0.0.0.0:9090` (password auth) also via `:8080/code/` · nginx `:8082` → `127.0.0.1:8081` which is dead (502) · foodlabel `:8000` bound `0.0.0.0` · FreqUI ×3 on `:8080/bot-*/` with a weak default password (see `/root/tradingbot/BOTS.md` on the box; do not copy it into any repo) |
 | nginx | `/etc/nginx/sites-enabled/mcp` (mcp.telepathiadesign.com → :3000, keep) · `/etc/nginx/sites-enabled/tradernews` (the :8080 and :8082 server blocks) |
 | cloudflared | `/root/.cloudflared/config.yml`: tradernews→:5000, eticheta→:8000, analytics→:3001. Service `cloudflared-tradernews` |
 | tradernews | `tradernews.service` (:5000), `tradernews-worker.service`, timers `tradernews-tg-brief.timer`, `tradernews-tg-alert.timer`; crons `30 4 * * * ops_backup.sh`, `10 */6 * * * ops_healthcheck.py` |
