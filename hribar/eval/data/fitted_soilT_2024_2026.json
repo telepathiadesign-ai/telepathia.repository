@@ -1,0 +1,607 @@
+{
+"source": "Soil temperature (ERA5-Land 0-7 cm, lapse-corrected) at iNaturalist finds in Romania, Jan 2024 - Sep 2026; median and robust spread; species with >= 12 finds",
+"fitted": {
+"Pleurotus ostreatus": {
+"t": [
+5.4,
+6.1
+],
+"n": 67
+},
+"Pluteus cervinus": {
+"t": [
+16.1,
+5.5
+],
+"n": 47
+},
+"Morchella esculenta": {
+"t": [
+12.0,
+4.4
+],
+"n": 17
+},
+"Auricularia auricula-judae": {
+"t": [
+12.5,
+8.3
+],
+"n": 121
+},
+"Cerioporus squamosus": {
+"t": [
+17.3,
+3.3
+],
+"n": 65
+},
+"Megacollybia platyphylla": {
+"t": [
+16.7,
+3.8
+],
+"n": 38
+},
+"Pseudosperma rimosum": {
+"t": [
+17.7,
+3.2
+],
+"n": 12
+},
+"Coprinus comatus": {
+"t": [
+11.9,
+3.9
+],
+"n": 67
+},
+"Laetiporus sulphureus": {
+"t": [
+17.1,
+3.7
+],
+"n": 98
+},
+"Calocybe gambosa": {
+"t": [
+14.7,
+3.0
+],
+"n": 12
+},
+"Omphalotus olearius": {
+"t": [
+14.7,
+4.2
+],
+"n": 30
+},
+"Agrocybe praecox": {
+"t": [
+14.8,
+3.0
+],
+"n": 22
+},
+"Coprinopsis atramentaria": {
+"t": [
+11.5,
+3.0
+],
+"n": 17
+},
+"Marasmius oreades": {
+"t": [
+13.9,
+3.0
+],
+"n": 65
+},
+"Macrolepiota procera": {
+"t": [
+13.3,
+6.6
+],
+"n": 99
+},
+"Hypholoma fasciculare": {
+"t": [
+14.9,
+4.6
+],
+"n": 103
+},
+"Coprinellus micaceus": {
+"t": [
+16.8,
+4.6
+],
+"n": 94
+},
+"Coprinopsis picacea": {
+"t": [
+10.1,
+3.0
+],
+"n": 68
+},
+"Agaricus arvensis": {
+"t": [
+17.3,
+4.8
+],
+"n": 14
+},
+"Amanita rubescens": {
+"t": [
+18.4,
+3.0
+],
+"n": 128
+},
+"Amanita excelsa": {
+"t": [
+17.8,
+3.0
+],
+"n": 50
+},
+"Panaeolus papilionaceus": {
+"t": [
+14.7,
+3.0
+],
+"n": 16
+},
+"Agaricus campestris": {
+"t": [
+16.5,
+5.0
+],
+"n": 35
+},
+"Hypholoma lateritium": {
+"t": [
+9.2,
+4.3
+],
+"n": 21
+},
+"Xerocomellus chrysenteron": {
+"t": [
+18.0,
+3.4
+],
+"n": 26
+},
+"Suillellus luridus": {
+"t": [
+19.2,
+3.0
+],
+"n": 23
+},
+"Russula cyanoxantha": {
+"t": [
+18.0,
+3.1
+],
+"n": 37
+},
+"Hericium coralloides": {
+"t": [
+10.9,
+8.3
+],
+"n": 25
+},
+"Amanita regalis": {
+"t": [
+16.4,
+3.6
+],
+"n": 68
+},
+"Russula virescens": {
+"t": [
+20.0,
+3.4
+],
+"n": 23
+},
+"Boletus reticulatus": {
+"t": [
+19.2,
+3.0
+],
+"n": 56
+},
+"Suillellus queletii": {
+"t": [
+19.9,
+3.0
+],
+"n": 13
+},
+"Lepiota cristata": {
+"t": [
+17.5,
+5.6
+],
+"n": 16
+},
+"Lactifluus piperatus": {
+"t": [
+18.9,
+3.0
+],
+"n": 31
+},
+"Amanita pantherina": {
+"t": [
+17.8,
+3.9
+],
+"n": 37
+},
+"Leccinellum pseudoscabrum": {
+"t": [
+22.7,
+3.0
+],
+"n": 19
+},
+"Russula foetens": {
+"t": [
+18.0,
+3.1
+],
+"n": 19
+},
+"Laccaria amethystina": {
+"t": [
+15.9,
+3.7
+],
+"n": 12
+},
+"Russula vesca": {
+"t": [
+18.3,
+4.1
+],
+"n": 35
+},
+"Boletus edulis": {
+"t": [
+16.7,
+3.8
+],
+"n": 60
+},
+"Amanita muscaria": {
+"t": [
+15.0,
+5.5
+],
+"n": 195
+},
+"Clitopilus prunulus": {
+"t": [
+13.8,
+3.0
+],
+"n": 16
+},
+"Lepiota clypeolaria": {
+"t": [
+15.9,
+4.2
+],
+"n": 16
+},
+"Mycena pura": {
+"t": [
+14.5,
+3.0
+],
+"n": 36
+},
+"Chalciporus piperatus": {
+"t": [
+15.9,
+5.3
+],
+"n": 22
+},
+"Cantharellus pallens": {
+"t": [
+17.7,
+3.0
+],
+"n": 14
+},
+"Lactifluus volemus": {
+"t": [
+18.6,
+5.1
+],
+"n": 25
+},
+"Volvariella bombycina": {
+"t": [
+22.9,
+3.1
+],
+"n": 26
+},
+"Cantharellus cibarius": {
+"t": [
+17.5,
+3.1
+],
+"n": 50
+},
+"Xerocomus subtomentosus": {
+"t": [
+18.0,
+3.0
+],
+"n": 26
+},
+"Phallus impudicus": {
+"t": [
+18.4,
+3.0
+],
+"n": 37
+},
+"Neoboletus erythropus": {
+"t": [
+16.9,
+3.7
+],
+"n": 51
+},
+"Morchella steppicola": {
+"t": [
+11.0,
+3.0
+],
+"n": 13
+},
+"Strobilomyces strobilaceus": {
+"t": [
+20.4,
+3.0
+],
+"n": 13
+},
+"Caloboletus calopus": {
+"t": [
+16.8,
+3.0
+],
+"n": 29
+},
+"Agaricus sylvaticus": {
+"t": [
+17.7,
+3.6
+],
+"n": 17
+},
+"Suillus granulatus": {
+"t": [
+11.6,
+3.0
+],
+"n": 14
+},
+"Chlorophyllum rhacodes": {
+"t": [
+13.7,
+3.3
+],
+"n": 13
+},
+"Lycoperdon perlatum": {
+"t": [
+12.9,
+5.4
+],
+"n": 93
+},
+"Russula integra": {
+"t": [
+17.0,
+6.2
+],
+"n": 22
+},
+"Pleurotus pulmonarius": {
+"t": [
+17.7,
+3.4
+],
+"n": 18
+},
+"Lactarius deterrimus": {
+"t": [
+10.5,
+4.8
+],
+"n": 33
+},
+"Laccaria laccata": {
+"t": [
+15.7,
+5.4
+],
+"n": 18
+},
+"Sarcodon imbricatus": {
+"t": [
+14.1,
+6.4
+],
+"n": 25
+},
+"Meripilus giganteus": {
+"t": [
+15.8,
+5.7
+],
+"n": 15
+},
+"Imleria badia": {
+"t": [
+17.1,
+6.0
+],
+"n": 24
+},
+"Russula ochroleuca": {
+"t": [
+14.2,
+5.7
+],
+"n": 13
+},
+"Hydnum repandum": {
+"t": [
+16.5,
+5.6
+],
+"n": 12
+},
+"Infundibulicybe geotropa": {
+"t": [
+9.6,
+3.5
+],
+"n": 18
+},
+"Fistulina hepatica": {
+"t": [
+19.1,
+3.8
+],
+"n": 16
+},
+"Agaricus sylvicola": {
+"t": [
+13.8,
+4.1
+],
+"n": 13
+},
+"Pholiota squarrosa": {
+"t": [
+11.7,
+4.9
+],
+"n": 13
+},
+"Macrolepiota mastoidea": {
+"t": [
+13.1,
+4.7
+],
+"n": 25
+},
+"Paxillus involutus": {
+"t": [
+16.6,
+3.0
+],
+"n": 22
+},
+"Apioperdon pyriforme": {
+"t": [
+11.9,
+5.4
+],
+"n": 29
+},
+"Clitocybe nebularis": {
+"t": [
+9.6,
+5.1
+],
+"n": 22
+},
+"Armillaria mellea": {
+"t": [
+10.2,
+3.0
+],
+"n": 21
+},
+"Amanita citrina": {
+"t": [
+12.2,
+3.8
+],
+"n": 20
+},
+"Leccinum scabrum": {
+"t": [
+15.6,
+3.0
+],
+"n": 17
+},
+"Hygrophorus eburneus": {
+"t": [
+9.9,
+4.0
+],
+"n": 17
+},
+"Galerina marginata": {
+"t": [
+9.9,
+7.2
+],
+"n": 13
+},
+"Sarcoscypha austriaca": {
+"t": [
+4.6,
+3.0
+],
+"n": 12
+},
+"Helvella acetabulum": {
+"t": [
+17.1,
+4.0
+],
+"n": 13
+},
+"Gyromitra esculenta": {
+"t": [
+6.0,
+3.0
+],
+"n": 13
+},
+"Russula aurea": {
+"t": [
+19.1,
+3.0
+],
+"n": 14
+},
+"Gomphidius glutinosus": {
+"t": [
+16.4,
+5.7
+],
+"n": 14
+}
+}
+}

@@ -1,0 +1,61 @@
+# Catalogue changes, 2 Oct 2026
+
+From audit #2 (GBIF month/elevation records, taxonomy match, safety review).
+
+- Paxillus involutus: toxic -> deadly (immune haemolytic syndrome; fatalities)
+- Tricholoma equestre: toxic -> deadly (rhabdomyolysis after repeated meals; fatalities)
+- Coprinopsis atramentaria: edible_with_caution -> edible_with_caution (coprine: disulfiram-like reaction with alcohol for ~3 days)
+- Clitocybe nebularis: edible_with_caution -> edible_with_caution (frequent gastrointestinal reactions)
+- Amanita rubescens: edible_with_caution -> edible_with_caution (toxic raw; cook thoroughly)
+- Amanita vaginata: edible_with_caution -> edible_with_caution (toxic raw; confusable with deadly Amanita)
+- Amanita fulva: edible_with_caution -> edible_with_caution (toxic raw; confusable with deadly Amanita)
+- Entoloma clypeatum: edible_with_caution -> edible_with_caution (confusable with toxic E. sinuatum)
+- Armillaria mellea: edible_with_caution -> edible_with_caution (must be well cooked; intolerance common)
+- Armillaria ostoyae: edible_with_caution -> edible_with_caution (must be well cooked; intolerance common)
+- Armillaria tabescens: edible_with_caution -> edible_with_caution (must be well cooked; intolerance common)
+- Verpa bohemica: edible_with_caution -> edible_with_caution (gastrointestinal and coordination effects reported)
+- Panaeolina foenisecii: 1 -> 0 (psilocybin generally not detected)
+- Cerioporus squamosus: 000111100000 -> 000111111100 (GBIF CEE month distribution)
+- Amanita regalis: 000000011100 -> 000001111100 (GBIF CEE month distribution)
+- Polyporus umbellatus: 000000111000 -> 000001111000 (GBIF CEE month distribution)
+- Amanita strobiliformis: 000000111100 -> 000001111100 (GBIF CEE month distribution)
+- Chalciporus piperatus: 000000111100 -> 000001111100 (GBIF CEE month distribution)
+- Lactifluus piperatus: 000000111100 -> 000001111000 (GBIF CEE month distribution)
+- Morchella steppicola: 000110000000 -> 001110000000 (GBIF CEE month distribution)
+- Lactifluus volemus: 000000111000 -> 000001111000 (GBIF CEE month distribution)
+- Cortinarius caperatus: 000000011100 -> 000000111100 (GBIF CEE month distribution)
+- Macrolepiota excoriata: 000000111100 -> 000000111110 (GBIF CEE month distribution)
+- Macrolepiota mastoidea: 000000111100 -> 000000111110 (GBIF CEE month distribution)
+- Chlorophyllum rhacodes: 000000111100 -> 000000111110 (GBIF CEE month distribution)
+- Hericium coralloides: 000000011100 -> 000000011110 (GBIF CEE month distribution)
+- Lactarius camphoratus: 000000011110 -> 000000111110 (GBIF CEE month distribution)
+- Morchella steppicola: band -> 0-400
+- Claviceps purpurea: band -> 0-1500
+- Tylopilus felleus: hab D -> W
+- Laetiporus sulphureus: hab +D
+- Fistulina hepatica: hab +D
+- Grifola frondosa: hab +D
+- Meripilus giganteus: hab +D
+- Hericium erinaceus: hab +D
+- Flammulina velutipes: hab +D
+- Pholiota squarrosa: hab +D
+- Galerina marginata: hab +D
+- Pleurotus pulmonarius: hab +D
+- Volvariella bombycina: hab +D
+- Megacollybia platyphylla: hab +D
+- Armillaria ostoyae: hab +D
+- Armillaria tabescens: hab +D
+- Gymnopus fusipes: hab +D
+- Cerioporus squamosus: hab +D
+- Auricularia auricula-judae: hab +D
+- Sparassis crispa: hab +D
+- Sparassis laminosa: hab +D
+- Clitocybe dealbata: merged into Clitocybe rivulosa
+- Russula mairei: merged into Russula nobilis
+- Leccinum pseudoscabrum: renamed Leccinellum pseudoscabrum
+- Craterellus cinereus: renamed Cantharellus cinereus
+- Pseudocraterellus undulatus: renamed Craterellus undulatus
+- Lycoperdon pyriforme: renamed Apioperdon pyriforme
+- Armillaria tabescens: renamed Desarmillaria tabescens
+- Inocybe erubescens: renamed Inosperma erubescens
+- Inocybe rimosa: renamed Pseudosperma rimosum

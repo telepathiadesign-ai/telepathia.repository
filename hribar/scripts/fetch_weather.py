@@ -62,7 +62,7 @@ def main():
         lats = ",".join(f"{LA0 + r*st:.2f}" for r, c in batch)
         lons = ",".join(f"{LO0 + c*st:.2f}" for r, c in batch)
         params = dict(latitude=lats, longitude=lons, hourly=HOURLY, daily=DAILY,
-                      past_days=30, forecast_days=11, timezone="UTC")
+                      past_days=30, forecast_days=11, timezone="UTC", models="icon_seamless")
         for attempt in range(12):
             rr = requests.get(URL, params=params, timeout=60)
             if rr.status_code == 429:
