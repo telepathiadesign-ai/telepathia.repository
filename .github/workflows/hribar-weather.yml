@@ -42,4 +42,4 @@ jobs:
           git add data/weather_status.json
           if [ "${{ steps.fetch.outcome }}" = "success" ]; then git add data/weather.json index.html; fi
           git diff --cached --quiet || git commit -m "weather: refresh $(date -u +%Y-%m-%dT%H:%MZ)"
-          git push
+          git pull --rebase origin main && git push
