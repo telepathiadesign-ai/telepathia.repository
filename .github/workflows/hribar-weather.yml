@@ -20,13 +20,26 @@ jobs:
         with: { python-version: '3.12' }
       - run: pip install requests numpy
       - name: Fetch Open-Meteo grid (0.2°, paced for the free tier)
-        run: python3 scripts/fetch_weather.py --grid 0.2 --sleep 11 --out data/weather.json
+        id: fetch
+        run: |
+          set -o pipefail
+          python3 scripts/fetch_weather.py --grid 0.2 --sleep 11 --out data/weather.json 2>&1 | tee fetch.log
       - name: Build
         run: python3 build.py
+      - name: Record run status (readable without signing in to GitHub)
+        if: always()
+        run: |
+          python3 - <<'PY'
+          import json, datetime, os
+          log = open('fetch.log').read()[-3000:] if os.path.exists('fetch.log') else ''
+          json.dump({'run_at': datetime.datetime.utcnow().isoformat() + 'Z', 'fetch': '${{ steps.fetch.outcome }}', 'log_tail': log}, open('data/weather_status.json', 'w'), indent=1)
+          PY
       - name: Commit refreshed weather and the built page
+        if: always()
         run: |
           git config user.name "hribar-bot"
           git config user.email "hribar-bot@users.noreply.github.com"
-          git add data/weather.json index.html
+          git add data/weather_status.json
+          if [ "${{ steps.fetch.outcome }}" = "success" ]; then git add data/weather.json index.html; fi
           git diff --cached --quiet || git commit -m "weather: refresh $(date -u +%Y-%m-%dT%H:%MZ)"
           git push

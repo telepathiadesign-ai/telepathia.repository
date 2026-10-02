@@ -64,13 +64,18 @@ def main():
         params = dict(latitude=lats, longitude=lons, hourly=HOURLY, daily=DAILY,
                       past_days=30, forecast_days=11, timezone="UTC", models="icon_seamless")
         for attempt in range(12):
-            rr = requests.get(URL, params=params, timeout=60)
-            if rr.status_code == 429:
-                time.sleep(45); continue
-            rr.raise_for_status()
+            try:
+                rr = requests.get(URL, params=params, timeout=60)
+            except requests.RequestException as e:
+                print(f"  batch {b}: {e}", file=sys.stderr); time.sleep(20); continue
+            if rr.status_code == 429 or rr.status_code >= 500:
+                print(f"  batch {b}: HTTP {rr.status_code} {rr.text[:200]}", file=sys.stderr)
+                time.sleep(65 if 'inute' in rr.text else 45); continue
+            if rr.status_code != 200:
+                sys.exit(f"batch {b}: HTTP {rr.status_code} {rr.text[:300]}")
             j = rr.json(); break
         else:
-            sys.exit(f"batch {b} failed")
+            sys.exit(f"batch {b} failed after retries")
         arr = j if isinstance(j, list) else [j]
         if t0 is None:
             t0 = arr[0]["daily"]["time"][0]
