@@ -23,3 +23,18 @@ Data (`data/`): iNaturalist fungus records in Romania 2020–2026 (`inat_ro_fung
 Live check against the 184 iNaturalist finds of September 2026: finds rated Unlikely fell from 86% to 33%; fruiting percentile at finds rose from 0.60 to 0.73.
 
 Not shipped: soil-temperature optima fitted to finds (`data/fitted_soilT_2024_2026.json`). They helped on the 2026 holdout in ERA5 space (weather AUC 0.566 → 0.583) but hurt in the app (0.73 → 0.67), most likely because ERA5-Land and ICON soil temperatures differ; needs a bias correction first.
+
+## Literature traits, 3 Oct 2026
+
+8 research agents read de/en Wikipedia, first-nature, tintling, fungiversum, 123pilzsuche, pilzmuseum, ciupercar.ro and others for all 254 species (`research/batch*_traits.json`; 171 medium, 9 high, 74 low confidence; mostly 2 sources each; almost no numeric temperatures, rain lags or elevations exist in these sources). Each trait was tested on its own:
+
+| Variant | Habitat AUC (median / weighted) | Season AUC | Habitat × season | Full |
+| --- | --- | --- | --- | --- |
+| No literature traits | 0.582 / 0.602 | 0.668 / 0.643 | 0.689 / 0.687 | 0.687 / 0.668 |
+| Hosts only | 0.596 / 0.600 | 0.668 / 0.643 | 0.694 / 0.685 | 0.694 / 0.667 |
+| Soil pH only | 0.589 / 0.603 | — | 0.693 / 0.688 | 0.687 / 0.668 |
+| Habitat types only | 0.578 / 0.603 | — | 0.685 / 0.692 | 0.687 / 0.668 |
+| Literature months only (GBIF-checked) | — | 0.662 / 0.637 | 0.688 / 0.684 | 0.675 / 0.665 |
+| **Shipped: hosts + pH + habitat types** | 0.582 / 0.600 | 0.668 / 0.643 | **0.694 / 0.689** | 0.687 / 0.668 |
+
+Literature months were rejected (wider seasons lowered the season score). Host, pH and habitat traits change the score by about ±0.01, within noise: the model cannot yet see what they describe (forest type is mapped for ~3% of cells, parks and grassland not at all). They become useful with tree-species and land-cover maps.

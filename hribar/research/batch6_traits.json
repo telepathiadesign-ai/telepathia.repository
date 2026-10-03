@@ -1,0 +1,1180 @@
+[
+ {
+  "latin": "Coprinellus micaceus",
+  "accepted_name": "Coprinellus micaceus",
+  "hosts": [],
+  "substrate": "wood_dead",
+  "habitats": [
+   "broadleaf_forest",
+   "mixed_forest",
+   "park_garden_lawn",
+   "urban_ruderal"
+  ],
+  "soil_ph": "indifferent",
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": "000111111110",
+  "peak_months": null,
+  "triggers": "Fruits year-round in mild weather but mostly Apr-Nov; en wiki: peaks in spring and autumn when rainfall humidity is high; fruit bodies mature in 5-7 days. Germany-based, not Romania-specific.",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "common",
+  "conflicts_with_catalogue": "No contradiction; sources add that it also grows on buried wood, wood bases of living trees, and gardens/roadsides, and is rarely in conifer forest.",
+  "confidence": "medium",
+  "sources": [
+   "https://de.wikipedia.org/wiki/Glimmertintling",
+   "https://en.wikipedia.org/wiki/Coprinellus_micaceus"
+  ]
+ },
+ {
+  "latin": "Boletus edulis",
+  "accepted_name": "Boletus edulis",
+  "hosts": [
+   {
+    "genus": "Picea",
+    "strength": "primary"
+   },
+   {
+    "genus": "Fagus",
+    "strength": "primary"
+   },
+   {
+    "genus": "Quercus",
+    "strength": "primary"
+   },
+   {
+    "genus": "Pinus",
+    "strength": "secondary"
+   },
+   {
+    "genus": "Abies",
+    "strength": "secondary"
+   },
+   {
+    "genus": "Betula",
+    "strength": "secondary"
+   },
+   {
+    "genus": "Carpinus",
+    "strength": "occasional"
+   },
+   {
+    "genus": "Castanea",
+    "strength": "occasional"
+   },
+   {
+    "genus": "Tilia",
+    "strength": "occasional"
+   }
+  ],
+  "substrate": "soil",
+  "habitats": [
+   "conifer_forest",
+   "broadleaf_forest",
+   "mixed_forest",
+   "plantation"
+  ],
+  "soil_ph": "acid",
+  "soil_moisture": "mesic",
+  "elevation_m": null,
+  "months": "000001111100",
+  "peak_months": [
+   8,
+   9,
+   10
+  ],
+  "triggers": "Fruiting follows decline in temperature and higher humidity, after warm-period rain then autumn rain (de wiki); en wiki: needs RH above ~40-60%, inhibited by drought, sudden night cold, first frost; stronger night frosts end fruiting.",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "frequent",
+  "conflicts_with_catalogue": "Catalogue consistent. Sources: Picea mainly in uplands, Fagus/Quercus in lowlands; scarcer below ~300 m (Germany); substrate pH ~4.2 average (acid to neutral).",
+  "confidence": "medium",
+  "sources": [
+   "https://de.wikipedia.org/wiki/Gemeiner_Steinpilz",
+   "https://en.wikipedia.org/wiki/Boletus_edulis"
+  ]
+ },
+ {
+  "latin": "Amanita pantherina",
+  "accepted_name": "Amanita pantherina",
+  "hosts": [
+   {
+    "genus": "Fagus",
+    "strength": "primary"
+   },
+   {
+    "genus": "Picea",
+    "strength": "occasional"
+   },
+   {
+    "genus": "Quercus",
+    "strength": "occasional"
+   },
+   {
+    "genus": "Pinus",
+    "strength": "occasional"
+   }
+  ],
+  "substrate": "soil",
+  "habitats": [
+   "broadleaf_forest",
+   "mixed_forest",
+   "conifer_forest"
+  ],
+  "soil_ph": null,
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": "000001111110",
+  "peak_months": null,
+  "triggers": "Sources give no rain or temperature thresholds.",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "occasional",
+  "conflicts_with_catalogue": "de wiki: fruiting June-November (catalogue Jun-Oct); en wiki: mainly beech, less often conifers; 'uncommon'. Conifer hosts Picea/Pinus and Quercus not named as genera in sources (catalogue hosts unverified).",
+  "confidence": "low",
+  "sources": [
+   "https://en.wikipedia.org/wiki/Amanita_pantherina",
+   "https://de.wikipedia.org/wiki/Pantherpilz"
+  ]
+ },
+ {
+  "latin": "Lactarius deterrimus",
+  "accepted_name": "Lactarius deterrimus",
+  "hosts": [
+   {
+    "genus": "Picea",
+    "strength": "primary"
+   },
+   {
+    "genus": "Arctostaphylos",
+    "strength": "occasional"
+   }
+  ],
+  "substrate": "soil",
+  "habitats": [
+   "conifer_forest",
+   "mixed_forest",
+   "forest_edge_clearing",
+   "plantation"
+  ],
+  "soil_ph": "indifferent",
+  "soil_moisture": "indifferent",
+  "elevation_m": null,
+  "months": "000000111110",
+  "peak_months": [
+   8,
+   9,
+   10
+  ],
+  "triggers": "No rain/temperature numbers in sources. Overwintered fruit bodies possible to early February in frost (de wiki).",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "common",
+  "conflicts_with_catalogue": "Season late June-November, peak Aug-Oct (catalogue Jul-Oct, slightly short). Strictly bound to Picea abies. Soil: tolerates nearly all, possibly prefers calcareous; peaks in young spruce stands 10-20 yr. Uplands preferred, also lowlands (Germany).",
+  "confidence": "medium",
+  "sources": [
+   "https://de.wikipedia.org/wiki/Fichten-Reizker",
+   "https://en.wikipedia.org/wiki/Lactarius_deterrimus"
+  ]
+ },
+ {
+  "latin": "Lactifluus volemus",
+  "accepted_name": "Lactifluus volemus",
+  "hosts": [
+   {
+    "genus": "Fagus",
+    "strength": "primary"
+   },
+   {
+    "genus": "Quercus",
+    "strength": "primary"
+   },
+   {
+    "genus": "Picea",
+    "strength": "occasional"
+   }
+  ],
+  "substrate": "soil",
+  "habitats": [
+   "broadleaf_forest",
+   "mixed_forest",
+   "conifer_forest"
+  ],
+  "soil_ph": null,
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": "000000111100",
+  "peak_months": [
+   8
+  ],
+  "triggers": "en wiki: more abundant in warm, humid weather; de wiki: peak in warmest August days.",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "frequent",
+  "conflicts_with_catalogue": "de wiki: July-October, peak August (catalogue Jun-Sep, shifted early). Both sources: mostly deciduous woods, less often conifers (so Picea only occasional); genera of hosts not named in sources beyond broadleaf/conifer, so Fagus/Quercus are catalogue-derived.",
+  "confidence": "low",
+  "sources": [
+   "https://de.wikipedia.org/wiki/Brätling",
+   "https://en.wikipedia.org/wiki/Lactifluus_volemus"
+  ]
+ },
+ {
+  "latin": "Imleria badia",
+  "accepted_name": "Imleria badia",
+  "hosts": [
+   {
+    "genus": "Picea",
+    "strength": "primary"
+   },
+   {
+    "genus": "Pinus",
+    "strength": "primary"
+   },
+   {
+    "genus": "Fagus",
+    "strength": "secondary"
+   },
+   {
+    "genus": "Larix",
+    "strength": "occasional"
+   }
+  ],
+  "substrate": "soil",
+  "habitats": [
+   "conifer_forest",
+   "mixed_forest",
+   "forest_edge_clearing"
+  ],
+  "soil_ph": "acid",
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": "000000011110",
+  "peak_months": [
+   9,
+   10
+  ],
+  "triggers": "en wiki: fruiting peaks 3-4 days after rain in warm weather; de wiki: appears earlier (June/July) in wet summers, main fruiting mid-September to November before frost.",
+  "temp_c": null,
+  "rain_lag_days": [
+   3,
+   4
+  ],
+  "abundance_ro": "common",
+  "conflicts_with_catalogue": "Sources give Aug/Sep-Nov main season (catalogue Jul-Nov). Not on calcareous soil (acid). Abies not confirmed by sources; Larix named (de). Highland, humid shady places prolific (en).",
+  "confidence": "medium",
+  "sources": [
+   "https://en.wikipedia.org/wiki/Imleria_badia",
+   "https://de.wikipedia.org/wiki/Maronen-Röhrling"
+  ]
+ },
+ {
+  "latin": "Chlorophyllum rhacodes",
+  "accepted_name": "Chlorophyllum rhacodes",
+  "hosts": [],
+  "substrate": "litter",
+  "habitats": [
+   "park_garden_lawn",
+   "forest_edge_clearing",
+   "urban_ruderal"
+  ],
+  "soil_ph": "indifferent",
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": "000001111110",
+  "peak_months": null,
+  "triggers": "No numbers in sources.",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "unknown",
+  "conflicts_with_catalogue": "de wiki: mainly outside forest (gardens, parks, cemeteries, compost, managed meadows and pastures), nitrogen-enriched trail edges in woods; nutrient-rich soils; summer to late autumn. en wiki says shaggy parasol prefers shade and dislikes open pastures. No conifer litter in sources.",
+  "confidence": "low",
+  "sources": [
+   "https://de.wikipedia.org/wiki/Safranschirmling",
+   "https://en.wikipedia.org/wiki/Chlorophyllum_rhacodes"
+  ]
+ },
+ {
+  "latin": "Russula foetens",
+  "accepted_name": "Russula foetens",
+  "hosts": [
+   {
+    "genus": "Fagus",
+    "strength": "primary"
+   },
+   {
+    "genus": "Picea",
+    "strength": "primary"
+   },
+   {
+    "genus": "Quercus",
+    "strength": "secondary"
+   },
+   {
+    "genus": "Carpinus",
+    "strength": "secondary"
+   },
+   {
+    "genus": "Betula",
+    "strength": "occasional"
+   },
+   {
+    "genus": "Abies",
+    "strength": "occasional"
+   },
+   {
+    "genus": "Fraxinus",
+    "strength": "occasional"
+   }
+  ],
+  "substrate": "soil",
+  "habitats": [
+   "broadleaf_forest",
+   "mixed_forest",
+   "conifer_forest",
+   "forest_edge_clearing",
+   "park_garden_lawn"
+  ],
+  "soil_ph": "indifferent",
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": "000000111100",
+  "peak_months": [
+   8
+  ],
+  "triggers": "No rain/temperature numbers in source.",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "frequent",
+  "conflicts_with_catalogue": "No contradiction. Source (Germany): lowland to higher mountains; broad soil tolerance; frequent, particularly south of Main.",
+  "confidence": "medium",
+  "sources": [
+   "https://de.wikipedia.org/wiki/Stink-Täubling"
+  ]
+ },
+ {
+  "latin": "Helvella acetabulum",
+  "accepted_name": "Helvella acetabulum",
+  "hosts": [],
+  "substrate": "soil",
+  "habitats": [
+   "broadleaf_forest",
+   "conifer_forest",
+   "mixed_forest"
+  ],
+  "soil_ph": null,
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": null,
+  "peak_months": null,
+  "triggers": "No numbers in source.",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "unknown",
+  "conflicts_with_catalogue": "en wiki: on soil in coniferous and deciduous woods, fruits in spring and summer; mentions oak association in California. Catalogue claims calcareous soil, grass habitat and saprotrophy: not confirmed. Catalogue Apr-Jun months not checked.",
+  "confidence": "low",
+  "sources": [
+   "https://en.wikipedia.org/wiki/Helvella_acetabulum"
+  ]
+ },
+ {
+  "latin": "Butyriboletus regius",
+  "accepted_name": "Butyriboletus regius",
+  "hosts": [
+   {
+    "genus": "Quercus",
+    "strength": "primary"
+   },
+   {
+    "genus": "Fagus",
+    "strength": "primary"
+   },
+   {
+    "genus": "Abies",
+    "strength": "occasional"
+   }
+  ],
+  "substrate": "soil",
+  "habitats": [
+   "broadleaf_forest",
+   "mixed_forest"
+  ],
+  "soil_ph": "calcareous",
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": "000001111100",
+  "peak_months": null,
+  "triggers": "de wiki: does not fruit annually at many sites; warm, submediterranean climate.",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "rare",
+  "conflicts_with_catalogue": "de wiki: June to autumn (catalogue Jun-Sep); prefers lime-rich soil and warm sites. en wiki: oak and conifers especially fir; rare in Europe, endangered in Czechia; de: endangered in Germany/Switzerland. Castanea not confirmed by sources. Abundance rare.",
+  "confidence": "medium",
+  "sources": [
+   "https://de.wikipedia.org/wiki/Königs-Röhrling",
+   "https://en.wikipedia.org/wiki/Butyriboletus_regius"
+  ]
+ },
+ {
+  "latin": "Xerocomus ferrugineus",
+  "accepted_name": "Xerocomus ferrugineus",
+  "hosts": [],
+  "substrate": "soil",
+  "habitats": [],
+  "soil_ph": null,
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": null,
+  "peak_months": null,
+  "triggers": "",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "unknown",
+  "conflicts_with_catalogue": "No usable source retrieved (en wiki page not fetchable); every catalogue field unverified.",
+  "confidence": "low",
+  "sources": []
+ },
+ {
+  "latin": "Suillus luteus",
+  "accepted_name": "Suillus luteus",
+  "hosts": [
+   {
+    "genus": "Pinus",
+    "strength": "primary"
+   }
+  ],
+  "substrate": "soil",
+  "habitats": [
+   "conifer_forest",
+   "plantation"
+  ],
+  "soil_ph": "acid",
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": "000000001100",
+  "peak_months": null,
+  "triggers": "en wiki: fruits in spring, summer and prolifically in autumn following wet weather.",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "common",
+  "conflicts_with_catalogue": "de wiki states typical fruiting Sep-Oct (catalogue Jul-Nov, wider); en wiki: spring-autumn after wet weather. Pinus only host (Scots, black, Macedonian pine). Acidic, nutrient-poor soils preferred; coast to alpine zones. Common in Europe (de).",
+  "confidence": "medium",
+  "sources": [
+   "https://de.wikipedia.org/wiki/Butterpilz",
+   "https://en.wikipedia.org/wiki/Suillus_luteus"
+  ]
+ },
+ {
+  "latin": "Gomphidius glutinosus",
+  "accepted_name": "Gomphidius glutinosus",
+  "hosts": [
+   {
+    "genus": "Picea",
+    "strength": "primary"
+   },
+   {
+    "genus": "Abies",
+    "strength": "primary"
+   }
+  ],
+  "substrate": "soil",
+  "habitats": [
+   "conifer_forest",
+   "plantation"
+  ],
+  "soil_ph": null,
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": "000000001110",
+  "peak_months": null,
+  "triggers": "No numbers in source.",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "frequent",
+  "conflicts_with_catalogue": "en wiki: autumn fruiting, in natural woods and plantations of fir/spruce/pine; generally abundant. Catalogue Aug-Oct unverified in detail; Picea only vs Abies also named. Single source.",
+  "confidence": "low",
+  "sources": [
+   "https://en.wikipedia.org/wiki/Gomphidius_glutinosus"
+  ]
+ },
+ {
+  "latin": "Hydnum repandum",
+  "accepted_name": "Hydnum repandum",
+  "hosts": [
+   {
+    "genus": "Fagus",
+    "strength": "primary"
+   },
+   {
+    "genus": "Picea",
+    "strength": "primary"
+   },
+   {
+    "genus": "Abies",
+    "strength": "secondary"
+   },
+   {
+    "genus": "Quercus",
+    "strength": "secondary"
+   },
+   {
+    "genus": "Pinus",
+    "strength": "occasional"
+   }
+  ],
+  "substrate": "soil",
+  "habitats": [
+   "broadleaf_forest",
+   "mixed_forest",
+   "conifer_forest"
+  ],
+  "soil_ph": "indifferent",
+  "soil_moisture": "mesic",
+  "elevation_m": null,
+  "months": "000000111110",
+  "peak_months": null,
+  "triggers": "No numbers in sources.",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "common",
+  "conflicts_with_catalogue": "No contradiction. de wiki: rich beech, beech-fir and fir forests on fresh, loose humus-loamy soils; base-rich to base-poor; mid-July to early November; more frequent in hills/mountains than lowlands.",
+  "confidence": "medium",
+  "sources": [
+   "https://de.wikipedia.org/wiki/Semmel-Stoppelpilz",
+   "https://en.wikipedia.org/wiki/Hydnum_repandum"
+  ]
+ },
+ {
+  "latin": "Amanita virosa",
+  "accepted_name": "Amanita virosa",
+  "hosts": [
+   {
+    "genus": "Picea",
+    "strength": "primary"
+   },
+   {
+    "genus": "Fagus",
+    "strength": "secondary"
+   },
+   {
+    "genus": "Quercus",
+    "strength": "occasional"
+   },
+   {
+    "genus": "Betula",
+    "strength": "occasional"
+   },
+   {
+    "genus": "Pinus",
+    "strength": "occasional"
+   },
+   {
+    "genus": "Abies",
+    "strength": "occasional"
+   },
+   {
+    "genus": "Castanea",
+    "strength": "occasional"
+   }
+  ],
+  "substrate": "soil",
+  "habitats": [
+   "conifer_forest",
+   "broadleaf_forest",
+   "mixed_forest"
+  ],
+  "soil_ph": "acid",
+  "soil_moisture": "mesic",
+  "elevation_m": null,
+  "months": "000000111100",
+  "peak_months": null,
+  "triggers": "Sometimes from June in favourable years (de wiki).",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "rare",
+  "conflicts_with_catalogue": "de wiki: formally only Picea but also found with beech, oak, birch; extremely acidic soil; scattered and sparse in Central Europe, rarer in lowlands, more common in mountains. en wiki: especially beech and chestnut, also pine, spruce, fir (disagrees on main host).",
+  "confidence": "medium",
+  "sources": [
+   "https://de.wikipedia.org/wiki/Kegelhütiger_Knollenblätterpilz",
+   "https://en.wikipedia.org/wiki/Amanita_virosa"
+  ]
+ },
+ {
+  "latin": "Leucoagaricus leucothites",
+  "accepted_name": "Leucocoprinus leucothites",
+  "hosts": [],
+  "substrate": "soil",
+  "habitats": [
+   "park_garden_lawn",
+   "urban_ruderal"
+  ],
+  "soil_ph": null,
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": null,
+  "peak_months": null,
+  "triggers": "No numbers in source.",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "unknown",
+  "conflicts_with_catalogue": "en wiki (title Leucocoprinus leucothites): disturbed grassy areas such as gardens and parks, sometimes forests; no season, elevation or abundance data. Accepted name per that page differs from catalogue genus.",
+  "confidence": "low",
+  "sources": [
+   "https://en.wikipedia.org/wiki/Leucoagaricus_leucothites"
+  ]
+ },
+ {
+  "latin": "Russula claroflava",
+  "accepted_name": "Russula claroflava",
+  "hosts": [
+   {
+    "genus": "Betula",
+    "strength": "primary"
+   },
+   {
+    "genus": "Populus",
+    "strength": "secondary"
+   }
+  ],
+  "substrate": "soil",
+  "habitats": [
+   "bog_wet",
+   "broadleaf_forest"
+  ],
+  "soil_ph": null,
+  "soil_moisture": "wet",
+  "elevation_m": null,
+  "months": null,
+  "peak_months": null,
+  "triggers": "No numbers in source.",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "unknown",
+  "conflicts_with_catalogue": "en wiki: usually with birch or aspen; heaths and moors, damp places near ponds/lakes, often in sphagnum; summer and autumn. Populus not in catalogue. Season/elevation not verified.",
+  "confidence": "low",
+  "sources": [
+   "https://en.wikipedia.org/wiki/Russula_claroflava"
+  ]
+ },
+ {
+  "latin": "Lactarius torminosus",
+  "accepted_name": "Lactarius torminosus",
+  "hosts": [
+   {
+    "genus": "Betula",
+    "strength": "primary"
+   }
+  ],
+  "substrate": "soil",
+  "habitats": [
+   "broadleaf_forest",
+   "mixed_forest",
+   "park_garden_lawn"
+  ],
+  "soil_ph": "acid",
+  "soil_moisture": "mesic",
+  "elevation_m": null,
+  "months": "000000011100",
+  "peak_months": null,
+  "triggers": "No numbers in sources.",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "frequent",
+  "conflicts_with_catalogue": "de wiki: strictly bound to birch in Germany; acid, dry to moderately moist soils; Aug-Oct (catalogue Jul-Oct); widespread but not very common. en wiki: common, widely distributed; also Tsuga/Populus in N America (not relevant to Romania).",
+  "confidence": "medium",
+  "sources": [
+   "https://de.wikipedia.org/wiki/Birken-Reizker",
+   "https://en.wikipedia.org/wiki/Lactarius_torminosus"
+  ]
+ },
+ {
+  "latin": "Tricholoma portentosum",
+  "accepted_name": "Tricholoma portentosum",
+  "hosts": [
+   {
+    "genus": "Pinus",
+    "strength": "primary"
+   },
+   {
+    "genus": "Quercus",
+    "strength": "occasional"
+   },
+   {
+    "genus": "Fagus",
+    "strength": "occasional"
+   }
+  ],
+  "substrate": "soil",
+  "habitats": [
+   "conifer_forest"
+  ],
+  "soil_ph": null,
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": "000000000110",
+  "peak_months": null,
+  "triggers": "No numbers in source.",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "unknown",
+  "conflicts_with_catalogue": "en wiki: mostly Scots pine, sometimes oak/beech on sandy soils; late autumn fruiting (catalogue Sep-Nov); common in Central/Eastern Europe, declining in NL. Picea not confirmed. Single source.",
+  "confidence": "low",
+  "sources": [
+   "https://en.wikipedia.org/wiki/Tricholoma_portentosum"
+  ]
+ },
+ {
+  "latin": "Clitocybe odora",
+  "accepted_name": "Clitocybe odora",
+  "hosts": [],
+  "substrate": "litter",
+  "habitats": [
+   "broadleaf_forest",
+   "conifer_forest",
+   "mixed_forest"
+  ],
+  "soil_ph": null,
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": "000000011111",
+  "peak_months": null,
+  "triggers": "No numbers in source.",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "unknown",
+  "conflicts_with_catalogue": "en wiki: under deciduous and coniferous trees, in debris; Europe Aug-Dec (catalogue Aug-Nov). Catalogue says only leaf litter; sources include conifer forests. Single source.",
+  "confidence": "low",
+  "sources": [
+   "https://en.wikipedia.org/wiki/Clitocybe_odora"
+  ]
+ },
+ {
+  "latin": "Lyophyllum decastes",
+  "accepted_name": "Lyophyllum decastes",
+  "hosts": [],
+  "substrate": "soil",
+  "habitats": [
+   "broadleaf_forest",
+   "mixed_forest",
+   "forest_edge_clearing",
+   "meadow_unimproved",
+   "urban_ruderal"
+  ],
+  "soil_ph": null,
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": "000000001110",
+  "peak_months": null,
+  "triggers": "de wiki: fruits in two phases, spring (Apr-May) and autumn (Sep-Nov).",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "frequent",
+  "conflicts_with_catalogue": "de wiki: deciduous/mixed forest and meadows, loose humus soils, saprobe, two flushes (spring and autumn). en wiki: disturbed ground (roadbeds, gravel, paths, woods), trophic mode uncertain (saprotrophic or ectomycorrhizal). Catalogue Aug-Nov lacks spring flush.",
+  "confidence": "medium",
+  "sources": [
+   "https://de.wikipedia.org/wiki/Büscheliger_Rasling",
+   "https://en.wikipedia.org/wiki/Lyophyllum_decastes"
+  ]
+ },
+ {
+  "latin": "Hygrophorus pudorinus",
+  "accepted_name": "Hygrophorus pudorinus",
+  "hosts": [
+   {
+    "genus": "Abies",
+    "strength": "primary"
+   },
+   {
+    "genus": "Picea",
+    "strength": "primary"
+   }
+  ],
+  "substrate": "soil",
+  "habitats": [
+   "conifer_forest",
+   "bog_wet"
+  ],
+  "soil_ph": null,
+  "soil_moisture": "wet",
+  "elevation_m": null,
+  "months": "000000011110",
+  "peak_months": null,
+  "triggers": "No numbers in source.",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "unknown",
+  "conflicts_with_catalogue": "en wiki (largely N American): under fir and spruce, frequently boggy places in sphagnum; late summer and autumn. Catalogue 'calcareous montane' contradicted by sphagnum-bog preference. Single source.",
+  "confidence": "low",
+  "sources": [
+   "https://en.wikipedia.org/wiki/Hygrophorus_pudorinus"
+  ]
+ },
+ {
+  "latin": "Cortinarius varius",
+  "accepted_name": "Cortinarius varius",
+  "hosts": [],
+  "substrate": "soil",
+  "habitats": [
+   "conifer_forest",
+   "forest_edge_clearing"
+  ],
+  "soil_ph": "calcareous",
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": "000000011110",
+  "peak_months": null,
+  "triggers": "Fruits from end of summer until frosts set in (en wiki).",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "unknown",
+  "conflicts_with_catalogue": "en wiki: in groups in coniferous forests, glades, woodland edges; calcareous soils; common in some places, quite rare in others. Host trees not stated in the source (catalogue Picea/Abies unverified). Single source.",
+  "confidence": "low",
+  "sources": [
+   "https://en.wikipedia.org/wiki/Cortinarius_varius"
+  ]
+ },
+ {
+  "latin": "Hebeloma crustuliniforme",
+  "accepted_name": "Hebeloma crustuliniforme",
+  "hosts": [
+   {
+    "genus": "Betula",
+    "strength": "secondary"
+   },
+   {
+    "genus": "Picea",
+    "strength": "secondary"
+   },
+   {
+    "genus": "Pinus",
+    "strength": "secondary"
+   },
+   {
+    "genus": "Quercus",
+    "strength": "secondary"
+   },
+   {
+    "genus": "Carpinus",
+    "strength": "secondary"
+   },
+   {
+    "genus": "Corylus",
+    "strength": "secondary"
+   },
+   {
+    "genus": "Populus",
+    "strength": "secondary"
+   },
+   {
+    "genus": "Tilia",
+    "strength": "secondary"
+   }
+  ],
+  "substrate": "soil",
+  "habitats": [
+   "broadleaf_forest",
+   "conifer_forest",
+   "mixed_forest",
+   "forest_edge_clearing"
+  ],
+  "soil_ph": null,
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": null,
+  "peak_months": null,
+  "triggers": "No numbers in sources.",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "unknown",
+  "conflicts_with_catalogue": "de wiki: ubiquitous generalist ECM, absent in arctic/alpine areas (so catalogue elev to 1500 m possibly high). en wiki: open woodland and heathland, summer-autumn. Strengths unspecified in sources, all marked secondary. Name is an aggregate (H. crustuliniforme s.l.).",
+  "confidence": "low",
+  "sources": [
+   "https://de.wikipedia.org/wiki/Tonblasser_Fälbling",
+   "https://en.wikipedia.org/wiki/Hebeloma_crustuliniforme"
+  ]
+ },
+ {
+  "latin": "Morchella conica",
+  "accepted_name": "Morchella conica (species complex; name applied to several species)",
+  "hosts": [],
+  "substrate": "soil",
+  "habitats": [
+   "riparian_floodplain",
+   "park_garden_lawn",
+   "broadleaf_forest",
+   "conifer_forest",
+   "urban_ruderal"
+  ],
+  "soil_ph": null,
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": "001110000000",
+  "peak_months": null,
+  "triggers": "No numbers in sources.",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "frequent",
+  "conflicts_with_catalogue": "de wiki: Central Europe March-May (catalogue Apr-Jun, likely late); floodplain forests, gardens, parks, mixed woods, disturbed soils, wood yards, burns, bark mulch; frequent near settlements. en wiki: M. conica widely misapplied to several species. Catalogue 'calcareous' not confirmed.",
+  "confidence": "low",
+  "sources": [
+   "https://de.wikipedia.org/wiki/Spitzmorchel",
+   "https://en.wikipedia.org/wiki/Morchella_conica"
+  ]
+ },
+ {
+  "latin": "Helvella crispa",
+  "accepted_name": "Helvella crispa",
+  "hosts": [],
+  "substrate": "litter",
+  "habitats": [
+   "broadleaf_forest",
+   "forest_edge_clearing"
+  ],
+  "soil_ph": "neutral",
+  "soil_moisture": "mesic",
+  "elevation_m": null,
+  "months": "000000111110",
+  "peak_months": null,
+  "triggers": "No numbers in sources.",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "frequent",
+  "conflicts_with_catalogue": "de wiki: Jul-Nov (catalogue Aug-Oct); humus-rich moist leaf spots, ditches, forest edges; neutral-calcareous; saprotroph; deciduous forest at mid elevation; large groups. en wiki: deciduous, esp. beech; grass, hedges, paths; late summer-late autumn.",
+  "confidence": "medium",
+  "sources": [
+   "https://de.wikipedia.org/wiki/Herbstlorchel",
+   "https://en.wikipedia.org/wiki/Helvella_crispa"
+  ]
+ },
+ {
+  "latin": "Sparassis crispa",
+  "accepted_name": "Sparassis crispa",
+  "hosts": [
+   {
+    "genus": "Pinus",
+    "strength": "primary"
+   },
+   {
+    "genus": "Larix",
+    "strength": "occasional"
+   },
+   {
+    "genus": "Picea",
+    "strength": "occasional"
+   },
+   {
+    "genus": "Pseudotsuga",
+    "strength": "occasional"
+   }
+  ],
+  "substrate": "wood_living",
+  "habitats": [
+   "conifer_forest"
+  ],
+  "soil_ph": null,
+  "soil_moisture": "mesic",
+  "elevation_m": null,
+  "months": "000000111110",
+  "peak_months": [
+   9,
+   10
+  ],
+  "triggers": "No numbers in sources.",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "frequent",
+  "conflicts_with_catalogue": "de wiki: July-December, clear peak Sep-Oct (catalogue Aug-Oct); parasitic brown-rot on conifer stem bases/stumps, mostly Pinus sylvestris, moderate moisture. en wiki: July-November; pine but also spruce, cedar, larch; fairly common in temperate Europe.",
+  "confidence": "medium",
+  "sources": [
+   "https://de.wikipedia.org/wiki/Krause_Glucke",
+   "https://en.wikipedia.org/wiki/Sparassis_crispa"
+  ]
+ },
+ {
+  "latin": "Gomphus clavatus",
+  "accepted_name": "Gomphus clavatus",
+  "hosts": [
+   {
+    "genus": "Abies",
+    "strength": "primary"
+   },
+   {
+    "genus": "Picea",
+    "strength": "primary"
+   },
+   {
+    "genus": "Fagus",
+    "strength": "occasional"
+   }
+  ],
+  "substrate": "soil",
+  "habitats": [
+   "conifer_forest",
+   "mixed_forest"
+  ],
+  "soil_ph": "calcareous",
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": "000000111100",
+  "peak_months": null,
+  "triggers": "No numbers in sources.",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "rare",
+  "conflicts_with_catalogue": "Both sources: rare, red-listed in 17 European countries (en), 'recht selten' (de). de: mountain conifer forests on lime soils, summer to autumn. en: more common above ~600 m (not Romania-specific), Jul-Oct outside US West Coast.",
+  "confidence": "medium",
+  "sources": [
+   "https://de.wikipedia.org/wiki/Schweinsohr_(Pilz)",
+   "https://en.wikipedia.org/wiki/Gomphus_clavatus"
+  ]
+ },
+ {
+  "latin": "Russula aeruginea",
+  "accepted_name": "Russula aeruginea",
+  "hosts": [
+   {
+    "genus": "Betula",
+    "strength": "primary"
+   },
+   {
+    "genus": "Pinus",
+    "strength": "secondary"
+   },
+   {
+    "genus": "Picea",
+    "strength": "secondary"
+   }
+  ],
+  "substrate": "soil",
+  "habitats": [
+   "broadleaf_forest",
+   "mixed_forest",
+   "conifer_forest"
+  ],
+  "soil_ph": null,
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": "000000111110",
+  "peak_months": null,
+  "triggers": "No numbers in source.",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "unknown",
+  "conflicts_with_catalogue": "en wiki: July-November in Europe (catalogue Jul-Oct); with birch, also pine and spruce; leaf litter or grass. Single source; abundance and elevation not stated.",
+  "confidence": "low",
+  "sources": [
+   "https://en.wikipedia.org/wiki/Russula_aeruginea"
+  ]
+ },
+ {
+  "latin": "Tricholoma virgatum",
+  "accepted_name": "Tricholoma virgatum",
+  "hosts": [],
+  "substrate": "soil",
+  "habitats": [
+   "conifer_forest",
+   "mixed_forest",
+   "broadleaf_forest"
+  ],
+  "soil_ph": "acid",
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": "000000011100",
+  "peak_months": null,
+  "triggers": "No numbers in sources.",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "unknown",
+  "conflicts_with_catalogue": "de (Brennender Ritterling page): mostly conifer forest, occasionally deciduous, acid soils, fruits Aug-Oct. en wiki: deciduous and coniferous forests. Host genera not named in sources (catalogue Picea/Fagus unverified).",
+  "confidence": "low",
+  "sources": [
+   "https://de.wikipedia.org/wiki/Brennender_Ritterling",
+   "https://en.wikipedia.org/wiki/Tricholoma_virgatum"
+  ]
+ },
+ {
+  "latin": "Gymnopus dryophilus",
+  "accepted_name": "Gymnopus dryophilus",
+  "hosts": [],
+  "substrate": "litter",
+  "habitats": [
+   "broadleaf_forest",
+   "conifer_forest",
+   "mixed_forest"
+  ],
+  "soil_ph": null,
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": "000011111100",
+  "peak_months": null,
+  "triggers": "en wiki: fruits prolifically when few other fungi are present; fruiting recorded Apr-Dec.",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "common",
+  "conflicts_with_catalogue": "en wiki: saprophytic (occasionally attacks living wood); woodlands esp. oak and pine; Apr-Dec (catalogue May-Nov); very common. Single source.",
+  "confidence": "low",
+  "sources": [
+   "https://en.wikipedia.org/wiki/Gymnopus_dryophilus"
+  ]
+ },
+ {
+  "latin": "Claviceps purpurea",
+  "accepted_name": "Claviceps purpurea",
+  "hosts": [
+   {
+    "genus": "Secale",
+    "strength": "primary"
+   },
+   {
+    "genus": "Triticum",
+    "strength": "secondary"
+   },
+   {
+    "genus": "Hordeum",
+    "strength": "secondary"
+   },
+   {
+    "genus": "Triticosecale",
+    "strength": "secondary"
+   },
+   {
+    "genus": "Avena",
+    "strength": "occasional"
+   },
+   {
+    "genus": "Elymus",
+    "strength": "occasional"
+   },
+   {
+    "genus": "Lolium",
+    "strength": "occasional"
+   },
+   {
+    "genus": "Alopecurus",
+    "strength": "occasional"
+   }
+  ],
+  "substrate": "other",
+  "habitats": [
+   "grassland_pasture",
+   "meadow_unimproved"
+  ],
+  "soil_ph": null,
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": null,
+  "peak_months": null,
+  "triggers": "en wiki: sclerotia need cold (0-5 C for at least 25 days) then germinate in spring; stromata form at 10-25 C; spores released when host grasses flower.",
+  "temp_c": [
+   10,
+   25
+  ],
+  "rain_lag_days": null,
+  "abundance_ro": "unknown",
+  "conflicts_with_catalogue": "Catalogue says replaces grain in rye and wild grasses: consistent. Sources: rye preferred, wheat, barley, triticale, rarely oats; wild grasses (couch grass, ryegrass, foxtail). Fruiting months not given by sources (catalogue May-Jul unverified). Parasite of grass ovaries (substrate listed as other).",
+  "confidence": "medium",
+  "sources": [
+   "https://en.wikipedia.org/wiki/Claviceps_purpurea",
+   "https://de.wikipedia.org/wiki/Mutterkornpilz"
+  ]
+ }
+]

@@ -1,0 +1,519 @@
+[
+{
+"latin": "Hypholoma fasciculare",
+"romanian": [
+"Gheba pucioasă"
+],
+"catalogue": {
+"hosts_text": "Stumps of broadleaf and conifer",
+"months": "001111111111",
+"elev": [
+100,
+1800
+],
+"habitat_code": "WD",
+"trophic": "s",
+"edibility": "toxic"
+}
+},
+{
+"latin": "Amanita regalis",
+"romanian": [
+"Muscăriță",
+"Buretele muștelor"
+],
+"catalogue": {
+"hosts_text": "Picea; mountains",
+"months": "000001111100",
+"elev": [
+900,
+1800
+],
+"habitat_code": "W",
+"trophic": "m",
+"edibility": "toxic"
+}
+},
+{
+"latin": "Lactifluus piperatus",
+"romanian": [
+"Iuțarii",
+"Bureții iuți",
+"Buretele lăptos"
+],
+"catalogue": {
+"hosts_text": "Fagus, Quercus",
+"months": "000001111000",
+"elev": [
+200,
+1100
+],
+"habitat_code": "W",
+"trophic": "m",
+"edibility": "edible_with_caution"
+}
+},
+{
+"latin": "Hericium coralloides",
+"romanian": [],
+"catalogue": {
+"hosts_text": "Fagus logs",
+"months": "000000011110",
+"elev": [
+400,
+1200
+],
+"habitat_code": "D",
+"trophic": "s",
+"edibility": "edible"
+}
+},
+{
+"latin": "Russula virescens",
+"romanian": [
+"Vinețica pestriță",
+"Oiță"
+],
+"catalogue": {
+"hosts_text": "Fagus, Quercus, Carpinus",
+"months": "000001111000",
+"elev": [
+200,
+1100
+],
+"habitat_code": "W",
+"trophic": "m",
+"edibility": "choice_edible"
+}
+},
+{
+"latin": "Suillellus luridus",
+"romanian": [
+"Chitarcă",
+"Pitarcă",
+"Buretele vrăjitoarei"
+],
+"catalogue": {
+"hosts_text": "Quercus, Fagus, Tilia; calcareous soil",
+"months": "000001111000",
+"elev": [
+100,
+1000
+],
+"habitat_code": "W",
+"trophic": "m",
+"edibility": "edible_with_caution"
+}
+},
+{
+"latin": "Russula integra",
+"romanian": [
+"Pâinișoara cucului",
+"Azimioară"
+],
+"catalogue": {
+"hosts_text": "Picea, Abies",
+"months": "000000111100",
+"elev": [
+700,
+1700
+],
+"habitat_code": "W",
+"trophic": "m",
+"edibility": "edible"
+}
+},
+{
+"latin": "Meripilus giganteus",
+"romanian": [
+"Cocoșul pădurii"
+],
+"catalogue": {
+"hosts_text": "Base of Fagus, Quercus",
+"months": "000000111100",
+"elev": [
+100,
+1000
+],
+"habitat_code": "WD",
+"trophic": "p",
+"edibility": "edible"
+}
+},
+{
+"latin": "Cantharellus pallens",
+"romanian": [],
+"catalogue": {
+"hosts_text": "Quercus, Fagus, Carpinus; calcareous",
+"months": "000001111100",
+"elev": [
+100,
+900
+],
+"habitat_code": "W",
+"trophic": "m",
+"edibility": "choice_edible"
+}
+},
+{
+"latin": "Butyriboletus fechtneri",
+"romanian": [
+"Hribul lui Fechtner"
+],
+"catalogue": {
+"hosts_text": "Quercus, Fagus; calcareous soil",
+"months": "000000111000",
+"elev": [
+100,
+800
+],
+"habitat_code": "W",
+"trophic": "m",
+"edibility": "edible"
+}
+},
+{
+"latin": "Hortiboletus rubellus",
+"romanian": [
+"Buretele de stejar"
+],
+"catalogue": {
+"hosts_text": "Quercus, parks, grassy woods",
+"months": "000001111000",
+"elev": [
+100,
+700
+],
+"habitat_code": "WG",
+"trophic": "m",
+"edibility": "edible"
+}
+},
+{
+"latin": "Suillus grevillei",
+"romanian": [
+"Untoasa cu inel",
+"Hribul zadei",
+"Burete elegant"
+],
+"catalogue": {
+"hosts_text": "Larix only",
+"months": "000000111100",
+"elev": [
+400,
+1600
+],
+"habitat_code": "W",
+"trophic": "m",
+"edibility": "edible"
+}
+},
+{
+"latin": "Cantharellus amethysteus",
+"romanian": [],
+"catalogue": {
+"hosts_text": "Fagus, Quercus",
+"months": "000001111100",
+"elev": [
+300,
+1200
+],
+"habitat_code": "W",
+"trophic": "m",
+"edibility": "choice_edible"
+}
+},
+{
+"latin": "Hydnum rufescens",
+"romanian": [],
+"catalogue": {
+"hosts_text": "Conifer and broadleaf",
+"months": "000000111110",
+"elev": [
+300,
+1600
+],
+"habitat_code": "W",
+"trophic": "m",
+"edibility": "edible"
+}
+},
+{
+"latin": "Amanita verna",
+"romanian": [
+"Buretele primăvăratic",
+"Burete primăvăratic"
+],
+"catalogue": {
+"hosts_text": "Quercus, Fagus; warm sites",
+"months": "000011110000",
+"elev": [
+100,
+800
+],
+"habitat_code": "W",
+"trophic": "m",
+"edibility": "deadly"
+}
+},
+{
+"latin": "Macrolepiota excoriata",
+"romanian": [],
+"catalogue": {
+"hosts_text": "Meadows, pastures",
+"months": "000000111110",
+"elev": [
+100,
+1000
+],
+"habitat_code": "G",
+"trophic": "s",
+"edibility": "edible"
+}
+},
+{
+"latin": "Russula delica",
+"romanian": [
+"Vinețică lăptoasă"
+],
+"catalogue": {
+"hosts_text": "Broadleaf and conifer",
+"months": "000000111100",
+"elev": [
+200,
+1500
+],
+"habitat_code": "W",
+"trophic": "m",
+"edibility": "edible"
+}
+},
+{
+"latin": "Lactarius turpis",
+"romanian": [],
+"catalogue": {
+"hosts_text": "Betula, Picea",
+"months": "000000111100",
+"elev": [
+400,
+1500
+],
+"habitat_code": "W",
+"trophic": "m",
+"edibility": "toxic"
+}
+},
+{
+"latin": "Tricholoma equestre",
+"romanian": [
+"Buretele călărețului"
+],
+"catalogue": {
+"hosts_text": "Pinus; sandy soil",
+"months": "000000001110",
+"elev": [
+200,
+1300
+],
+"habitat_code": "W",
+"trophic": "m",
+"edibility": "deadly"
+}
+},
+{
+"latin": "Clitocybe rivulosa",
+"romanian": [
+"Buretele fals",
+"Burete de rouă fals",
+"Pâlnioara de fildeș"
+],
+"catalogue": {
+"hosts_text": "Grassland, lawns",
+"months": "000000111110",
+"elev": [
+100,
+1500
+],
+"habitat_code": "G",
+"trophic": "s",
+"edibility": "toxic"
+}
+},
+{
+"latin": "Gymnopus fusipes",
+"romanian": [
+"Gheba de stejar"
+],
+"catalogue": {
+"hosts_text": "Quercus roots, Fagus",
+"months": "000001111100",
+"elev": [
+100,
+900
+],
+"habitat_code": "WD",
+"trophic": "p",
+"edibility": "edible_with_caution"
+}
+},
+{
+"latin": "Hygrophorus penarius",
+"romanian": [],
+"catalogue": {
+"hosts_text": "Fagus, Quercus; calcareous",
+"months": "000000001110",
+"elev": [
+200,
+1000
+],
+"habitat_code": "W",
+"trophic": "m",
+"edibility": "edible"
+}
+},
+{
+"latin": "Cortinarius orellanus",
+"romanian": [
+"Pălăria nebunului",
+"Cortinara de munte"
+],
+"catalogue": {
+"hosts_text": "Quercus, Fagus; warm acid soils",
+"months": "000000011100",
+"elev": [
+100,
+900
+],
+"habitat_code": "W",
+"trophic": "m",
+"edibility": "deadly"
+}
+},
+{
+"latin": "Entoloma sinuatum",
+"romanian": [
+"Ciuperca pieptănușului"
+],
+"catalogue": {
+"hosts_text": "Quercus, Fagus, Carpinus; calcareous",
+"months": "000000011100",
+"elev": [
+100,
+1000
+],
+"habitat_code": "W",
+"trophic": "m",
+"edibility": "toxic"
+}
+},
+{
+"latin": "Morchella elata",
+"romanian": [
+"Zbârciogul suplu",
+"Zbârciog suplu"
+],
+"catalogue": {
+"hosts_text": "Conifer forests, burns, disturbed ground",
+"months": "000111000000",
+"elev": [
+400,
+1600
+],
+"habitat_code": "W",
+"trophic": "s",
+"edibility": "choice_edible"
+}
+},
+{
+"latin": "Disciotis venosa",
+"romanian": [],
+"catalogue": {
+"hosts_text": "Floodplain forests, damp soil",
+"months": "001110000000",
+"elev": [
+100,
+900
+],
+"habitat_code": "W",
+"trophic": "s",
+"edibility": "edible_with_caution"
+}
+},
+{
+"latin": "Sparassis laminosa",
+"romanian": [
+"Crețușcă"
+],
+"catalogue": {
+"hosts_text": "Base of Quercus",
+"months": "000000011100",
+"elev": [
+100,
+900
+],
+"habitat_code": "WD",
+"trophic": "p",
+"edibility": "edible"
+}
+},
+{
+"latin": "Tapinella atrotomentosa",
+"romanian": [],
+"catalogue": {
+"hosts_text": "Pinus stumps",
+"months": "000000111100",
+"elev": [
+300,
+1400
+],
+"habitat_code": "D",
+"trophic": "s",
+"edibility": "inedible"
+}
+},
+{
+"latin": "Russula ochroleuca",
+"romanian": [],
+"catalogue": {
+"hosts_text": "Broadleaf and conifer",
+"months": "000000011110",
+"elev": [
+200,
+1600
+],
+"habitat_code": "W",
+"trophic": "m",
+"edibility": "inedible"
+}
+},
+{
+"latin": "Tricholoma album",
+"romanian": [],
+"catalogue": {
+"hosts_text": "Betula, Quercus, Fagus",
+"months": "000000011100",
+"elev": [
+200,
+1200
+],
+"habitat_code": "W",
+"trophic": "m",
+"edibility": "inedible"
+}
+},
+{
+"latin": "Hygrophorus chrysodon",
+"romanian": [],
+"catalogue": {
+"hosts_text": "Fagus, Abies; calcareous",
+"months": "000000001110",
+"elev": [
+300,
+1300
+],
+"habitat_code": "W",
+"trophic": "m",
+"edibility": "edible"
+}
+}
+]

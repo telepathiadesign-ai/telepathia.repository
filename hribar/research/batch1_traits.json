@@ -1,0 +1,1187 @@
+[
+ {
+  "latin": "Amanita muscaria",
+  "accepted_name": "Amanita muscaria",
+  "hosts": [
+   {
+    "genus": "Betula",
+    "strength": "primary"
+   },
+   {
+    "genus": "Picea",
+    "strength": "primary"
+   },
+   {
+    "genus": "Pinus",
+    "strength": "secondary"
+   },
+   {
+    "genus": "Quercus",
+    "strength": "occasional"
+   },
+   {
+    "genus": "Abies",
+    "strength": "occasional"
+   }
+  ],
+  "substrate": "soil",
+  "habitats": [
+   "conifer_forest",
+   "mixed_forest",
+   "broadleaf_forest",
+   "forest_edge_clearing",
+   "alpine_subalpine"
+  ],
+  "soil_ph": "acid",
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": "000000111110",
+  "peak_months": null,
+  "triggers": "No rain amount, lag or temperature threshold stated in sources consulted. De-wiki: Jun to early winter, mainly Jul-Oct; fungiversum Aug-Nov. Occurs up to the forest limit.",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "frequent",
+  "conflicts_with_catalogue": "Pinus is only secondary (en-wiki lists it; de-wiki names Betula and Picea as the main partners). Elevation 300-1800 not verifiable, sources only say up to forest limit.",
+  "confidence": "medium",
+  "sources": [
+   "https://de.wikipedia.org/wiki/Fliegenpilz",
+   "https://en.wikipedia.org/wiki/Amanita_muscaria",
+   "https://fungiversum.de/amanita-muscaria/"
+  ]
+ },
+ {
+  "latin": "Coprinus comatus",
+  "accepted_name": "Coprinus comatus",
+  "hosts": [],
+  "substrate": "soil",
+  "habitats": [
+   "grassland_pasture",
+   "meadow_unimproved",
+   "park_garden_lawn",
+   "urban_ruderal",
+   "forest_edge_clearing"
+  ],
+  "soil_ph": null,
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": "000011111110",
+  "peak_months": [
+   9
+  ],
+  "triggers": "Fruiting follows heavy rainfall (fungiversum). Fertilised lawns and nutrient-rich disturbed soil. Fruits Apr-Nov (de-wiki), Mar-Dec (fungiversum).",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "common",
+  "conflicts_with_catalogue": "Elevation 100-1500 not verified: fungiversum only says present up to subalpine zone. Months in catalogue fine (sources wider: Apr-Nov, Mar-Dec).",
+  "confidence": "medium",
+  "sources": [
+   "https://de.wikipedia.org/wiki/Schopf-Tintling",
+   "https://fungiversum.de/coprinus-comatus/",
+   "https://en.wikipedia.org/wiki/Coprinus_comatus"
+  ]
+ },
+ {
+  "latin": "Neoboletus erythropus",
+  "accepted_name": "Neoboletus erythropus",
+  "hosts": [
+   {
+    "genus": "Picea",
+    "strength": "primary"
+   },
+   {
+    "genus": "Fagus",
+    "strength": "secondary"
+   },
+   {
+    "genus": "Quercus",
+    "strength": "secondary"
+   },
+   {
+    "genus": "Abies",
+    "strength": "occasional"
+   }
+  ],
+  "substrate": "soil",
+  "habitats": [
+   "conifer_forest",
+   "broadleaf_forest",
+   "mixed_forest",
+   "bog_wet"
+  ],
+  "soil_ph": "acid",
+  "soil_moisture": "mesic",
+  "elevation_m": null,
+  "months": "000011111100",
+  "peak_months": null,
+  "triggers": "Weather dependent (de-wiki). Avoids very dry and waterlogged soil. No numeric thresholds stated. Fruits from May, into Oct or later (de-wiki), May-Nov (tintling).",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "frequent",
+  "conflicts_with_catalogue": "Catalogue season starts Jun; three sources give May start. Catalogue Abies/Fagus ok but spruce is the main partner. Some authors treat N. luridiformis as a synonym; elevation 400-1600 not verifiable.",
+  "confidence": "medium",
+  "sources": [
+   "https://de.wikipedia.org/wiki/Flockenstieliger_Hexen-R%C3%B6hrling",
+   "http://tintling.com/pilzbuch/arten/n/Neoboletus_erythropus.html",
+   "https://fungiversum.de/neoboletus-erythropus/"
+  ]
+ },
+ {
+  "latin": "Russula cyanoxantha",
+  "accepted_name": "Russula cyanoxantha",
+  "hosts": [
+   {
+    "genus": "Fagus",
+    "strength": "primary"
+   },
+   {
+    "genus": "Quercus",
+    "strength": "primary"
+   },
+   {
+    "genus": "Abies",
+    "strength": "occasional"
+   },
+   {
+    "genus": "Picea",
+    "strength": "occasional"
+   },
+   {
+    "genus": "Carpinus",
+    "strength": "occasional"
+   }
+  ],
+  "substrate": "soil",
+  "habitats": [
+   "broadleaf_forest",
+   "mixed_forest",
+   "conifer_forest",
+   "park_garden_lawn"
+  ],
+  "soil_ph": "indifferent",
+  "soil_moisture": "mesic",
+  "elevation_m": null,
+  "months": "000001111100",
+  "peak_months": null,
+  "triggers": "Fresh to moist soil, rare on persistently dry sites (de-wiki). No numeric triggers. De-wiki: Jun to early Nov, occasionally mid-Apr; fungiversum Jul-Oct.",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "common",
+  "conflicts_with_catalogue": "Carpinus not named by the sources opened (catalogue lists it); Abies/Picea are secondary. Soil is weakly acid to weakly alkaline, so not acid-bound. Elevation 200-1400 not verifiable.",
+  "confidence": "medium",
+  "sources": [
+   "https://de.wikipedia.org/wiki/Frauen-T%C3%A4ubling",
+   "https://fungiversum.de/russula-cyanoxantha/",
+   "https://en.wikipedia.org/wiki/Russula_cyanoxantha"
+  ]
+ },
+ {
+  "latin": "Apioperdon pyriforme",
+  "accepted_name": "Apioperdon pyriforme",
+  "hosts": [],
+  "substrate": "wood_dead",
+  "habitats": [],
+  "soil_ph": null,
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": "000000011110",
+  "peak_months": null,
+  "triggers": "No rain amount, lag or temperature threshold stated in sources consulted. De-wiki: Aug-Nov; en-wiki: Jul-Dec in Europe. Attached by rhizomorphs; only puffball on wood in Central Europe.",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "common",
+  "conflicts_with_catalogue": "Catalogue starts Jul; de-wiki Aug-Nov, en-wiki Jul-Dec. No host genera, habitat type or elevation stated in sources, so left empty.",
+  "confidence": "medium",
+  "sources": [
+   "https://de.wikipedia.org/wiki/Birnen-St%C3%A4ubling",
+   "https://en.wikipedia.org/wiki/Apioperdon_pyriforme"
+  ]
+ },
+ {
+  "latin": "Infundibulicybe geotropa",
+  "accepted_name": "Infundibulicybe geotropa",
+  "hosts": [],
+  "substrate": "soil",
+  "habitats": [
+   "forest_edge_clearing",
+   "mixed_forest",
+   "grassland_pasture",
+   "park_garden_lawn"
+  ],
+  "soil_ph": null,
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": "000000001110",
+  "peak_months": null,
+  "triggers": "No rain amount, lag or temperature threshold stated in sources consulted. Often forms fairy rings. Sep-Nov, sometimes into early winter (pilzkurse); en-wiki Aug-Nov.",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "frequent",
+  "conflicts_with_catalogue": "Catalogue starts Aug (en-wiki agrees); pilzkurse gives Sep-Nov with early-winter tail. Elevation 200-1400 not verifiable.",
+  "confidence": "medium",
+  "sources": [
+   "https://en.wikipedia.org/wiki/Infundibulicybe_geotropa",
+   "https://www.pilzkurse.com/moenchskopf/"
+  ]
+ },
+ {
+  "latin": "Morchella esculenta",
+  "accepted_name": "Morchella esculenta",
+  "hosts": [
+   {
+    "genus": "Fraxinus",
+    "strength": "primary"
+   },
+   {
+    "genus": "Ulmus",
+    "strength": "secondary"
+   },
+   {
+    "genus": "Populus",
+    "strength": "occasional"
+   },
+   {
+    "genus": "Alnus",
+    "strength": "occasional"
+   }
+  ],
+  "substrate": "soil",
+  "habitats": [
+   "broadleaf_forest",
+   "riparian_floodplain",
+   "orchard",
+   "park_garden_lawn",
+   "forest_edge_clearing"
+  ],
+  "soil_ph": "calcareous",
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": "000110000000",
+  "peak_months": null,
+  "triggers": "Spring; low-temperature germination, soil temperature linked to spore germination (en-wiki). Also on recently burnt or dug soil. Numbers not stated. Romanian source: from April, damp edges.",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "rare",
+  "conflicts_with_catalogue": "Catalogue habitat W understates orchards, gardens, scrub. Sources describe saprotroph with tree association, not mycorrhiza; Dutch elm disease sites noted. Season Apr-Jun in de-wiki/fungiversum, ro source Apr-May. Absent from high mountains (de-wiki); 100-1000 unverified.",
+  "confidence": "medium",
+  "sources": [
+   "https://de.wikipedia.org/wiki/Speise-Morchel",
+   "https://fungiversum.de/morchella-esculenta/",
+   "https://en.wikipedia.org/wiki/Morchella_esculenta",
+   "https://naturx.ro/tot-ce-trebuie-sa-stii-despre-zbarciogi-delicatese-rare-din-padure/"
+  ]
+ },
+ {
+  "latin": "Leccinellum pseudoscabrum",
+  "accepted_name": "Leccinellum pseudoscabrum",
+  "hosts": [
+   {
+    "genus": "Carpinus",
+    "strength": "primary"
+   },
+   {
+    "genus": "Quercus",
+    "strength": "occasional"
+   },
+   {
+    "genus": "Fagus",
+    "strength": "occasional"
+   },
+   {
+    "genus": "Betula",
+    "strength": "occasional"
+   },
+   {
+    "genus": "Corylus",
+    "strength": "occasional"
+   }
+  ],
+  "substrate": "soil",
+  "habitats": [
+   "broadleaf_forest",
+   "mixed_forest",
+   "park_garden_lawn"
+  ],
+  "soil_ph": null,
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": "000001111100",
+  "peak_months": null,
+  "triggers": "No rain amount, lag or temperature threshold stated in sources consulted. Jun-Oct (fungiversum).",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "unknown",
+  "conflicts_with_catalogue": "Corylus is only an occasional partner (fungiversum: almost exclusively Carpinus). Only one source with ecology detail; elevation, pH, abundance not stated.",
+  "confidence": "low",
+  "sources": [
+   "https://fungiversum.de/leccinellum-pseudoscabrum/",
+   "https://de.wikipedia.org/wiki/Hainbuchen-Raufu%C3%9F"
+  ]
+ },
+ {
+  "latin": "Coprinopsis atramentaria",
+  "accepted_name": "Coprinopsis atramentaria",
+  "hosts": [],
+  "substrate": "wood_buried",
+  "habitats": [
+   "park_garden_lawn",
+   "urban_ruderal",
+   "grassland_pasture",
+   "forest_edge_clearing",
+   "broadleaf_forest"
+  ],
+  "soil_ph": null,
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": "000011111110",
+  "peak_months": null,
+  "triggers": "Clumps arise after rainfall (en-wiki); can fruit repeatedly in a year. No numeric thresholds.",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "common",
+  "conflicts_with_catalogue": "Season May-Nov matches (tintling). Tintling says occurs in all biotopes in and outside forests. Elevation 100-1200 not verifiable.",
+  "confidence": "medium",
+  "sources": [
+   "http://tintling.com/pilzbuch/arten/c/Coprinopsis_atramentaria.html",
+   "https://en.wikipedia.org/wiki/Coprinopsis_atramentaria"
+  ]
+ },
+ {
+  "latin": "Bovista plumbea",
+  "accepted_name": "Bovista plumbea",
+  "hosts": [],
+  "substrate": "soil",
+  "habitats": [
+   "grassland_pasture",
+   "meadow_unimproved",
+   "steppe_dry_grassland"
+  ],
+  "soil_ph": null,
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": null,
+  "peak_months": null,
+  "triggers": "No rain amount, lag or temperature threshold stated in sources consulted. En-wiki: fruits throughout the mushroom season; no months given by other source.",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "occasional",
+  "conflicts_with_catalogue": "Catalogue elevation up to 2000 contradicted: pilze-ammersee says mainly lowlands, replaced by B. nigrescens in the Alps. Catalogue implies commonness; pilze-ammersee says fairly rare and overlooked. Months unverified so left null.",
+  "confidence": "low",
+  "sources": [
+   "https://en.wikipedia.org/wiki/Bovista_plumbea",
+   "https://www.pilze-ammersee.de/organismen/bovista-plumbea-pers-1"
+  ]
+ },
+ {
+  "latin": "Rubroboletus satanas",
+  "accepted_name": "Rubroboletus satanas",
+  "hosts": [
+   {
+    "genus": "Quercus",
+    "strength": "primary"
+   },
+   {
+    "genus": "Castanea",
+    "strength": "secondary"
+   },
+   {
+    "genus": "Carpinus",
+    "strength": "secondary"
+   },
+   {
+    "genus": "Fagus",
+    "strength": "secondary"
+   },
+   {
+    "genus": "Tilia",
+    "strength": "secondary"
+   }
+  ],
+  "substrate": "soil",
+  "habitats": [
+   "broadleaf_forest",
+   "mixed_forest"
+  ],
+  "soil_ph": "calcareous",
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": "000001111000",
+  "peak_months": null,
+  "triggers": "No rain amount, lag or temperature threshold stated in sources consulted. Warm-loving, southern distribution in Europe. Jun-Sep (de-wiki); summer to early autumn (en-wiki).",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "rare",
+  "conflicts_with_catalogue": "Consistent with catalogue. En-wiki: rare in most localities. Elevation 100-800 not verifiable.",
+  "confidence": "medium",
+  "sources": [
+   "https://en.wikipedia.org/wiki/Rubroboletus_satanas",
+   "https://de.wikipedia.org/wiki/Satans-R%C3%B6hrling"
+  ]
+ },
+ {
+  "latin": "Gyroporus castaneus",
+  "accepted_name": "Gyroporus castaneus",
+  "hosts": [
+   {
+    "genus": "Quercus",
+    "strength": "primary"
+   },
+   {
+    "genus": "Fagus",
+    "strength": "primary"
+   },
+   {
+    "genus": "Pinus",
+    "strength": "occasional"
+   }
+  ],
+  "substrate": "soil",
+  "habitats": [
+   "broadleaf_forest",
+   "mixed_forest",
+   "conifer_forest"
+  ],
+  "soil_ph": "indifferent",
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": "000000111100",
+  "peak_months": null,
+  "triggers": "No rain amount, lag or temperature threshold stated in sources consulted. Fungiversum: Jul-Oct; en-wiki summer to autumn. Prefers sandy substrate.",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "occasional",
+  "conflicts_with_catalogue": "Catalogue says acid sandy soils only; de-wiki and fungiversum: acid and basic soils, sandy preferred. Castanea not stated by sources (catalogue lists it); Fagus named by de-wiki and fungiversum. Season runs to Oct. Red-listed in several countries.",
+  "confidence": "medium",
+  "sources": [
+   "https://de.wikipedia.org/wiki/Hasen-R%C3%B6hrling",
+   "https://fungiversum.de/gyroporus-castaneus/",
+   "https://en.wikipedia.org/wiki/Gyroporus_castaneus"
+  ]
+ },
+ {
+  "latin": "Suillus variegatus",
+  "accepted_name": "Suillus variegatus",
+  "hosts": [
+   {
+    "genus": "Pinus",
+    "strength": "primary"
+   }
+  ],
+  "substrate": "soil",
+  "habitats": [
+   "conifer_forest",
+   "mixed_forest"
+  ],
+  "soil_ph": "acid",
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": "000000111100",
+  "peak_months": null,
+  "triggers": "No rain amount, lag or temperature threshold stated in sources consulted. Fungiversum: Jun-Nov; en-wiki: late summer. Often with heather on sandy soil.",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "unknown",
+  "conflicts_with_catalogue": "Consistent. Catalogue elevation 300-1500 and abundance not verifiable; sources give no elevation.",
+  "confidence": "medium",
+  "sources": [
+   "https://fungiversum.de/suillus-variegatus/",
+   "https://en.wikipedia.org/wiki/Suillus_variegatus"
+  ]
+ },
+ {
+  "latin": "Craterellus cornucopioides",
+  "accepted_name": "Craterellus cornucopioides",
+  "hosts": [
+   {
+    "genus": "Fagus",
+    "strength": "primary"
+   },
+   {
+    "genus": "Quercus",
+    "strength": "secondary"
+   },
+   {
+    "genus": "Carpinus",
+    "strength": "secondary"
+   },
+   {
+    "genus": "Tilia",
+    "strength": "occasional"
+   }
+  ],
+  "substrate": "soil",
+  "habitats": [
+   "broadleaf_forest",
+   "mixed_forest"
+  ],
+  "soil_ph": "calcareous",
+  "soil_moisture": "wet",
+  "elevation_m": null,
+  "months": "000000011110",
+  "peak_months": [
+   9,
+   10
+  ],
+  "triggers": "Main fruiting mid-Sep to Nov before first frost, from Aug (ciupercar.ro). Very moist soils. De-wiki: mid-Aug to late Nov, esp. Sep-Oct. No numeric thresholds.",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "frequent",
+  "conflicts_with_catalogue": "Catalogue Jul-Oct; sources give Aug-Nov (peak Sep-Oct), none starts in Jul. Soil: sources say calcareous, moist, heavy; catalogue silent. Elevation: de-wiki says mid-elevation mountain zones, no numbers.",
+  "confidence": "medium",
+  "sources": [
+   "https://fungiversum.de/craterellus-cornucopioides/",
+   "https://de.wikipedia.org/wiki/Herbsttrompete",
+   "https://en.wikipedia.org/wiki/Craterellus_cornucopioides",
+   "https://ciupercar.ro/craterellus-cornucopioides-trambita-piticilor/"
+  ]
+ },
+ {
+  "latin": "Amanita caesarea",
+  "accepted_name": "Amanita caesarea",
+  "hosts": [
+   {
+    "genus": "Quercus",
+    "strength": "primary"
+   },
+   {
+    "genus": "Castanea",
+    "strength": "primary"
+   },
+   {
+    "genus": "Fagus",
+    "strength": "occasional"
+   },
+   {
+    "genus": "Pinus",
+    "strength": "occasional"
+   }
+  ],
+  "substrate": "soil",
+  "habitats": [
+   "broadleaf_forest",
+   "forest_edge_clearing",
+   "mixed_forest"
+  ],
+  "soil_ph": "acid",
+  "soil_moisture": "dry",
+  "elevation_m": null,
+  "months": "000000111100",
+  "peak_months": null,
+  "triggers": "Needs enough rain beforehand and strong warmth (de-wiki, fungiversum). En-wiki: lab mycelial growth optimum 24-28 C, not a fruiting threshold. Warm, fairly dry sites (ciupercar.ro).",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "rare",
+  "conflicts_with_catalogue": "Soil: de-wiki and ciupercar.ro say acid, sandy, base-poor; catalogue silent. Season sources: Jun-Oct (ro), Jul-Nov, Jun-Sep (ro); main Jul-Oct. Romanian source: found in mountain and lowland, so elevation 100-700 not confirmed. Rare in RO and declining.",
+  "confidence": "medium",
+  "sources": [
+   "https://fungiversum.de/amanita-caesarea/",
+   "https://de.wikipedia.org/wiki/Kaiserling",
+   "https://en.wikipedia.org/wiki/Amanita_caesarea",
+   "https://ciupercar.ro/amanita-caesarea/",
+   "https://ciupercidepadure.ro/tipuri-de-ciuperci-de-padure-din-romania/amanita-caesarea-burete-domnesc/"
+  ]
+ },
+ {
+  "latin": "Amanita strobiliformis",
+  "accepted_name": "Amanita strobiliformis",
+  "hosts": [
+   {
+    "genus": "Quercus",
+    "strength": "primary"
+   },
+   {
+    "genus": "Fagus",
+    "strength": "secondary"
+   },
+   {
+    "genus": "Pinus",
+    "strength": "occasional"
+   }
+  ],
+  "substrate": "soil",
+  "habitats": [
+   "broadleaf_forest",
+   "forest_edge_clearing"
+  ],
+  "soil_ph": "calcareous",
+  "soil_moisture": "dry",
+  "elevation_m": null,
+  "months": "000000111100",
+  "peak_months": null,
+  "triggers": "No rain amount, lag or temperature threshold stated in sources consulted. Warm-loving regions; fungiversum: Jul-Oct.",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "rare",
+  "conflicts_with_catalogue": "Catalogue Jun start; only fungiversum gives months (Jul-Oct). Both sources: calcareous, rare. Elevation 100-700 not verifiable.",
+  "confidence": "low",
+  "sources": [
+   "https://fungiversum.de/amanita-strobiliformis/",
+   "https://en.wikipedia.org/wiki/Amanita_strobiliformis"
+  ]
+ },
+ {
+  "latin": "Calvatia gigantea",
+  "accepted_name": "Calvatia gigantea",
+  "hosts": [],
+  "substrate": "soil",
+  "habitats": [
+   "meadow_unimproved",
+   "grassland_pasture",
+   "orchard",
+   "park_garden_lawn",
+   "forest_edge_clearing"
+  ],
+  "soil_ph": null,
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": "000001111100",
+  "peak_months": null,
+  "triggers": "Fruits Jun-Oct depending on local moisture and temperature (ciupercar.ro). Fairy rings on old orchard meadows (de-wiki).",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "unknown",
+  "conflicts_with_catalogue": "Nettle beds not mentioned by sources; they list meadows, pastures, orchards, gardens, light woods incl. loose pine on dry sites. Elevation 100-1200 not verifiable.",
+  "confidence": "medium",
+  "sources": [
+   "https://de.wikipedia.org/wiki/Riesenbovist",
+   "https://en.wikipedia.org/wiki/Calvatia_gigantea",
+   "https://ciupercar.ro/calvatia-gigantea-basica-porcului/"
+  ]
+ },
+ {
+  "latin": "Russula nobilis",
+  "accepted_name": "Russula nobilis",
+  "hosts": [
+   {
+    "genus": "Fagus",
+    "strength": "primary"
+   }
+  ],
+  "substrate": "soil",
+  "habitats": [
+   "broadleaf_forest"
+  ],
+  "soil_ph": "acid",
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": "000000111100",
+  "peak_months": null,
+  "triggers": "No rain amount, lag or temperature threshold stated in sources consulted. Jul-Oct (de-wiki).",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "common",
+  "conflicts_with_catalogue": "Consistent. Soil mainly acid to moderately acid, also on calcareous (de-wiki). Synonym R. mairei. Elevation 300-1300 not verifiable.",
+  "confidence": "medium",
+  "sources": [
+   "https://de.wikipedia.org/wiki/Buchen-Spei-T%C3%A4ubling",
+   "https://en.wikipedia.org/wiki/Russula_nobilis"
+  ]
+ },
+ {
+  "latin": "Lactarius camphoratus",
+  "accepted_name": "Lactarius camphoratus",
+  "hosts": [
+   {
+    "genus": "Picea",
+    "strength": "primary"
+   },
+   {
+    "genus": "Fagus",
+    "strength": "secondary"
+   },
+   {
+    "genus": "Pinus",
+    "strength": "secondary"
+   }
+  ],
+  "substrate": "soil",
+  "habitats": [
+   "conifer_forest",
+   "mixed_forest",
+   "broadleaf_forest",
+   "plantation"
+  ],
+  "soil_ph": "acid",
+  "soil_moisture": "mesic",
+  "elevation_m": null,
+  "months": "000000111110",
+  "peak_months": null,
+  "triggers": "No rain amount, lag or temperature threshold stated in sources consulted. Jul-Nov (fungiversum), Jun-Nov (de-wiki). Fresh to moist, mossy spruce stumps.",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "common",
+  "conflicts_with_catalogue": "Catalogue says conifer and broadleaf; sources: Picea mainly, Fagus and Pinus secondary. Acid, nutrient-poor soil. Elevation 300-1500 not verifiable.",
+  "confidence": "medium",
+  "sources": [
+   "https://fungiversum.de/lactarius-camphoratus/",
+   "https://de.wikipedia.org/wiki/Kampfer-Milchling"
+  ]
+ },
+ {
+  "latin": "Tricholoma sulphureum",
+  "accepted_name": "Tricholoma sulphureum",
+  "hosts": [
+   {
+    "genus": "Quercus",
+    "strength": "primary"
+   },
+   {
+    "genus": "Fagus",
+    "strength": "primary"
+   },
+   {
+    "genus": "Pinus",
+    "strength": "secondary"
+   },
+   {
+    "genus": "Picea",
+    "strength": "secondary"
+   },
+   {
+    "genus": "Abies",
+    "strength": "secondary"
+   }
+  ],
+  "substrate": "soil",
+  "habitats": [
+   "broadleaf_forest",
+   "conifer_forest",
+   "mixed_forest"
+  ],
+  "soil_ph": "indifferent",
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": "000000011100",
+  "peak_months": null,
+  "triggers": "No rain amount, lag or temperature threshold stated in sources consulted. Fungiversum Jul-Oct; de-wiki Aug-Dec.",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "frequent",
+  "conflicts_with_catalogue": "Catalogue lists only Fagus and Quercus; sources also give Pinus, Picea, Abies. De-wiki: decline in western Central Europe since the 1970s. Elevation 300-1200 not verifiable.",
+  "confidence": "medium",
+  "sources": [
+   "https://fungiversum.de/tricholoma-sulphureum/",
+   "https://de.wikipedia.org/wiki/Schwefel-Ritterling"
+  ]
+ },
+ {
+  "latin": "Desarmillaria tabescens",
+  "accepted_name": "Desarmillaria tabescens",
+  "hosts": [
+   {
+    "genus": "Quercus",
+    "strength": "primary"
+   },
+   {
+    "genus": "Castanea",
+    "strength": "secondary"
+   }
+  ],
+  "substrate": "wood_living",
+  "habitats": [
+   "broadleaf_forest"
+  ],
+  "soil_ph": null,
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": null,
+  "peak_months": null,
+  "triggers": "No rain amount, lag or temperature threshold stated in sources consulted. Summer to late autumn (123pilzsuche); June to fall (mushroomexpert, North America).",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "rare",
+  "conflicts_with_catalogue": "Catalogue says parasite on oak roots; sources: parasitic or secondary decomposer, base of living or dead trees, buried wood. Catalogue season Aug-Oct unverified, sources only say summer-autumn. Extremely rare in Germany.",
+  "confidence": "low",
+  "sources": [
+   "https://123pilzsuche.de/daten/details/RingloserHallimasch.htm",
+   "https://mushroomexpert.com/fungionwood/gilled%20fungi/species%20pages/Desarmillaria%20tabescens.htm"
+  ]
+ },
+ {
+  "latin": "Strobilurus esculentus",
+  "accepted_name": "Strobilurus esculentus",
+  "hosts": [
+   {
+    "genus": "Picea",
+    "strength": "primary"
+   }
+  ],
+  "substrate": "cones",
+  "habitats": [
+   "conifer_forest",
+   "plantation"
+  ],
+  "soil_ph": null,
+  "soil_moisture": "mesic",
+  "elevation_m": null,
+  "months": "000110000000",
+  "peak_months": null,
+  "triggers": "Spring species on buried cones of previous year; needs moist conditions (fungiversum). Tintling Apr-May; fungiversum Oct-May.",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "frequent",
+  "conflicts_with_catalogue": "Catalogue Feb-May: tintling gives Apr-May, fungiversum Oct-May; Feb-Mar not confirmed. Elevation 500-1600 not verifiable.",
+  "confidence": "medium",
+  "sources": [
+   "http://tintling.com/pilzbuch/arten/s/Strobilurus_esculentus.html",
+   "https://www.pilzfinder.de/pilz/fichtenzapf.html",
+   "https://fungiversum.de/strobilurus-esculentus/"
+  ]
+ },
+ {
+  "latin": "Hygrophorus olivaceoalbus",
+  "accepted_name": "Hygrophorus olivaceoalbus",
+  "hosts": [
+   {
+    "genus": "Picea",
+    "strength": "primary"
+   },
+   {
+    "genus": "Pinus",
+    "strength": "occasional"
+   }
+  ],
+  "substrate": "soil",
+  "habitats": [
+   "conifer_forest",
+   "alpine_subalpine"
+  ],
+  "soil_ph": "acid",
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": "000000011110",
+  "peak_months": null,
+  "triggers": "No rain amount, lag or temperature threshold stated in sources consulted. Aug-Nov (both sources). Moss-rich soils.",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "frequent",
+  "conflicts_with_catalogue": "Sources say more common at mid to high altitude but give no numbers; catalogue 800-1700 not verifiable. De-wiki also mentions calcareous soils.",
+  "confidence": "medium",
+  "sources": [
+   "https://fungiversum.de/hygrophorus-olivaceoalbus/",
+   "https://de.wikipedia.org/wiki/Natternstieliger_Schneckling"
+  ]
+ },
+ {
+  "latin": "Cortinarius cinnamomeus",
+  "accepted_name": "Cortinarius cinnamomeus",
+  "hosts": [
+   {
+    "genus": "Picea",
+    "strength": "primary"
+   },
+   {
+    "genus": "Betula",
+    "strength": "secondary"
+   },
+   {
+    "genus": "Pinus",
+    "strength": "secondary"
+   }
+  ],
+  "substrate": "soil",
+  "habitats": [
+   "conifer_forest",
+   "mixed_forest"
+  ],
+  "soil_ph": "acid",
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": "000000011100",
+  "peak_months": null,
+  "triggers": "No rain amount, lag or temperature threshold stated in sources consulted. Aug-Oct (fungiversum); Jul-Oct (de-wiki); summer to late autumn (pilzwelten).",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "frequent",
+  "conflicts_with_catalogue": "Consistent. De-wiki: among the most frequent Cortinarius in DE, AT, CH; also on sandy or moorland soils. Elevation 400-1700 not verifiable.",
+  "confidence": "medium",
+  "sources": [
+   "https://fungiversum.de/cortinarius-cinnamomeus/",
+   "https://de.wikipedia.org/wiki/Zimtbrauner_Hautkopf",
+   "https://www.pilzbuch-pilzwelten.de/zimthautkopf/cortinarius-cinnamomeus.html"
+  ]
+ },
+ {
+  "latin": "Entoloma clypeatum",
+  "accepted_name": "Entoloma clypeatum",
+  "hosts": [
+   {
+    "genus": "Prunus",
+    "strength": "primary"
+   },
+   {
+    "genus": "Crataegus",
+    "strength": "primary"
+   },
+   {
+    "genus": "Pyrus",
+    "strength": "secondary"
+   },
+   {
+    "genus": "Sorbus",
+    "strength": "secondary"
+   }
+  ],
+  "substrate": "soil",
+  "habitats": [
+   "forest_edge_clearing",
+   "park_garden_lawn",
+   "broadleaf_forest"
+  ],
+  "soil_ph": null,
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": "000111000000",
+  "peak_months": null,
+  "triggers": "No rain amount, lag or temperature threshold stated in sources consulted. Spring: Apr-Jun (natur-in-nrw), May-Jun (fungiversum).",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "occasional",
+  "conflicts_with_catalogue": "Catalogue habitat W is misleading: sources describe hedges, scrub, path edges, parks, gardens, meadows. Malus not named; Prunus (plum, blackthorn), Crataegus, Pyrus, Sorbus named. Nowhere frequent (natur-in-nrw).",
+  "confidence": "medium",
+  "sources": [
+   "https://fungiversum.de/entoloma-clypeatum/",
+   "https://www.natur-in-nrw.de/HTML/Pilze/Agaricales/PA-245.html"
+  ]
+ },
+ {
+  "latin": "Morchella semilibera",
+  "accepted_name": "Morchella semilibera",
+  "hosts": [],
+  "substrate": "soil",
+  "habitats": [
+   "riparian_floodplain",
+   "broadleaf_forest",
+   "park_garden_lawn",
+   "meadow_unimproved",
+   "forest_edge_clearing"
+  ],
+  "soil_ph": null,
+  "soil_moisture": "mesic",
+  "elevation_m": null,
+  "months": "000110000000",
+  "peak_months": null,
+  "triggers": "No rain amount, lag or temperature threshold stated in sources consulted. De-wiki Apr-May; fungiversum Apr-Jun.",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "rare",
+  "conflicts_with_catalogue": "Catalogue says floodplain and damp broadleaf only; sources add moist humus-rich meadows, gardens, parks, scrub, stream banks, with no tree association stated. Elevation 100-900 not verifiable. Rare and protected in Germany.",
+  "confidence": "medium",
+  "sources": [
+   "https://fungiversum.de/morchella-semilibera/",
+   "https://de.wikipedia.org/wiki/K%C3%A4ppchen-Morchel"
+  ]
+ },
+ {
+  "latin": "Tuber brumale",
+  "accepted_name": "Tuber brumale",
+  "hosts": [
+   {
+    "genus": "Quercus",
+    "strength": "primary"
+   },
+   {
+    "genus": "Fagus",
+    "strength": "primary"
+   },
+   {
+    "genus": "Corylus",
+    "strength": "occasional"
+   },
+   {
+    "genus": "Tilia",
+    "strength": "occasional"
+   }
+  ],
+  "substrate": "soil",
+  "habitats": [
+   "broadleaf_forest",
+   "forest_edge_clearing",
+   "plantation"
+  ],
+  "soil_ph": "calcareous",
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": "110000000111",
+  "peak_months": null,
+  "triggers": "Ripens from mid-Sep, edible from Oct, hunted in winter (de-wiki); Aug-Feb (trueffelsuche). Warm sites. No numeric triggers.",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "rare",
+  "conflicts_with_catalogue": "Catalogue Jan-Mar and Nov-Dec; sources say Aug/Sep to Feb, none supports Mar. Fagus and Tilia named by de-wiki (catalogue has Quercus, Corylus). Abundance disagreement: de-wiki very rare in Germany, trueffelsuche one of four frequent species. Elevation not stated.",
+  "confidence": "low",
+  "sources": [
+   "https://de.wikipedia.org/wiki/Winter-Tr%C3%BCffel",
+   "https://www.trueffelsuche.de/wintertr%C3%BCffel_tuber-brumale_a.html"
+  ]
+ },
+ {
+  "latin": "Albatrellus ovinus",
+  "accepted_name": "Albatrellus ovinus",
+  "hosts": [
+   {
+    "genus": "Picea",
+    "strength": "primary"
+   },
+   {
+    "genus": "Pinus",
+    "strength": "secondary"
+   }
+  ],
+  "substrate": "soil",
+  "habitats": [
+   "conifer_forest",
+   "mixed_forest"
+  ],
+  "soil_ph": "indifferent",
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": "000000111100",
+  "peak_months": null,
+  "triggers": "No rain amount, lag or temperature threshold stated in sources consulted. Jul-Oct (all three sources).",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "occasional",
+  "conflicts_with_catalogue": "Catalogue says montane Picea only, 800-1700 m: de-wiki says lowlands to uplands, derkleinegarten says rarer in mountainous regions. Soil disagreement: de-wiki acid to neutral, pilzmuseum calcareous. Pine also named (pilzmuseum).",
+  "confidence": "medium",
+  "sources": [
+   "https://de.wikipedia.org/wiki/Schaf-Porling",
+   "https://www.pilzmuseum.at/pilze/schafporling/",
+   "https://www.derkleinegarten.de/pilze-bestimmen/schafeuter-albatrellus-ovinus.html"
+  ]
+ },
+ {
+  "latin": "Tricholoma populinum",
+  "accepted_name": "Tricholoma populinum",
+  "hosts": [
+   {
+    "genus": "Populus",
+    "strength": "primary"
+   },
+   {
+    "genus": "Salix",
+    "strength": "occasional"
+   }
+  ],
+  "substrate": "soil",
+  "habitats": [
+   "park_garden_lawn",
+   "plantation",
+   "urban_ruderal"
+  ],
+  "soil_ph": null,
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": "000000001110",
+  "peak_months": null,
+  "triggers": "Fruits until first frosts of early winter, especially abundant after hot summers (natur-in-nrw). Sep to late Nov (tintling). No numbers.",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "frequent",
+  "conflicts_with_catalogue": "Catalogue habitat floodplain not confirmed: sources list poplar avenues, parks, roadsides, plantings, stands on sandy-loamy grassy ground. Salix occasional. Elevation 100-600 not stated.",
+  "confidence": "medium",
+  "sources": [
+   "https://www.natur-in-nrw.de/HTML/Pilze/Agaricales/PA-663.html",
+   "http://tintling.com/pilzbuch/arten/t/Tricholoma_populinum.html"
+  ]
+ },
+ {
+  "latin": "Russula olivacea",
+  "accepted_name": "Russula olivacea",
+  "hosts": [
+   {
+    "genus": "Fagus",
+    "strength": "primary"
+   },
+   {
+    "genus": "Picea",
+    "strength": "secondary"
+   }
+  ],
+  "substrate": "soil",
+  "habitats": [
+   "broadleaf_forest",
+   "mixed_forest",
+   "conifer_forest"
+  ],
+  "soil_ph": "indifferent",
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": "000000111100",
+  "peak_months": null,
+  "triggers": "No rain amount, lag or temperature threshold stated in sources consulted. Pilzmuseum Jul-Nov; en-wiki from June.",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "occasional",
+  "conflicts_with_catalogue": "Catalogue lists Abies and calcareous soil: sources name Fagus and Picea (en-wiki) or just broadleaf trees (pilzmuseum), soils of all kinds with preference for some base content. Elevation 400-1300 not verifiable.",
+  "confidence": "low",
+  "sources": [
+   "https://www.pilzmuseum.at/pilze/rotstieliger-ledertaeubling/",
+   "https://en.wikipedia.org/wiki/Russula_olivacea"
+  ]
+ },
+ {
+  "latin": "Lepiota subincarnata",
+  "accepted_name": "Lepiota subincarnata",
+  "hosts": [],
+  "substrate": "soil",
+  "habitats": [
+   "mixed_forest",
+   "park_garden_lawn",
+   "forest_edge_clearing",
+   "grassland_pasture"
+  ],
+  "soil_ph": null,
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": "000001111110",
+  "peak_months": null,
+  "triggers": "No rain amount, lag or temperature threshold stated in sources consulted. June-Nov (tintling); early summer to autumn (123pilzsuche).",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "occasional",
+  "conflicts_with_catalogue": "Catalogue Jul-Oct; sources Jun-Nov. Elevation 100-800 not stated. Widely distributed but not particularly common.",
+  "confidence": "medium",
+  "sources": [
+   "https://123pilzsuche.de/daten/details/FleischrosaSchirmling.htm",
+   "http://tintling.com/pilzbuch/arten/l/Lepiota_subincarnata.html"
+  ]
+ },
+ {
+  "latin": "Tricholoma sejunctum",
+  "accepted_name": "Tricholoma sejunctum",
+  "hosts": [
+   {
+    "genus": "Quercus",
+    "strength": "primary"
+   },
+   {
+    "genus": "Fagus",
+    "strength": "primary"
+   },
+   {
+    "genus": "Betula",
+    "strength": "primary"
+   }
+  ],
+  "substrate": "soil",
+  "habitats": [
+   "broadleaf_forest",
+   "mixed_forest"
+  ],
+  "soil_ph": "acid",
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": "000000011100",
+  "peak_months": null,
+  "triggers": "No rain amount, lag or temperature threshold stated in sources consulted. Aug-Oct (tintling), Aug-Nov (pilz-sammler).",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "occasional",
+  "conflicts_with_catalogue": "Catalogue lists Pinus: sources say various broadleaf and conifer trees, specifically Quercus, Betula, Fagus. Soil sandy, acid, nutrient-poor (tintling). Elevation 200-1200 not stated.",
+  "confidence": "medium",
+  "sources": [
+   "http://tintling.com/pilzbuch/arten/t/Tricholoma_sejunctum.html",
+   "https://www.pilz-sammler.de/fungus/gruengelber-ritterling-tricholoma-sejunctum-portraet/"
+  ]
+ }
+]

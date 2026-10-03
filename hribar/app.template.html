@@ -528,8 +528,8 @@ const RAD = Math.PI / 180;
 let D;
 try {
   await window.__libs;
-  const names = ['countries','counties','places','rivers','lakes','roads','mask','glyphs','species','catalog','dem','osm','roads_ro','water_ro','weather','terrain','leaf','soil','fitted'];
-  const optional = ['osm', 'roads_ro', 'water_ro', 'weather', 'terrain', 'leaf', 'soil', 'fitted'];
+  const names = ['countries','counties','places','rivers','lakes','roads','mask','glyphs','species','catalog','dem','osm','roads_ro','water_ro','weather','terrain','leaf','soil','fitted','traits'];
+  const optional = ['osm', 'roads_ro', 'water_ro', 'weather', 'terrain', 'leaf', 'soil', 'fitted', 'traits'];
   const got = await Promise.all(names.map(n => fetch('data/' + n + '.json').then(r => { if (!r.ok) throw new Error(n); return r.json(); }).catch(e => { if (optional.includes(n)) return null; throw e; })));
   D = {}; names.forEach((n, k) => D[n] = got[k]);
 } catch (e) {
@@ -651,6 +651,17 @@ const PH_CALC = new Set(['Morchella','Helvella','Verpa','Mitrophora','Calocybe',
 const CATX = Object.fromEntries(D.catalog.map(r => [r[0], r]));
 const G_CON = ['Picea', 'Abies', 'Pinus', 'Larix', 'conifer'], G_OAK = ['Quercus', 'Castanea', 'Carpinus', 'Tilia', 'Corylus', 'Robinia', 'Juglans'], G_BEECH = ['Fagus'],
   G_BROAD = ['Betula', 'Populus', 'Salix', 'Ulmus', 'Fraxinus', 'Alnus', 'Acer', 'Sambucus', 'Prunus', 'Malus', 'Crataegus', 'broadleaf'];
+// literature hosts (data/traits.json): genus -> weight (primary 1, secondary 0.7, occasional 0.35) folded onto the same four slots
+const G_CON_L = ['Picea', 'Abies', 'Pinus', 'Larix'], G_OAK_L = ['Quercus', 'Castanea', 'Carpinus', 'Tilia', 'Corylus', 'Robinia', 'Juglans'], G_BEECH_L = ['Fagus'],
+  G_BROAD_L = ['Betula', 'Populus', 'Salix', 'Ulmus', 'Fraxinus', 'Alnus', 'Acer', 'Sambucus', 'Prunus', 'Malus', 'Crataegus', 'Sorbus'];
+function hostsFromGenera(g){
+  const m = list => Math.max(0, ...list.map(x => g[x] || 0));
+  const con = m(G_CON_L), oak = m(G_OAK_L), beech = m(G_BEECH_L), broad = m(G_BROAD_L);
+  if (!(con || oak || beech || broad)) return null;
+  const w = { spruce: Math.max(0.15, con), oak: Math.max(0.15, oak, 0.8 * broad), beech: Math.max(0.15, beech, 0.8 * broad) };
+  w.mixed = Math.max(0.7 * Math.max(w.spruce, w.oak, w.beech), Math.min(1, (con && (oak || beech || broad)) ? 1 : 0));
+  return w;
+}
 function hostsFromText(txt, fallback){
   const has = list => list.some(g => new RegExp('\\b' + g, 'i').test(txt || ''));
   const con = has(G_CON), oak = has(G_OAK), beech = has(G_BEECH), broad = has(G_BROAD);
@@ -668,9 +679,14 @@ D.species.forEach(r => {
     elev: [(lo + hi) / 2, Math.max(220, (hi - lo) / 2)], lag: tr === 'm' ? [7, 14] : [4, 10], t: [mid <= 5 ? 10 : mid <= 8 ? 16 : 11, 4],
     hosts: { oak: hw[0], beech: hw[1], mixed: hw[2], spruce: hw[3] } };
   { const cx = CATX[latin]; sp.hab = cx ? cx[17] : 'W'; if (new Set(hw).size === 1) sp.hosts = hostsFromText(cx && cx[9], sp.hosts); }
+  { const gen = latin.split(' ')[0]; sp.phOpt = PH_ACID.has(gen) ? 5.0 : PH_CALC.has(gen) ? 7.3 : null; }
+  { const tr = D.traits && D.traits.species[latin]; if (tr){ sp.tr = tr;
+      if (tr.months){ sp.months = tr.months.split('').map(Number); }
+      if (tr.hab) sp.hab = tr.hab;
+      if (tr.hosts && !TUNED[latin]){ const h = hostsFromGenera(tr.hosts); if (h) sp.hosts = h; }
+      if ('ph' in tr) sp.phOpt = tr.ph; } }
   sp.grass = /G/.test(sp.hab) && !/W/.test(sp.hab); sp.edge = /G/.test(sp.hab) && /W/.test(sp.hab); sp.wood = /D/.test(sp.hab);
   sp.frostTol = !!(months[11] || months[0] || months[1]);
-  { const gen = latin.split(' ')[0]; sp.phOpt = PH_ACID.has(gen) ? 5.0 : PH_CALC.has(gen) ? 7.3 : null; }
   if (TUNED[latin]) Object.assign(sp, TUNED[latin]);
   { const ft = D.fitted && D.fitted.fitted[latin]; if (ft){ sp.t = [ft.t[0], Math.max(2, ft.t[1] - 1)]; sp.tFit = ft.n; } }
   SP[latin] = sp; LIST.push(sp);
@@ -1727,6 +1743,14 @@ $('fBody').addEventListener('change', e => { if (e.target.id === 'fPsy'){ F.psy 
 $('fClear').addEventListener('click', () => { clearF(); renderF(); });
 $('fShow').addEventListener('click', () => { closeFilters(); renderLs(); });
 
+function litHabitat(sp, x){
+  const tr = sp.tr; if (!tr || !tr.hosts) return '<p>' + esc(x.hosts || '—') + '</p>' + (tr && tr.urls && tr.urls.length ? litSources(tr) : '');
+  const g = Object.entries(tr.hosts).sort((a, b) => b[1] - a[1]), lab = w => w >= 1 ? 'main' : w >= 0.7 ? 'also' : 'occasionally';
+  const parts = ['main', 'also', 'occasionally'].map(k => { const n = g.filter(e => lab(e[1]) === k).map(e => '<i>' + esc(e[0]) + '</i>'); return n.length ? (k === 'main' ? 'Mainly with ' : k === 'also' ? 'also ' : 'occasionally ') + n.join(', ') : ''; }).filter(Boolean);
+  const soil = tr.soil && tr.soil !== 'indifferent' ? ' · ' + tr.soil + ' soil' : tr.soil === 'indifferent' ? ' · any soil' : '';
+  return '<p>' + parts.join('; ') + (tr.substrate && tr.substrate !== 'soil' ? ' · on ' + esc(tr.substrate.replace('_', ' ')) : '') + soil + '</p>' + litSources(tr);
+}
+function litSources(tr){ return '<p style="font-size:12px;color:var(--ink-3)">Sources (' + esc(tr.conf || 'low') + ' confidence): ' + tr.urls.map(u => { let h = u; try { h = new URL(u).hostname.replace(/^www\./, ''); } catch (e) {} return '<a href="' + esc(u) + '" target="_blank" rel="noopener">' + esc(h) + '</a>'; }).join(' · ') + '</p>'; }
 function openDetail(latin, push = true){
   const sp = SP[latin]; if (!sp) return; const keepScroll = DET === latin && VIEW === 'species' ? $('spDetail').scrollTop : 0; DET = latin; const x = sp.x || {}, e = edInfo(sp);
   const c = map.getCenter(); computeRank();
@@ -1764,7 +1788,7 @@ function openDetail(latin, push = true){
       '<div class="box"><div class="hd"><h3>Seasonality in Romania</h3><span class="sub">' + seasonLabel(sp) + '</span></div>' +
         '<svg viewBox="0 0 326 88" style="width:100%;height:auto;display:block" role="img" aria-label="Fruiting months: ' + seasonLabel(sp) + '"><line x1="' + nowX + '" y1="4" x2="' + nowX + '" y2="80" style="stroke:var(--ink-3)" stroke-dasharray="3 3"/><path d="' + line + 'L' + X(11) + ' 80L' + X(0) + ' 80Z" style="fill:' + FR[1] + '" fill-opacity=".55"/><path d="' + line + '" fill="none" style="stroke:var(--accent)" stroke-width="2" stroke-linejoin="round"/><line x1="0" y1="80.5" x2="326" y2="80.5" style="stroke:var(--line-2)"/></svg>' +
         '<div class="months">' + 'JFMAMJJASOND'.split('').map((m, k) => '<span style="' + (sp.months[k] ? 'color:var(--ink);font-weight:600' : '') + '">' + m + '</span>').join('') + '</div></div>' +
-      '<div class="box"><h3>Habitat</h3><div class="chips">' + (x.hab || 'W').split('').map(h => '<span class="badge" style="font-size:12.5px;padding:4px 10px">' + HL[h] + '</span>').join('') + '</div><p>' + esc(x.hosts || '—') + '</p>' + (x.trig ? '<p style="font-size:13px;color:var(--ink-2)"><b style="color:var(--ink)">Fruits after:</b> ' + esc(x.trig) + '</p>' : '') + '</div>' +
+      '<div class="box"><h3>Habitat</h3><div class="chips">' + (sp.hab || x.hab || 'W').split('').map(h => '<span class="badge" style="font-size:12.5px;padding:4px 10px">' + HL[h] + '</span>').join('') + '</div>' + litHabitat(sp, x) + (x.trig ? '<p style="font-size:13px;color:var(--ink-2)"><b style="color:var(--ink)">Fruits after:</b> ' + esc(x.trig) + '</p>' : '') + '</div>' +
       '<div class="box"><div class="hd"><h3>Edibility</h3><span class="row" style="gap:6px;font-size:12.5px;font-weight:600"><span class="dot" style="width:7px;height:7px;background:' + e.dot + '"></span>' + e.label + '</span></div><p>' + esc(x.edNotes || 'No preparation notes recorded.') + '</p></div>' +
       (look ? '<div class="box" style="padding:16px 0 0;gap:6px"><h3 style="padding:0 16px 4px">Don’t confuse it with</h3>' + look + '</div>' : '') +
       '<div class="box"><h3>How to identify</h3><p>' + esc(x.idf || sp.idf || '—') + '</p></div>' +

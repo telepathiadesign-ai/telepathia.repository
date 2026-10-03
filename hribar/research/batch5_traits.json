@@ -1,0 +1,1088 @@
+[
+ {
+  "latin": "Macrolepiota procera",
+  "accepted_name": "Macrolepiota procera",
+  "hosts": [],
+  "substrate": "soil",
+  "habitats": [
+   "forest_edge_clearing",
+   "grassland_pasture"
+  ],
+  "soil_ph": null,
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": "000000111110",
+  "peak_months": null,
+  "triggers": "",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "common",
+  "conflicts_with_catalogue": "Season in sources runs Jul-Nov (catalogue Jul-Oct). Elevation 100-1500 not confirmed by any source fetched.",
+  "confidence": "medium",
+  "sources": [
+   "https://www.first-nature.com/fungi/macrolepiota-procera.php",
+   "https://en.wikipedia.org/wiki/Macrolepiota_procera",
+   "http://tintling.com/pilzbuch/arten/m/Macrolepiota_procera.html"
+  ]
+ },
+ {
+  "latin": "Cerioporus squamosus",
+  "accepted_name": "Cerioporus squamosus",
+  "hosts": [
+   {
+    "genus": "Ulmus",
+    "strength": "primary"
+   },
+   {
+    "genus": "Acer",
+    "strength": "primary"
+   },
+   {
+    "genus": "Fagus",
+    "strength": "secondary"
+   },
+   {
+    "genus": "Fraxinus",
+    "strength": "secondary"
+   },
+   {
+    "genus": "Juglans",
+    "strength": "secondary"
+   },
+   {
+    "genus": "Populus",
+    "strength": "occasional"
+   },
+   {
+    "genus": "Salix",
+    "strength": "occasional"
+   }
+  ],
+  "substrate": "wood_living",
+  "habitats": [
+   "broadleaf_forest"
+  ],
+  "soil_ph": null,
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": "000011111100",
+  "peak_months": null,
+  "triggers": "Fruits mainly in spring (fresh in spring per tintling); first-nature gives emergence from mid-May. Not rain-linked in sources.",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "common",
+  "conflicts_with_catalogue": "Sources disagree on season: en.wikipedia Jul-Nov for Europe, first-nature mid-May to early autumn, tintling nearly year-round with spring flush. Catalogue Apr-Oct starts earlier than any source states.",
+  "confidence": "medium",
+  "sources": [
+   "https://en.wikipedia.org/wiki/Cerioporus_squamosus",
+   "https://www.first-nature.com/fungi/polyporus-squamosus.php",
+   "http://tintling.com/pilzbuch/arten/c/Cerioporus_squamosus.html"
+  ]
+ },
+ {
+  "latin": "Agaricus campestris",
+  "accepted_name": "Agaricus campestris",
+  "hosts": [],
+  "substrate": "soil",
+  "habitats": [
+   "grassland_pasture",
+   "meadow_unimproved",
+   "park_garden_lawn"
+  ],
+  "soil_ph": "indifferent",
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": "000001111100",
+  "peak_months": null,
+  "triggers": "Mass fruiting after abundant rainfall (tintling); declines on artificially fertilised grassland.",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "frequent",
+  "conflicts_with_catalogue": "",
+  "confidence": "medium",
+  "sources": [
+   "http://tintling.com/pilzbuch/arten/a/Agaricus_campestris.html",
+   "https://www.first-nature.com/fungi/agaricus-campestris.php",
+   "https://en.wikipedia.org/wiki/Agaricus_campestris"
+  ]
+ },
+ {
+  "latin": "Megacollybia platyphylla",
+  "accepted_name": "Megacollybia platyphylla",
+  "hosts": [],
+  "substrate": "wood_dead",
+  "habitats": [
+   "broadleaf_forest",
+   "mixed_forest"
+  ],
+  "soil_ph": null,
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": "000001111100",
+  "peak_months": null,
+  "triggers": "",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "common",
+  "conflicts_with_catalogue": "Catalogue says broadleaf wood only; tintling gives rotten broadleaf and conifer wood, first-nature mainly hardwood, less often conifer, also buried wood. Season: first-nature Jun-Nov, tintling May-Oct.",
+  "confidence": "medium",
+  "sources": [
+   "https://www.first-nature.com/fungi/megacollybia-platyphylla.php",
+   "http://tintling.com/pilzbuch/arten/m/Megacollybia_platyphylla.html"
+  ]
+ },
+ {
+  "latin": "Armillaria mellea",
+  "accepted_name": "Armillaria mellea",
+  "hosts": [
+   {
+    "genus": "Quercus",
+    "strength": "secondary"
+   },
+   {
+    "genus": "Acer",
+    "strength": "occasional"
+   },
+   {
+    "genus": "Abies",
+    "strength": "occasional"
+   },
+   {
+    "genus": "Pinus",
+    "strength": "occasional"
+   }
+  ],
+  "substrate": "wood_living",
+  "habitats": [
+   "broadleaf_forest",
+   "mixed_forest",
+   "conifer_forest",
+   "orchard",
+   "park_garden_lawn"
+  ],
+  "soil_ph": null,
+  "soil_moisture": "mesic",
+  "elevation_m": null,
+  "months": "000000111110",
+  "peak_months": null,
+  "triggers": "Prefers moist soil and lower soil temperatures (en.wikipedia); fruiting does not occur every year.",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "common",
+  "conflicts_with_catalogue": "Catalogue lists Fagus and broadleaf only; sources describe a very broad host range incl. conifers (Abies, Pinus) and fruit trees; Fagus not named. Season Jul-Nov in first-nature (catalogue Aug-Nov).",
+  "confidence": "medium",
+  "sources": [
+   "https://en.wikipedia.org/wiki/Armillaria_mellea",
+   "https://www.first-nature.com/fungi/armillaria-mellea.php"
+  ]
+ },
+ {
+  "latin": "Paxillus involutus",
+  "accepted_name": "Paxillus involutus",
+  "hosts": [
+   {
+    "genus": "Betula",
+    "strength": "primary"
+   },
+   {
+    "genus": "Pinus",
+    "strength": "secondary"
+   },
+   {
+    "genus": "Quercus",
+    "strength": "secondary"
+   },
+   {
+    "genus": "Larix",
+    "strength": "occasional"
+   },
+   {
+    "genus": "Corylus",
+    "strength": "occasional"
+   },
+   {
+    "genus": "Populus",
+    "strength": "occasional"
+   }
+  ],
+  "substrate": "soil",
+  "habitats": [
+   "broadleaf_forest",
+   "conifer_forest",
+   "mixed_forest",
+   "park_garden_lawn"
+  ],
+  "soil_ph": "acid",
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": "000000111110",
+  "peak_months": null,
+  "triggers": "",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "common",
+  "conflicts_with_catalogue": "Picea not named as host in any source fetched (non-selective, many broadleaf and conifer species). Also occurs on lawns/old meadows, not only forest. Season: first-nature Jul-Oct, tintling May-Dec.",
+  "confidence": "medium",
+  "sources": [
+   "https://en.wikipedia.org/wiki/Paxillus_involutus",
+   "https://www.first-nature.com/fungi/paxillus-involutus.php",
+   "http://tintling.com/pilzbuch/arten/p/Paxillus_involutus.html"
+  ]
+ },
+ {
+  "latin": "Amanita citrina",
+  "accepted_name": "Amanita citrina",
+  "hosts": [
+   {
+    "genus": "Fagus",
+    "strength": "primary"
+   }
+  ],
+  "substrate": "soil",
+  "habitats": [
+   "broadleaf_forest",
+   "conifer_forest",
+   "mixed_forest"
+  ],
+  "soil_ph": "indifferent",
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": "000000111110",
+  "peak_months": null,
+  "triggers": "",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "common",
+  "conflicts_with_catalogue": "Sources disagree on soil: tintling acidic sandy, first-nature neutral/alkaline and rarer on strongly acid soil, en.wikipedia silicate. Catalogue says acid. Only Fagus named for Europe; other hosts generic (hardwood, softwood).",
+  "confidence": "medium",
+  "sources": [
+   "https://www.first-nature.com/fungi/amanita-citrina.php",
+   "http://tintling.com/pilzbuch/arten/a/Amanita_citrina.html",
+   "https://en.wikipedia.org/wiki/Amanita_citrina"
+  ]
+ },
+ {
+  "latin": "Agaricus sylvaticus",
+  "accepted_name": "Agaricus sylvaticus",
+  "hosts": [],
+  "substrate": "litter",
+  "habitats": [
+   "conifer_forest",
+   "mixed_forest",
+   "park_garden_lawn"
+  ],
+  "soil_ph": null,
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": "000000011110",
+  "peak_months": null,
+  "triggers": "",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "occasional",
+  "conflicts_with_catalogue": "Catalogue says conifer woods only; first-nature gives mixed woodland and under trees in parks. Season Aug-Nov (first-nature, en.wikipedia Sep-Nov), catalogue Jul-Oct.",
+  "confidence": "medium",
+  "sources": [
+   "https://en.wikipedia.org/wiki/Agaricus_sylvaticus",
+   "https://www.first-nature.com/fungi/agaricus-sylvaticus.php"
+  ]
+ },
+ {
+  "latin": "Lepiota cristata",
+  "accepted_name": "Lepiota cristata",
+  "hosts": [],
+  "substrate": "litter",
+  "habitats": [
+   "mixed_forest",
+   "park_garden_lawn"
+  ],
+  "soil_ph": null,
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": "000000111100",
+  "peak_months": null,
+  "triggers": "",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "common",
+  "conflicts_with_catalogue": "Catalogue habitat is grassland only; sources describe woodland, damp shady gardens, leaf litter, paths and disturbed ground.",
+  "confidence": "medium",
+  "sources": [
+   "https://en.wikipedia.org/wiki/Lepiota_cristata",
+   "https://www.first-nature.com/fungi/lepiota-cristata.php"
+  ]
+ },
+ {
+  "latin": "Boletus pinophilus",
+  "accepted_name": "Boletus pinophilus",
+  "hosts": [
+   {
+    "genus": "Pinus",
+    "strength": "primary"
+   },
+   {
+    "genus": "Picea",
+    "strength": "secondary"
+   },
+   {
+    "genus": "Abies",
+    "strength": "occasional"
+   },
+   {
+    "genus": "Fagus",
+    "strength": "occasional"
+   },
+   {
+    "genus": "Quercus",
+    "strength": "occasional"
+   },
+   {
+    "genus": "Castanea",
+    "strength": "occasional"
+   }
+  ],
+  "substrate": "soil",
+  "habitats": [
+   "conifer_forest",
+   "mixed_forest",
+   "plantation"
+  ],
+  "soil_ph": "acid",
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": "000000111100",
+  "peak_months": null,
+  "triggers": "",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "occasional",
+  "conflicts_with_catalogue": "Tintling gives Aug-Oct, others summer-autumn; catalogue Jun start not supported. Sources stress it is much rarer than other porcini (en.wikipedia: rarest porcini-like in Europe). Picea is minor host in sources, pine main.",
+  "confidence": "medium",
+  "sources": [
+   "https://en.wikipedia.org/wiki/Boletus_pinophilus",
+   "https://www.first-nature.com/fungi/boletus-pinophilus.php",
+   "http://tintling.com/pilzbuch/arten/b/Boletus_pinophilus.html"
+  ]
+ },
+ {
+  "latin": "Tylopilus felleus",
+  "accepted_name": "Tylopilus felleus",
+  "hosts": [
+   {
+    "genus": "Fagus",
+    "strength": "primary"
+   },
+   {
+    "genus": "Quercus",
+    "strength": "primary"
+   }
+  ],
+  "substrate": "soil",
+  "habitats": [
+   "broadleaf_forest",
+   "mixed_forest",
+   "conifer_forest"
+  ],
+  "soil_ph": "acid",
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": "000000111100",
+  "peak_months": null,
+  "triggers": "Numbers of fruitbodies vary year to year in proportion to rainfall (en.wikipedia); no thresholds given.",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "occasional",
+  "conflicts_with_catalogue": "Sources name beech and oak as partners, conifers only very occasionally (no Picea/Pinus named); catalogue lists Picea, Pinus first. Season given Jun-Nov (en.wikipedia) and Aug-Nov (first-nature).",
+  "confidence": "medium",
+  "sources": [
+   "https://en.wikipedia.org/wiki/Tylopilus_felleus",
+   "https://www.first-nature.com/fungi/tylopilus-felleus.php"
+  ]
+ },
+ {
+  "latin": "Leccinum variicolor",
+  "accepted_name": "Leccinum variicolor",
+  "hosts": [
+   {
+    "genus": "Betula",
+    "strength": "primary"
+   }
+  ],
+  "substrate": "soil",
+  "habitats": [
+   "broadleaf_forest",
+   "bog_wet"
+  ],
+  "soil_ph": null,
+  "soil_moisture": "wet",
+  "elevation_m": null,
+  "months": "000000111110",
+  "peak_months": null,
+  "triggers": "",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "frequent",
+  "conflicts_with_catalogue": "Only one usable source (first-nature, Britain: Jul-Nov, catalogue Jul-Oct); en.wikipedia page had no ecology.",
+  "confidence": "low",
+  "sources": [
+   "https://www.first-nature.com/fungi/leccinum-variicolor.php"
+  ]
+ },
+ {
+  "latin": "Chroogomphus rutilus",
+  "accepted_name": "Chroogomphus rutilus",
+  "hosts": [
+   {
+    "genus": "Pinus",
+    "strength": "primary"
+   },
+   {
+    "genus": "Picea",
+    "strength": "occasional"
+   }
+  ],
+  "substrate": "soil",
+  "habitats": [
+   "conifer_forest"
+  ],
+  "soil_ph": "indifferent",
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": "000000011110",
+  "peak_months": null,
+  "triggers": "",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "frequent",
+  "conflicts_with_catalogue": "Tintling gives Jul-Oct, first-nature Aug-Nov. Tintling says it occurs up to middle mountain elevations (no figures); catalogue 300-1500 m unverified.",
+  "confidence": "medium",
+  "sources": [
+   "https://www.first-nature.com/fungi/chroogomphus-rutilus.php",
+   "http://tintling.com/pilzbuch/arten/c/Chroogomphus_rutilus.html",
+   "https://en.wikipedia.org/wiki/Chroogomphus_rutilus"
+  ]
+ },
+ {
+  "latin": "Craterellus undulatus",
+  "accepted_name": "Pseudocraterellus undulatus",
+  "hosts": [
+   {
+    "genus": "Fagus",
+    "strength": "primary"
+   },
+   {
+    "genus": "Quercus",
+    "strength": "occasional"
+   }
+  ],
+  "substrate": "soil",
+  "habitats": [
+   "broadleaf_forest"
+  ],
+  "soil_ph": "calcareous",
+  "soil_moisture": "mesic",
+  "elevation_m": null,
+  "months": "000000111110",
+  "peak_months": null,
+  "triggers": "",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "occasional",
+  "conflicts_with_catalogue": "Accepted name is Pseudocraterellus undulatus (Craterellus undulatus is a synonym per 123pilzsuche). Fungiversum: moist beech forest on basic, nutrient-poor soils; Red List V in Germany. Season Jul-Nov vs catalogue Jul-Oct.",
+  "confidence": "low",
+  "sources": [
+   "https://fungiversum.de/pseudocraterellus-undulatus/",
+   "https://123pilzsuche.de/daten/details/KrausenKantarelle.htm"
+  ]
+ },
+ {
+  "latin": "Amanita phalloides",
+  "accepted_name": "Amanita phalloides",
+  "hosts": [
+   {
+    "genus": "Quercus",
+    "strength": "primary"
+   },
+   {
+    "genus": "Fagus",
+    "strength": "secondary"
+   },
+   {
+    "genus": "Castanea",
+    "strength": "secondary"
+   },
+   {
+    "genus": "Carpinus",
+    "strength": "secondary"
+   },
+   {
+    "genus": "Corylus",
+    "strength": "occasional"
+   },
+   {
+    "genus": "Betula",
+    "strength": "occasional"
+   },
+   {
+    "genus": "Pinus",
+    "strength": "occasional"
+   },
+   {
+    "genus": "Picea",
+    "strength": "occasional"
+   }
+  ],
+  "substrate": "soil",
+  "habitats": [
+   "broadleaf_forest",
+   "mixed_forest"
+  ],
+  "soil_ph": null,
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": "000000111110",
+  "peak_months": null,
+  "triggers": "",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "frequent",
+  "conflicts_with_catalogue": "First-nature states it occurs at low altitudes; catalogue upper limit 1000 m is unconfirmed. Season Jul-Nov (first-nature) vs catalogue Jul-Oct. Oak is the main partner; Carpinus/Fagus/Castanea listed among many in en.wikipedia.",
+  "confidence": "medium",
+  "sources": [
+   "https://en.wikipedia.org/wiki/Amanita_phalloides",
+   "https://www.first-nature.com/fungi/amanita-phalloides.php"
+  ]
+ },
+ {
+  "latin": "Agaricus xanthodermus",
+  "accepted_name": "Agaricus xanthodermus",
+  "hosts": [],
+  "substrate": "soil",
+  "habitats": [
+   "forest_edge_clearing",
+   "park_garden_lawn",
+   "urban_ruderal"
+  ],
+  "soil_ph": null,
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": "000001111100",
+  "peak_months": null,
+  "triggers": "",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "common",
+  "conflicts_with_catalogue": "First-nature gives Jun-Oct (catalogue Jul-Oct); en.wikipedia says autumn. Sources stress hedgerows, parks, gardens and disturbed soil more than woods.",
+  "confidence": "medium",
+  "sources": [
+   "https://en.wikipedia.org/wiki/Agaricus_xanthodermus",
+   "https://www.first-nature.com/fungi/agaricus-xanthodermus.php"
+  ]
+ },
+ {
+  "latin": "Russula xerampelina",
+  "accepted_name": "Russula xerampelina",
+  "hosts": [
+   {
+    "genus": "Pinus",
+    "strength": "primary"
+   },
+   {
+    "genus": "Larix",
+    "strength": "secondary"
+   },
+   {
+    "genus": "Fagus",
+    "strength": "occasional"
+   },
+   {
+    "genus": "Quercus",
+    "strength": "occasional"
+   }
+  ],
+  "substrate": "soil",
+  "habitats": [
+   "conifer_forest",
+   "mixed_forest",
+   "broadleaf_forest"
+  ],
+  "soil_ph": null,
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": "000000011100",
+  "peak_months": null,
+  "triggers": "",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "common",
+  "conflicts_with_catalogue": "Picea not named by either source; they give pine/conifers (also larch, Douglas fir in N. America) with occasional beech/oak. Season Aug-Oct (first-nature) vs catalogue Jul-Oct.",
+  "confidence": "medium",
+  "sources": [
+   "https://en.wikipedia.org/wiki/Russula_xerampelina",
+   "https://www.first-nature.com/fungi/russula-xerampelina.php"
+  ]
+ },
+ {
+  "latin": "Lactifluus vellereus",
+  "accepted_name": "Lactifluus vellereus",
+  "hosts": [
+   {
+    "genus": "Fagus",
+    "strength": "primary"
+   },
+   {
+    "genus": "Quercus",
+    "strength": "secondary"
+   },
+   {
+    "genus": "Betula",
+    "strength": "occasional"
+   }
+  ],
+  "substrate": "soil",
+  "habitats": [
+   "broadleaf_forest",
+   "mixed_forest"
+  ],
+  "soil_ph": null,
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": "000000011110",
+  "peak_months": null,
+  "triggers": "",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "common",
+  "conflicts_with_catalogue": "Season: first-nature Aug-Oct, en.wikipedia late summer to early winter; catalogue Jul-Nov starts earlier than sources.",
+  "confidence": "medium",
+  "sources": [
+   "https://en.wikipedia.org/wiki/Lactifluus_vellereus",
+   "https://www.first-nature.com/fungi/lactarius-vellereus.php"
+  ]
+ },
+ {
+  "latin": "Tricholoma columbetta",
+  "accepted_name": "Tricholoma columbetta",
+  "hosts": [
+   {
+    "genus": "Quercus",
+    "strength": "primary"
+   }
+  ],
+  "substrate": "soil",
+  "habitats": [
+   "broadleaf_forest",
+   "park_garden_lawn"
+  ],
+  "soil_ph": "acid",
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": "000000011110",
+  "peak_months": null,
+  "triggers": "",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "frequent",
+  "conflicts_with_catalogue": "En.wikipedia names only oak (sandy, mildly acidic soil); first-nature says broadleaf trees, possibly conifers. Fagus and Betula not confirmed. Season Aug-Nov vs catalogue Aug-Oct.",
+  "confidence": "low",
+  "sources": [
+   "https://en.wikipedia.org/wiki/Tricholoma_columbetta",
+   "https://www.first-nature.com/fungi/tricholoma-columbetta.php"
+  ]
+ },
+ {
+  "latin": "Lepista personata",
+  "accepted_name": "Lepista personata",
+  "hosts": [],
+  "substrate": "soil",
+  "habitats": [
+   "grassland_pasture",
+   "forest_edge_clearing",
+   "park_garden_lawn"
+  ],
+  "soil_ph": "calcareous",
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": "000000001110",
+  "peak_months": null,
+  "triggers": "",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "frequent",
+  "conflicts_with_catalogue": "First-nature files this under Lepista saeva (synonymy of names not verified further). It also fruits at clearings/forest edges; calcareous soil per first-nature only. Can run into Dec-Jan in mild winters.",
+  "confidence": "low",
+  "sources": [
+   "https://en.wikipedia.org/wiki/Lepista_personata",
+   "https://www.first-nature.com/fungi/lepista-saeva.php"
+  ]
+ },
+ {
+  "latin": "Pleurocybella porrigens",
+  "accepted_name": "Pleurocybella porrigens",
+  "hosts": [],
+  "substrate": "wood_dead",
+  "habitats": [
+   "conifer_forest"
+  ],
+  "soil_ph": null,
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": "000000011110",
+  "peak_months": null,
+  "triggers": "",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "unknown",
+  "conflicts_with_catalogue": "Season Aug-Nov in both sources (catalogue Aug-Oct). Substrate described as well-rotted, moss-covered conifer wood on damp shaded ground; hemlock (Tsuga) is the named host in N. America only. First-nature calls it uncommon in Britain.",
+  "confidence": "medium",
+  "sources": [
+   "https://en.wikipedia.org/wiki/Pleurocybella_porrigens",
+   "https://www.first-nature.com/fungi/pleurocybella-porrigens.php"
+  ]
+ },
+ {
+  "latin": "Hygrophorus russula",
+  "accepted_name": "Hygrophorus russula",
+  "hosts": [
+   {
+    "genus": "Quercus",
+    "strength": "primary"
+   },
+   {
+    "genus": "Fagus",
+    "strength": "secondary"
+   }
+  ],
+  "substrate": "soil",
+  "habitats": [
+   "broadleaf_forest"
+  ],
+  "soil_ph": null,
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": null,
+  "peak_months": null,
+  "triggers": "Can be abundant some years, especially after rainfall (en.wikipedia, N. America).",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "rare",
+  "conflicts_with_catalogue": "No source fetched states calcareous soil. 123pilzsuche: very rare, Red List 3 in Germany, vulnerable in Switzerland, and gives beech as well as oak. Season only 'summer to autumn' (Europe); Aug-Oct in E. N. America.",
+  "confidence": "low",
+  "sources": [
+   "https://www.123pilzsuche.de/daten/details/Geflecktblattpurpurschneckling.htm",
+   "https://en.wikipedia.org/wiki/Hygrophorus_russula"
+  ]
+ },
+ {
+  "latin": "Cortinarius praestans",
+  "accepted_name": "Cortinarius praestans",
+  "hosts": [],
+  "substrate": "soil",
+  "habitats": [
+   "broadleaf_forest",
+   "mixed_forest"
+  ],
+  "soil_ph": "calcareous",
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": "000000011110",
+  "peak_months": null,
+  "triggers": "",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "rare",
+  "conflicts_with_catalogue": "Hosts given only as broadleaf and less often conifer trees; Fagus/Quercus not named. Abundance sources disagree: en.wikipedia common in W. Europe, first-nature one of the rarest large webcaps (patchy in Europe, protected in some countries). Season Aug-Nov vs catalogue Aug-Oct.",
+  "confidence": "low",
+  "sources": [
+   "https://www.first-nature.com/fungi/cortinarius-praestans.php",
+   "https://en.wikipedia.org/wiki/Cortinarius_praestans"
+  ]
+ },
+ {
+  "latin": "Inocybe geophylla",
+  "accepted_name": "Inocybe geophylla",
+  "hosts": [],
+  "substrate": "soil",
+  "habitats": [
+   "broadleaf_forest",
+   "conifer_forest",
+   "mixed_forest",
+   "forest_edge_clearing"
+  ],
+  "soil_ph": null,
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": null,
+  "peak_months": null,
+  "triggers": "",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "common",
+  "conflicts_with_catalogue": "Sources give only 'summer and autumn' (no month range); fruits by paths, roadsides and disturbed bare soil as well as in woods. Hosts generic broadleaf and conifer, no genera named.",
+  "confidence": "medium",
+  "sources": [
+   "https://en.wikipedia.org/wiki/Inocybe_geophylla",
+   "https://www.first-nature.com/fungi/inocybe-geophylla.php"
+  ]
+ },
+ {
+  "latin": "Morchella vulgaris",
+  "accepted_name": "Morchella vulgaris",
+  "hosts": [
+   {
+    "genus": "Fraxinus",
+    "strength": "secondary"
+   }
+  ],
+  "substrate": "soil",
+  "habitats": [
+   "riparian_floodplain",
+   "broadleaf_forest",
+   "orchard",
+   "park_garden_lawn",
+   "forest_edge_clearing"
+  ],
+  "soil_ph": "calcareous",
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": "000110000000",
+  "peak_months": null,
+  "triggers": "Central European fruiting depends on weather, locally Feb-Jul (de.wikipedia); no thresholds given.",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "occasional",
+  "conflicts_with_catalogue": "Taxonomy unsettled: en.wikipedia treats M. vulgaris as distinct, de.wikipedia treats it as a variety within M. esculenta, and much ecology is under M. esculenta. De.wikipedia: saprobic, mycorrhiza denied, absent at higher mountain elevations, locally rare in Central Europe.",
+  "confidence": "low",
+  "sources": [
+   "https://de.wikipedia.org/wiki/Speise-Morchel",
+   "https://www.pilzbuch-pilzwelten.de/speisemorchel/morchella-esculenta.html",
+   "https://www.first-nature.com/fungi/morchella-esculenta.php",
+   "https://en.wikipedia.org/wiki/Morchella_vulgaris"
+  ]
+ },
+ {
+  "latin": "Gyromitra gigas",
+  "accepted_name": "Gyromitra gigas",
+  "hosts": [
+   {
+    "genus": "Populus",
+    "strength": "secondary"
+   }
+  ],
+  "substrate": "wood_dead",
+  "habitats": [
+   "riparian_floodplain",
+   "broadleaf_forest",
+   "forest_edge_clearing",
+   "park_garden_lawn"
+  ],
+  "soil_ph": null,
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": "001110000000",
+  "peak_months": null,
+  "triggers": "",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "rare",
+  "conflicts_with_catalogue": "Catalogue says montane conifer forest near snow. 123pilzsuche: floodplain forest (poplar), gardens, decayed stumps, bark mulch, Mar-May; mycopedia.ch: rotten stumps in floodplain/deciduous forest, prefers higher elevations, rare. No conifer or snowmelt link found.",
+  "confidence": "low",
+  "sources": [
+   "https://123pilzsuche.de/daten/details/Riesenlorchel.htm",
+   "https://www.mycopedia.ch/pilze/6733.htm",
+   "https://en.wikipedia.org/wiki/Discina_gigas"
+  ]
+ },
+ {
+  "latin": "Grifola frondosa",
+  "accepted_name": "Grifola frondosa",
+  "hosts": [
+   {
+    "genus": "Quercus",
+    "strength": "primary"
+   },
+   {
+    "genus": "Acer",
+    "strength": "occasional"
+   }
+  ],
+  "substrate": "wood_living",
+  "habitats": [
+   "broadleaf_forest"
+  ],
+  "soil_ph": null,
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": "000000011100",
+  "peak_months": null,
+  "triggers": "Perennial; often fruits at the same spot year after year (en.wikipedia).",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "occasional",
+  "conflicts_with_catalogue": "En.wikipedia lists old oaks or maples at the tree base (Acer not in catalogue). First-nature: uncommon and localised in Britain, attacks living trees.",
+  "confidence": "medium",
+  "sources": [
+   "https://en.wikipedia.org/wiki/Grifola_frondosa",
+   "https://www.first-nature.com/fungi/grifola-frondosa.php"
+  ]
+ },
+ {
+  "latin": "Clavulina coralloides",
+  "accepted_name": "Clavulina coralloides",
+  "hosts": [],
+  "substrate": "soil",
+  "habitats": [
+   "broadleaf_forest",
+   "conifer_forest",
+   "mixed_forest"
+  ],
+  "soil_ph": null,
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": "000000011110",
+  "peak_months": null,
+  "triggers": "",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "common",
+  "conflicts_with_catalogue": "Season: en.wikipedia Jun-Nov (Europe), first-nature Aug-Dec; used the overlap. En.wikipedia notes C. cristata is the name more commonly used. Often beside footpaths. Mycorrhizal status only 'considered' (first-nature).",
+  "confidence": "medium",
+  "sources": [
+   "https://en.wikipedia.org/wiki/Clavulina_coralloides",
+   "https://www.first-nature.com/fungi/clavulina-coralloides.php"
+  ]
+ },
+ {
+  "latin": "Leccinum duriusculum",
+  "accepted_name": "Leccinum duriusculum",
+  "hosts": [
+   {
+    "genus": "Populus",
+    "strength": "primary"
+   }
+  ],
+  "substrate": "soil",
+  "habitats": [
+   "park_garden_lawn",
+   "urban_ruderal"
+  ],
+  "soil_ph": null,
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": "000001111100",
+  "peak_months": null,
+  "triggers": "",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "rare",
+  "conflicts_with_catalogue": "Single source (pilzbuch-pilzwelten, Germany): poplar only, park-like places, cemeteries, roadsides; rare to very rare, Red List 3. Catalogue forest habitat and species Populus alba/tremula not specified there.",
+  "confidence": "low",
+  "sources": [
+   "https://www.pilzbuch-pilzwelten.de/pappelraufuss/leccinum-duriusculum.html"
+  ]
+ },
+ {
+  "latin": "Tricholoma ustale",
+  "accepted_name": "Tricholoma ustale",
+  "hosts": [
+   {
+    "genus": "Fagus",
+    "strength": "primary"
+   },
+   {
+    "genus": "Quercus",
+    "strength": "secondary"
+   },
+   {
+    "genus": "Betula",
+    "strength": "secondary"
+   },
+   {
+    "genus": "Tilia",
+    "strength": "occasional"
+   },
+   {
+    "genus": "Crataegus",
+    "strength": "occasional"
+   }
+  ],
+  "substrate": "soil",
+  "habitats": [
+   "broadleaf_forest"
+  ],
+  "soil_ph": null,
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": null,
+  "peak_months": null,
+  "triggers": "",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "frequent",
+  "conflicts_with_catalogue": "Catalogue lists Fagus only; first-nature adds oak, birch, occasionally lime and hawthorn. First-nature says commonly on alkaline soils (beech woods). Season only 'late summer and autumn' (no months).",
+  "confidence": "medium",
+  "sources": [
+   "https://www.first-nature.com/fungi/tricholoma-ustale.php",
+   "https://en.wikipedia.org/wiki/Tricholoma_ustale"
+  ]
+ },
+ {
+  "latin": "Agrocybe cylindracea",
+  "accepted_name": "Cyclocybe aegerita",
+  "hosts": [
+   {
+    "genus": "Populus",
+    "strength": "primary"
+   },
+   {
+    "genus": "Salix",
+    "strength": "secondary"
+   }
+  ],
+  "substrate": "wood_dead",
+  "habitats": [
+   "broadleaf_forest"
+  ],
+  "soil_ph": null,
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": null,
+  "peak_months": null,
+  "triggers": "",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "unknown",
+  "conflicts_with_catalogue": "Accepted name Cyclocybe aegerita (en.wikipedia, mycopedia.ch). Mycopedia: warm-loving, mainly in southern countries. Sources give only 'summer and autumn' (catalogue Apr-Nov unverified); poplar stumps and other broadleaf wood.",
+  "confidence": "low",
+  "sources": [
+   "https://en.wikipedia.org/wiki/Agrocybe_cylindracea",
+   "https://www.mycopedia.ch/pilze/8518.htm",
+   "https://pilzbestimmer.de/Detailed/11301.html"
+  ]
+ },
+ {
+  "latin": "Panaeolina foenisecii",
+  "accepted_name": "Panaeolus foenisecii",
+  "hosts": [],
+  "substrate": "soil",
+  "habitats": [
+   "park_garden_lawn",
+   "grassland_pasture"
+  ],
+  "soil_ph": null,
+  "soil_moisture": null,
+  "elevation_m": null,
+  "months": "000111111111",
+  "peak_months": null,
+  "triggers": "Thrives on regularly mown lawns; avoids lawns treated with artificial fertiliser or selective herbicides (first-nature).",
+  "temp_c": null,
+  "rain_lag_days": null,
+  "abundance_ro": "common",
+  "conflicts_with_catalogue": "Accepted name Panaeolus foenisecii (en.wikipedia). First-nature gives Apr-Dec (British), a broader season than catalogue May-Oct. Habitat is mown lawns and verges.",
+  "confidence": "medium",
+  "sources": [
+   "https://www.first-nature.com/fungi/panaeolina-foenisecii.php",
+   "https://en.wikipedia.org/wiki/Panaeolina_foenisecii"
+  ]
+ }
+]
