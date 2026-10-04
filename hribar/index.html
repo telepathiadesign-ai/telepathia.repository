@@ -528,8 +528,8 @@ const RAD = Math.PI / 180;
 let D;
 try {
   await window.__libs;
-  const names = ['countries','counties','places','rivers','lakes','roads','mask','glyphs','species','catalog','dem','osm','roads_ro','water_ro','weather','terrain','leaf','soil','fitted','traits','recent_finds','reliability'];
-  const optional = ['osm', 'roads_ro', 'water_ro', 'weather', 'terrain', 'leaf', 'soil', 'fitted', 'traits', 'recent_finds', 'reliability'];
+  const names = ['countries','counties','places','rivers','lakes','roads','mask','glyphs','species','catalog','dem','osm','roads_ro','water_ro','weather','terrain','leaf','soil','fitted','traits','recent_finds','reliability','landcover','lc_prefs'];
+  const optional = ['osm', 'roads_ro', 'water_ro', 'weather', 'terrain', 'leaf', 'soil', 'fitted', 'traits', 'recent_finds', 'reliability', 'landcover', 'lc_prefs'];
   const got = await Promise.all(names.map(n => fetch('data/' + n + '.json').then(r => { if (!r.ok) throw new Error(n); return r.json(); }).catch(e => { if (optional.includes(n)) return null; throw e; })));
   D = {}; names.forEach((n, k) => D[n] = got[k]);
 } catch (e) {
@@ -595,6 +595,10 @@ const WXAGE = WX && WX.issued ? (Date.now() - Date.parse(WX.issued)) / 3600000 :
 // ---------- terrain-derived wetness (distance to the stream/river/lake network → moisture-retention proxy)
 let WETG = null;
 if (D.terrain){ try { WETG = await decodeGrid(D.terrain.wet); } catch (e) { WETG = null; } }
+// ---------- land cover shares (ESA WorldCover 2021, 10 m -> % per 0.01° cell): tree, grass (+shrub), crop, built, water; -1 = no data
+const LC = {};
+if (D.landcover){ try { for (const k of ['tree', 'grass', 'crop', 'built', 'water']) LC[k] = await decodeGrid(D.landcover[k]); } catch (e) {} }
+const lcAt = (k, lon, lat) => { if (!LC[k]) return null; const v = sampleG(LC[k], lon, lat); return v === null || v < 0 ? null : v / 100; };
 // ---------- mapped forest type (OSM leaf_type, Romania): 1 broadleaf, 2 conifer, 3 mixed, 0 unknown
 let LEAFG = null;
 if (D.leaf){ try { LEAFG = await decodeGrid(D.leaf.leaf); } catch (e) { LEAFG = null; } }
@@ -762,12 +766,15 @@ const K = 1.3;
 function factors(sp, P, i, habitatOnly){
   const f = {};
   f.range = rangeF(P);
-  f.cover = sp.grass ? 0.25 + 0.75 * (1 - P.f) : sp.edge ? Math.max(P.f, 0.25 + 0.75 * (1 - P.f)) : sp.wood ? 0.5 + 0.5 * P.f : P.f; // grassland species score on open land; wood decayers also follow park, riverside and orchard trees
+  f.cover = sp.grass ? 0.25 + 0.75 * (1 - P.f) : sp.edge ? Math.max(P.f, 0.25 + 0.75 * (1 - P.f)) : sp.wood ? 0.5 + 0.5 * P.f : P.f; // backtest: using measured grass/built shares here made grassland and town species worse (hab×season −0.012); learned per-species preferences are next // grassland species score on open land; wood decayers also follow park, riverside and orchard trees
   f.host = hostOf(sp, P);
   f.alt = Math.max(0.4, gauss(P.e, sp.elev[0], sp.elev[1] * 1.6)); // backtest: a peak at mid-range beats a flat range (AUC 0.592 vs 0.583)
   f.aspect = 1 + 0.12 * Math.max(-1, Math.min(1, (0.85 - P.heat) / 0.45));
   f.slope = P.slope > 35 ? Math.max(0.3, 1 - (P.slope - 35) / 20) : 1;
   f.wet = P.wet === null ? 1 : 0.9 + 0.2 * P.wet;
+  // land-cover preference learned from finds (eval/fit_landcover.py; held-out 2026 + spatial blocks: habitat AUC +0.054, CI +0.034..+0.075)
+  f.lc = 1; { const c = D.lc_prefs && D.lc_prefs.species[sp.latin]; if (c && P.lcOk){ const e = P.e / 1000, x = [P.f, P.grass || 0, P.crop || 0, P.built || 0, P.water || 0, e, e * e];
+    let z = c.b; for (let k = 0; k < 7; k++) z += c.w[k] * x[k]; f.lc = 0.3 + 0.7 * Math.min(1, (1 / (1 + Math.exp(-z))) / c.mx); } }
   f.ph = (P.ph === null || sp.phOpt == null) ? 1 : 0.88 + 0.2 * Math.exp(-((P.ph - sp.phOpt) ** 2) / (2 * 1.3 * 1.3));
   f.frost = 1; f.snow = 1; f.moist = 1;
   if (!habitatOnly && !wxAvail(P, i)){ f.nowx = true; f.season = seasonF(sp, P, i); f.T = null; f.temp = 0; f.rainmm = null; f.rain = 0; f.water = 0; f.raw = 0; f.v = 0; return f; }
@@ -788,7 +795,7 @@ function factors(sp, P, i, habitatOnly){
     } else f.water = 0.15 + 0.85 * f.rain;
   }
   if (!habitatOnly){ const rn = recentNear(sp, P, i); f.recentN = rn.n; f.recentKm = rn.km; f.recent = 1 + 2 * Math.min(1, rn.n / 3); } // backtest: AUC +0.014 (CI +0.010..+0.018)
-  const prod = f.range * f.cover * f.host * f.alt * f.aspect * f.slope * f.wet * f.ph * (habitatOnly ? 1 : f.season * f.temp * f.water * f.frost * f.snow * f.recent);
+  const prod = f.range * f.cover * f.host * f.alt * f.aspect * f.slope * f.wet * f.ph * f.lc * (habitatOnly ? 1 : f.season * f.temp * f.water * f.frost * f.snow * f.recent);
   f.raw = prod * (habitatOnly ? 1.3 : K); f.v = clamp01(f.raw);
   return f;
 }
@@ -801,8 +808,9 @@ function makeP(lon, lat){
   const heat = heatLoad(lat, t.slope, t.aspect);
   const wet = WETG ? Math.max(0, Math.min(1, (sampleG(WETG, lon, lat) ?? 500) / 1000)) : null;
   const leaf = leafAt(lon, lat);
-  let cover = forestCov(lon, lat, t.e, n); if (leaf > 0) cover = Math.max(cover, 0.8); // a leaf-tagged polygon is forest
-  return { lon, lat, e: t.e, slope: t.slope, aspect: t.aspect, north, heat, wet, leaf, ph: phAt(lon, lat), n, f: cover, land: isLand(lon, lat), wx: inWX(lon, lat), rc: {} };
+  const tree = lcAt('tree', lon, lat), grass = lcAt('grass', lon, lat), built = lcAt('built', lon, lat), crop = lcAt('crop', lon, lat), water = lcAt('water', lon, lat);
+  let cover = tree !== null ? tree : forestCov(lon, lat, t.e, n); if (leaf > 0) cover = Math.max(cover, 0.8); // measured tree cover where available; a leaf-tagged polygon is forest
+  return { lon, lat, e: t.e, slope: t.slope, aspect: t.aspect, north, heat, wet, leaf, ph: phAt(lon, lat), n, f: cover, grass, built, crop, water, lcOk: tree !== null, land: isLand(lon, lat), wx: inWX(lon, lat), rc: {} };
 }
 
 // ---------- geography helpers
@@ -1518,12 +1526,13 @@ function detail(h, keep){
   const ei = edInfo(sp), inR = F.range > 0, d = dateOf(i);
   const warn = !inR ? 'Outside the latitude range the catalog covers (33–71°N).' : sp.ed === 'deadly' ? 'Deadly species.' : sp.ed === 'toxic' ? 'Poisonous species.' : sp.psy ? 'Psychoactive species.' : '';
   let rows = fRow('Latitude range', P.lat.toFixed(2) + '°', 'catalog 33–71°N', F.range)
-    + fRow('Forest cover', Math.round(P.f * 100) + '%', forestFrac(P.lon, P.lat) !== null ? 'OSM woodland · ±300 m window' : 'heuristic · no land-cover data', F.cover)
+    + fRow('Forest cover', Math.round(P.f * 100) + '%', P.lcOk ? 'ESA WorldCover 2021 · 10 m tree cover' : forestFrac(P.lon, P.lat) !== null ? 'OSM woodland · ±300 m window' : 'heuristic · no land-cover data', F.cover)
     + fRow('Host affinity', ({ 1: 'broadleaf', 2: 'conifer', 3: 'mixed' }[P.leaf]) || (P.e > 1300 ? 'conifer band' : P.e > 800 ? 'mixed band' : P.e > 400 ? 'beech band' : 'oak band'), P.leaf ? 'catalog hosts × mapped forest type (OSM)' : 'catalog hosts × elevation band', F.host)
     + fRow('Elevation', Math.round(P.e) + ' m', 'DEM · optimum ' + Math.round(sp.elev[0]) + ' ± ' + Math.round(sp.elev[1] * 1.6) + ' m', F.alt)
     + fRow('Aspect', aspName(P.aspect) + ' · ' + P.slope.toFixed(1) + '°', 'DEM · heat load, cool slopes favoured', F.aspect)
     + fRow('Slope', P.slope.toFixed(1) + '°', 'DEM · penalty above 35°', F.slope)
     + (P.wet !== null ? fRow('Topographic wetness', Math.round(P.wet * 100) + '%', 'distance to water · valley-bottom moisture', F.wet) : '')
+    + (F.lc !== 1 ? fRow('Land cover fit', Math.round(P.f * 100) + '% trees · ' + Math.round((P.grass || 0) * 100) + '% grass · ' + Math.round((P.built || 0) * 100) + '% built', 'ESA WorldCover · preference learned from ' + D.lc_prefs.species[sp.latin].n + ' finds', F.lc) : '')
     + (P.ph !== null && sp.phOpt != null ? fRow('Soil pH', P.ph.toFixed(1), 'SoilGrids · ' + (sp.phOpt < 6 ? 'prefers acidic' : 'prefers calcareous') + ' (opt. ' + sp.phOpt.toFixed(1) + ')', F.ph) : '');
   const wxsrc = WX ? 'Open-Meteo' : null;
   if (!hab && F.nowx) rows += fRow('Weather', 'no data', P.wx ? 'date outside the weather file · refresh pending' : 'outside the Open-Meteo grid (Romania only) · try Habitat view', 0);

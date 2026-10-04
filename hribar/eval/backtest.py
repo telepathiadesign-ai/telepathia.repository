@@ -114,6 +114,18 @@ def weather_f(sp, node, date, elev, water='old'):
     return temp * w * frost * snow * extra, dict(T=T, temp=temp, water=w, rainmm=rainmm, theta=th, extra=extra)
 
 
+LCP = json.load(open(os.environ['LC_PREFS'])) if os.environ.get('LC_PREFS') else None
+_LCG = None
+
+
+def LC_FEAT(r):
+    global _LCG
+    from fit_landcover import lc_grids, features
+    if _LCG is None:
+        _LCG = lc_grids()
+    return features(_LCG, r['lon'], r['lat'], r['e'])
+
+
 RECENT_KM = float(os.environ.get('RECENT_KM', 0)); RECENT_D = int(os.environ.get('RECENT_D', 10)); RECENT_B = float(os.environ.get('RECENT_B', 1.0))
 TRIG = set(filter(None, os.environ.get('TRIG', '').split(',')))
 
@@ -219,6 +231,9 @@ def main():
         months = [int(x) for x in sp['months']] if isinstance(sp['months'], str) else sp['months']
         isp = np.array([r['nm'] == s for r in recs])
         H = hv[[r['k'] for r in recs]]
+        if LCP and s in LCP['species']:
+            c = LCP['species'][s]; Xf = np.array([LC_FEAT(r) for r in recs]); z = Xf @ np.array(c['w']) + c['b']
+            H = H * (0.3 + 0.7 * np.minimum(1, (1 / (1 + np.exp(-z))) / c['mx']))
         S = np.array([season_f(months, r['date']) for r in recs])
         res = dict(species=s, n=int(isp.sum()), auc_hab=auc(H[isp], H[~isp]), auc_season=auc(S[isp], S[~isp]), auc_hab_season=auc((H * S)[isp], (H * S)[~isp]))
         if W.ok:
