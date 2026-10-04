@@ -528,8 +528,8 @@ const RAD = Math.PI / 180;
 let D;
 try {
   await window.__libs;
-  const names = ['countries','counties','places','rivers','lakes','roads','mask','glyphs','species','catalog','dem','osm','roads_ro','water_ro','weather','terrain','leaf','soil','fitted','traits','recent_finds'];
-  const optional = ['osm', 'roads_ro', 'water_ro', 'weather', 'terrain', 'leaf', 'soil', 'fitted', 'traits', 'recent_finds'];
+  const names = ['countries','counties','places','rivers','lakes','roads','mask','glyphs','species','catalog','dem','osm','roads_ro','water_ro','weather','terrain','leaf','soil','fitted','traits','recent_finds','reliability'];
+  const optional = ['osm', 'roads_ro', 'water_ro', 'weather', 'terrain', 'leaf', 'soil', 'fitted', 'traits', 'recent_finds', 'reliability'];
   const got = await Promise.all(names.map(n => fetch('data/' + n + '.json').then(r => { if (!r.ok) throw new Error(n); return r.json(); }).catch(e => { if (optional.includes(n)) return null; throw e; })));
   D = {}; names.forEach((n, k) => D[n] = got[k]);
 } catch (e) {
@@ -1716,7 +1716,7 @@ function renderLs(){
   if (!AREA.length) html += '<div class="note-row">The visible map is over water or outside the elevation model. Pan to land to rank species.</div>';
   if (!nf && SORT === 'forecast') html += row('all', '<span class="thumb" style="' + tintOf('#3F7A3A') + '"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="stroke:currentColor"><path d="M4 12a8 5 0 0 1 16 0z"/><path d="M10 12v6.5a2 2 0 0 0 4 0V12"/></svg></span>', 'All choice edibles', 'Best of ' + CHOICE.length + ' species per cell', '<span class="dot" style="width:7px;height:7px;background:#3F7A3A"></span>Composite', RANK.get('all') || 0, '<small>best of all</small>');
   html += rows.map(sp => { const e = edInfo(sp), s = !!sp.months[NOWM];
-    return row(sp.latin, '<span class="thumb" style="' + tintOf(e.dot) + '">' + esc(sp.latin.charAt(0)) + '</span>', esc(sp.name) + (FAV.has(sp.latin) ? ' <svg width="12" height="12" viewBox="0 0 24 24" style="fill:var(--accent);vertical-align:-1px"><path d="M12 20s-7-4.4-9.3-8.6C1 8.2 3 4.5 6.5 4.5c2 0 3.5 1.1 5.5 3 2-1.9 3.5-3 5.5-3 3.5 0 5.5 3.7 3.8 6.9C19 15.6 12 20 12 20z"/></svg>' : ''), esc(sp.name !== sp.latin ? sp.latin : sp.fam), '<span class="dot" style="width:7px;height:7px;background:' + e.dot + '"></span>' + e.label + ' · ' + (s ? 'in season' : seasonLabel(sp)), RANK.get(sp.latin) || 0, trendHtml(TREND.get(sp.latin))); }).join('');
+    return row(sp.latin, '<span class="thumb" style="' + tintOf(e.dot) + '">' + esc(sp.latin.charAt(0)) + '</span>', esc(sp.name) + (FAV.has(sp.latin) ? ' <svg width="12" height="12" viewBox="0 0 24 24" style="fill:var(--accent);vertical-align:-1px"><path d="M12 20s-7-4.4-9.3-8.6C1 8.2 3 4.5 6.5 4.5c2 0 3.5 1.1 5.5 3 2-1.9 3.5-3 5.5-3 3.5 0 5.5 3.7 3.8 6.9C19 15.6 12 20 12 20z"/></svg>' : ''), esc(sp.name !== sp.latin ? sp.latin : sp.fam), '<span class="dot" style="width:7px;height:7px;background:' + e.dot + '"></span>' + e.label + ' · ' + (s ? 'in season' : seasonLabel(sp)) + (relInfo(sp).level === 'untested' ? ' · <span style="color:var(--ink-3)">untested</span>' : relInfo(sp).level === 'weak' ? ' · <span style="color:var(--ink-3)">weak forecast</span>' : ''), RANK.get(sp.latin) || 0, trendHtml(TREND.get(sp.latin))); }).join('');
   html += '<div class="list-foot">' + (hab ? 'Ranked by habitat suitability at the best spot in view. ' : 'Ranked by the fruiting index at the best spot in view ' + when + '; the outlook looks ten days ahead from there. ') + 'Levels: High ≥ 0.68, Good ≥ 0.50, Fair ≥ 0.32, Low ≥ 0.15. Pan or zoom to re-rank. Relative values, not calibrated probabilities.</div>';
   list.innerHTML = html; list.scrollTop = keep;
 }
@@ -1755,6 +1755,10 @@ $('fBody').addEventListener('change', e => { if (e.target.id === 'fPsy'){ F.psy 
 $('fClear').addEventListener('click', () => { clearF(); renderF(); });
 $('fShow').addEventListener('click', () => { closeFilters(); renderLs(); });
 
+// how well the forecast for this species did against real finds (data/reliability.json from eval/backtest.py)
+function relInfo(sp){ const r = D.reliability && D.reliability.species[sp.latin];
+  if (!r) return { level: 'untested', label: 'Forecast untested', note: 'Too few Romanian records (under 15) to test this species.' };
+  return { level: r.level, label: 'Forecast ' + r.level, note: 'Tested on ' + r.n + ' Romanian finds: ranks real finds above other fungus finds ' + Math.round(r.auc * 100) + '% of the time (50% = chance).' }; }
 function litHabitat(sp, x){
   const tr = sp.tr; if (!tr || !tr.hosts) return '<p>' + esc(x.hosts || '—') + '</p>' + (tr && tr.urls && tr.urls.length ? litSources(tr) : '');
   const g = Object.entries(tr.hosts).sort((a, b) => b[1] - a[1]), lab = w => w >= 1 ? 'main' : w >= 0.7 ? 'also' : 'occasionally';
@@ -1792,6 +1796,7 @@ function openDetail(latin, push = true){
       '<div style="display:flex;flex-direction:column;gap:4px"><h2>' + esc(sp.name) + '</h2><div class="latin">' + esc(sp.latin) + '</div>' +
       '<div class="row" style="gap:8px;margin-top:6px;flex-wrap:wrap"><span class="row" style="gap:6px;padding:4px 10px;border-radius:8px;font-size:12.5px;font-weight:600;' + tintOf(e.dot) + '"><span class="dot" style="width:7px;height:7px;background:' + e.dot + '"></span>' + e.label + '</span><span class="sub">' + esc(sp.fam) + '</span></div></div>' +
       '<div class="facts"><div><small>Season</small><b>' + seasonLabel(sp) + '</b></div><div><small>Altitude</small><b>' + (x.lo || '?') + '–' + (x.hi || '?') + ' m</b></div><div><small>Feeds on</small><b>' + (TL[x.tro] || '—') + '</b></div></div>' +
+      '<div class="sub" style="margin:-4px 2px 2px"><b style="color:var(--ink)">' + relInfo(sp).label + '.</b> ' + relInfo(sp).note + '</div>' +
       (RECENT_ISSUED ? '<div class="sub" style="margin:-4px 2px 2px">' + ((RECENT[sp.latin] || []).filter(r => r[2] >= 16).length ? 'Reported ' + (RECENT[sp.latin] || []).filter(r => r[2] >= 16).length + '× in Romania in the last 14 days (iNaturalist)' : 'No iNaturalist reports in Romania in the last 14 days') + '</div>' : '') +
       '<div class="box"><div class="hd"><h3>Next 10 days near ' + esc(where) + '</h3><span class="sub">Best spot in view</span></div>' +
         '<div class="row" style="align-items:flex-end;gap:16px"><div><div class="score" style="font-size:28px;font-family:var(--f-body);font-weight:600">' + LEVELS[bin(days[0], FB)] + '</div><div class="sub">today · index ' + days[0].toFixed(2) + '</div></div>' +
