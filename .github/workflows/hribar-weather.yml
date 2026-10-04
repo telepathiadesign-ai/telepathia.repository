@@ -5,7 +5,7 @@ on:
   workflow_dispatch: {}
   push:
     branches: [main]
-    paths: ['.github/workflows/hribar-weather.yml', 'hribar/scripts/fetch_weather.py']
+    paths: ['.github/workflows/hribar-weather.yml', 'hribar/scripts/fetch_weather.py', 'hribar/scripts/fetch_recent.py']
 permissions:
   contents: write
 concurrency: hribar-weather
@@ -24,6 +24,10 @@ jobs:
         run: |
           set -o pipefail
           python3 scripts/fetch_weather.py --grid 0.2 --sleep 11 --out data/weather.json 2>&1 | tee fetch.log
+      - name: Recent iNaturalist reports (last 21 days)
+        id: recent
+        continue-on-error: true
+        run: python3 scripts/fetch_recent.py --out data/recent_finds.json
       - name: Build
         run: python3 build.py
       - name: Record run status (readable without signing in to GitHub)
@@ -41,5 +45,6 @@ jobs:
           git config user.email "hribar-bot@users.noreply.github.com"
           git add data/weather_status.json
           if [ "${{ steps.fetch.outcome }}" = "success" ]; then git add data/weather.json index.html; fi
+          if [ "${{ steps.recent.outcome }}" = "success" ]; then git add data/recent_finds.json; fi
           git diff --cached --quiet || git commit -m "weather: refresh $(date -u +%Y-%m-%dT%H:%MZ)"
           git pull --rebase origin main && git push

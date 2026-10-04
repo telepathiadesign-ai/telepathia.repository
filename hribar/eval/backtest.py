@@ -71,6 +71,7 @@ class Weather:
             if v.get('P'):  # ERA5-Land daily precipitation is empty in the archive API; ERA5 (0.25°) is used for rain
                 arr['precipitation_sum'] = np.array([np.nan if x is None else x for x in v['P']], dtype=float)
             sm = arr['soil_moisture_0_to_7cm_mean']; arr['_p10'] = float(np.nanpercentile(sm, 10)); arr['_p90'] = float(np.nanpercentile(sm, 90))
+            sd = arr['soil_moisture_7_to_28cm_mean']; arr['_p10d'] = float(np.nanpercentile(sd, 10)); arr['_p90d'] = float(np.nanpercentile(sd, 90))
             if np.isnan(arr['precipitation_sum']).all():
                 continue
             self.nodes[(lon, lat)] = (t0, v['elev'], arr)
@@ -109,7 +110,36 @@ def weather_f(sp, node, date, elev, water='old'):
     cold = sum(1 for k in range(3) if a['temperature_2m_min'][i - k] <= -2)
     frost = 0 if (cold >= 2 and not sp['frostTol']) else 1
     snow = 0 if a['snow_depth_max'][i] > 0.02 else 1
-    return temp * w * frost * snow, dict(T=T, temp=temp, water=w, rainmm=rainmm, theta=th)
+    extra = trigger_factor(sp, a, i)
+    return temp * w * frost * snow * extra, dict(T=T, temp=temp, water=w, rainmm=rainmm, theta=th, extra=extra)
+
+
+RECENT_KM = float(os.environ.get('RECENT_KM', 0)); RECENT_D = int(os.environ.get('RECENT_D', 10)); RECENT_B = float(os.environ.get('RECENT_B', 1.0))
+TRIG = set(filter(None, os.environ.get('TRIG', '').split(',')))
+
+
+def trigger_factor(sp, a, i):
+    """Candidate fruiting triggers, switched on with TRIG=cool,frost,gdd (each tested alone and together)."""
+    f = 1.0
+    tmin = a['temperature_2m_min']
+    if 'cool' in TRIG:   # night temperatures falling after warm weeks: the classic autumn cue
+        drop = np.nanmean(tmin[i - 13:i - 6]) - np.nanmean(tmin[i - 3:i + 1])
+        f *= 0.75 + 0.25 * min(1, max(0, drop / 4))
+    if 'frost' in TRIG and not sp['frostTol']:   # a recent autumn frost ends fruiting of frost-sensitive species
+        recent = sum(1 for k in range(10) if tmin[i - k] <= 0)
+        f *= 0.6 if recent >= 2 else 1
+    if 'gdd' in TRIG:   # spring species need accumulated warmth; autumn ones are unaffected
+        months = sp['months'] if isinstance(sp['months'], list) else [int(x) for x in sp['months']]
+        if months[3] or months[4]:
+            if sum(months[6:11]) == 0:
+                T = a['soil_temperature_0_to_7cm_mean']
+                g = np.nansum(np.clip(T[max(0, i - 60):i + 1] - 5, 0, None))
+                f *= 1 / (1 + math.exp(-(g - 150) / 40))
+    return f
+
+
+MOIST = 'soil_moisture_7_to_28cm_mean' if os.environ.get('DEEP') else 'soil_moisture_0_to_7cm_mean'
+MSUF = 'd' if os.environ.get('DEEP') else ''
 
 
 def make_water(kind, k=0.85, scale=15.0, wr=0.5, floor=0.15, lo=0.08, hi=0.30):
@@ -133,8 +163,8 @@ def make_water(kind, k=0.85, scale=15.0, wr=0.5, floor=0.15, lo=0.08, hi=0.30):
         lag0, lag1 = sp['lag'] if sp else (7, 14)
         r = a['precipitation_sum'][i - lag1:i - lag0 + 1]
         rainF = 1 - math.exp(-np.nansum(r) / scale)
-        th = a['soil_moisture_0_to_7cm_mean']
-        moistF = min(1, max(0, (th[i] - a['_p10']) / max(0.01, a['_p90'] - a['_p10'])))
+        th = a[MOIST]
+        moistF = min(1, max(0, (th[i] - a['_p10' + MSUF]) / max(0.01, a['_p90' + MSUF] - a['_p10' + MSUF])))
         return floor + (1 - floor) * (wr * rainF + (1 - wr) * moistF)
     return {'abs': absolute, 'rel': relative, 'lag': lagged}[kind]
 
@@ -172,7 +202,7 @@ def main():
         sp_rank = o[2] in ('species', 'subspecies', 'variety', 'form')
         if a.years and o[3][:4] not in a.years.split(','):
             continue
-        recs.append(dict(nm=nm if sp_rank else None, k=k, date=dt.date.fromisoformat(o[3]), lon=o[4], lat=o[5], e=feat[k][0]))
+        recs.append(dict(nm=nm if sp_rank else None, k=k, date=dt.date.fromisoformat(o[3]), lon=o[4], lat=o[5], e=feat[k][0], user=o[10]))
     W = Weather()
     counts = defaultdict(int)
     for r in recs:
@@ -202,6 +232,10 @@ def main():
                     wv[j] = out[0]
             ok = ~np.isnan(wv)
             F = H * S * np.nan_to_num(wv)
+            if RECENT_KM:
+                own = [r for r in recs if r['nm'] == s]; R2 = (RECENT_KM / 111.0) ** 2
+                nrec = np.array([sum(1 for q in own if 0 < (r['date'] - q['date']).days <= RECENT_D and q['user'] != r['user'] and (r['lon'] - q['lon']) ** 2 * 0.5 + (r['lat'] - q['lat']) ** 2 <= R2) for r in recs], float)
+                F = F * (1 + RECENT_B * np.minimum(1, nrec / 3))
             res.update(n_wx=int((isp & ok).sum()), auc_weather=auc(wv[isp & ok], wv[~isp & ok]), auc_full=auc(F[isp & ok], F[~isp & ok]),
                        share_zero_water=float(np.mean(wv[isp & ok] < 0.05)) if (isp & ok).any() else None)
         rows.append(res)

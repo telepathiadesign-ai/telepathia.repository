@@ -11,7 +11,8 @@ mean removed, so a high score means the model explains wet and dry spells, not j
 import argparse, json, math, os, datetime as dt
 from collections import Counter, defaultdict
 import numpy as np
-from backtest import load, Weather, make_water, gauss, DATA
+from backtest import load, Weather, make_water, gauss, DATA, trigger_factor
+GENERIC = {'frostTol': False, 'months': [0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0], 'lag': (7, 14)}
 
 
 def spearman(x, y):
@@ -46,9 +47,9 @@ def main():
                 moist = min(1, max(0, (arr['soil_moisture_0_to_7cm_mean'][i] - 0.12) / 0.18))
                 water = math.sqrt(rain * moist)
             else:
-                water = wf(arr, i, None)
+                water = wf(arr, i, GENERIC)
             T = arr['soil_temperature_0_to_7cm_mean'][i]
-            v = water * gauss(T, 13, 6) * (0 if arr['snow_depth_max'][i] > 0.02 else 1)
+            v = water * gauss(T, 13, 6) * (0 if arr['snow_depth_max'][i] > 0.02 else 1) * trigger_factor(GENERIC, arr, i)
             num += w * v; den += w
         if den and p >= 15:
             days.append(d); share.append(f / (f + p)); model.append(num / den)

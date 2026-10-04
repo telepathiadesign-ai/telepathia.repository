@@ -1,0 +1,541 @@
+[
+{
+"species": "Auricularia auricula-judae",
+"n": 153,
+"auc_recent": 0.5225227549530955,
+"share_pos_with_signal": 0.0915032679738562,
+"share_neg_with_signal": 0.04815078236130868
+},
+{
+"species": "Macrolepiota mastoidea",
+"n": 35,
+"auc_recent": 0.5071035608487999,
+"share_pos_with_signal": 0.02857142857142857,
+"share_neg_with_signal": 0.014247425588940613
+},
+{
+"species": "Pleurotus ostreatus",
+"n": 100,
+"auc_recent": 0.5177410897753844,
+"share_pos_with_signal": 0.05,
+"share_neg_with_signal": 0.014525614681499327
+},
+{
+"species": "Infundibulicybe geotropa",
+"n": 27,
+"auc_recent": 0.5683603030635316,
+"share_pos_with_signal": 0.14814814814814814,
+"share_neg_with_signal": 0.011067249400817708
+},
+{
+"species": "Bovista plumbea",
+"n": 16,
+"auc_recent": 0.49609072339226595,
+"share_pos_with_signal": 0.0,
+"share_neg_with_signal": 0.007818553215468057
+},
+{
+"species": "Pluteus cervinus",
+"n": 54,
+"auc_recent": 0.4968558147808095,
+"share_pos_with_signal": 0.018518518518518517,
+"share_neg_with_signal": 0.02478988629140476
+},
+{
+"species": "Coprinellus micaceus",
+"n": 118,
+"auc_recent": 0.5830033489457134,
+"share_pos_with_signal": 0.211864406779661,
+"share_neg_with_signal": 0.046683221000354734
+},
+{
+"species": "Morchella esculenta",
+"n": 25,
+"auc_recent": 0.49957710741471667,
+"share_pos_with_signal": 0.0,
+"share_neg_with_signal": 0.0008457851705666761
+},
+{
+"species": "Panaeolus semiovatus",
+"n": 15,
+"auc_recent": 0.49978870263417385,
+"share_pos_with_signal": 0.0,
+"share_neg_with_signal": 0.0004225947316523454
+},
+{
+"species": "Cerioporus squamosus",
+"n": 86,
+"auc_recent": 0.5429373243714412,
+"share_pos_with_signal": 0.10465116279069768,
+"share_neg_with_signal": 0.018829192326750194
+},
+{
+"species": "Megacollybia platyphylla",
+"n": 43,
+"auc_recent": 0.5265685775713512,
+"share_pos_with_signal": 0.06976744186046512,
+"share_neg_with_signal": 0.017290049400141144
+},
+{
+"species": "Coprinus comatus",
+"n": 100,
+"auc_recent": 0.5297658187486715,
+"share_pos_with_signal": 0.1,
+"share_neg_with_signal": 0.04074257776518104
+},
+{
+"species": "Laetiporus sulphureus",
+"n": 146,
+"auc_recent": 0.5309312283387428,
+"share_pos_with_signal": 0.10273972602739725,
+"share_neg_with_signal": 0.03980948318760219
+},
+{
+"species": "Omphalotus olearius",
+"n": 41,
+"auc_recent": 0.5898594273834356,
+"share_pos_with_signal": 0.1951219512195122,
+"share_neg_with_signal": 0.015311882585379622
+},
+{
+"species": "Agrocybe praecox",
+"n": 29,
+"auc_recent": 0.5461277398525779,
+"share_pos_with_signal": 0.10344827586206896,
+"share_neg_with_signal": 0.011280315848843767
+},
+{
+"species": "Coprinopsis atramentaria",
+"n": 19,
+"auc_recent": 0.5451080145057585,
+"share_pos_with_signal": 0.10526315789473684,
+"share_neg_with_signal": 0.014794983795970128
+},
+{
+"species": "Apioperdon pyriforme",
+"n": 36,
+"auc_recent": 0.4971432602101996,
+"share_pos_with_signal": 0.0,
+"share_neg_with_signal": 0.005713479579600762
+},
+{
+"species": "Marasmius oreades",
+"n": 91,
+"auc_recent": 0.5330965946671937,
+"share_pos_with_signal": 0.0989010989010989,
+"share_neg_with_signal": 0.03292734740121796
+},
+{
+"species": "Macrolepiota procera",
+"n": 150,
+"auc_recent": 0.5288688994761668,
+"share_pos_with_signal": 0.09333333333333334,
+"share_neg_with_signal": 0.03718978880750907
+},
+{
+"species": "Hypholoma fasciculare",
+"n": 119,
+"auc_recent": 0.551871408418625,
+"share_pos_with_signal": 0.20168067226890757,
+"share_neg_with_signal": 0.097346388534128
+},
+{
+"species": "Coprinopsis picacea",
+"n": 91,
+"auc_recent": 0.6086878706904199,
+"share_pos_with_signal": 0.24175824175824176,
+"share_neg_with_signal": 0.02549213992352358
+},
+{
+"species": "Agaricus arvensis",
+"n": 21,
+"auc_recent": 0.519289874912761,
+"share_pos_with_signal": 0.047619047619047616,
+"share_neg_with_signal": 0.008878241262683202
+},
+{
+"species": "Amanita rubescens",
+"n": 176,
+"auc_recent": 0.5405602158580893,
+"share_pos_with_signal": 0.13636363636363635,
+"share_neg_with_signal": 0.05506874688323716
+},
+{
+"species": "Amanita excelsa",
+"n": 53,
+"auc_recent": 0.5369663415414135,
+"share_pos_with_signal": 0.09433962264150944,
+"share_neg_with_signal": 0.021327683615819208
+},
+{
+"species": "Panaeolus papilionaceus",
+"n": 21,
+"auc_recent": 0.5201605867826273,
+"share_pos_with_signal": 0.047619047619047616,
+"share_neg_with_signal": 0.007609921082299887
+},
+{
+"species": "Russula vesca",
+"n": 41,
+"auc_recent": 0.5175819031687353,
+"share_pos_with_signal": 0.04878048780487805,
+"share_neg_with_signal": 0.01375952582557155
+},
+{
+"species": "Helvella acetabulum",
+"n": 16,
+"auc_recent": 0.4953863492287103,
+"share_pos_with_signal": 0.0,
+"share_neg_with_signal": 0.009227301542579417
+},
+{
+"species": "Agaricus campestris",
+"n": 53,
+"auc_recent": 0.5186274117897879,
+"share_pos_with_signal": 0.05660377358490566,
+"share_neg_with_signal": 0.01899717514124294
+},
+{
+"species": "Hypholoma lateritium",
+"n": 24,
+"auc_recent": 0.5352488430004464,
+"share_pos_with_signal": 0.08333333333333333,
+"share_neg_with_signal": 0.013320177602368031
+},
+{
+"species": "Xerocomellus chrysenteron",
+"n": 33,
+"auc_recent": 0.49590973201692523,
+"share_pos_with_signal": 0.0,
+"share_neg_with_signal": 0.008180535966149507
+},
+{
+"species": "Suillellus luridus",
+"n": 25,
+"auc_recent": 0.5434634902734705,
+"share_pos_with_signal": 0.12,
+"share_neg_with_signal": 0.03305610374964759
+},
+{
+"species": "Russula cyanoxantha",
+"n": 42,
+"auc_recent": 0.5507500226821376,
+"share_pos_with_signal": 0.11904761904761904,
+"share_neg_with_signal": 0.01707712934866982
+},
+{
+"species": "Hericium coralloides",
+"n": 36,
+"auc_recent": 0.5189548015956988,
+"share_pos_with_signal": 0.05555555555555555,
+"share_neg_with_signal": 0.017634196233335685
+},
+{
+"species": "Amanita regalis",
+"n": 75,
+"auc_recent": 0.5242137030225869,
+"share_pos_with_signal": 0.06666666666666667,
+"share_neg_with_signal": 0.018036497382939595
+},
+{
+"species": "Amanita pantherina",
+"n": 48,
+"auc_recent": 0.506249264619367,
+"share_pos_with_signal": 0.041666666666666664,
+"share_neg_with_signal": 0.028803388633956935
+},
+{
+"species": "Neoboletus erythropus",
+"n": 59,
+"auc_recent": 0.5127741334425436,
+"share_pos_with_signal": 0.05084745762711865,
+"share_neg_with_signal": 0.0255051575526353
+},
+{
+"species": "Russula virescens",
+"n": 28,
+"auc_recent": 0.5130885240948688,
+"share_pos_with_signal": 0.03571428571428571,
+"share_neg_with_signal": 0.009517095523440254
+},
+{
+"species": "Cantharellus cibarius",
+"n": 60,
+"auc_recent": 0.4970636378624084,
+"share_pos_with_signal": 0.016666666666666666,
+"share_neg_with_signal": 0.02246873454391295
+},
+{
+"species": "Boletus reticulatus",
+"n": 70,
+"auc_recent": 0.5320567469015465,
+"share_pos_with_signal": 0.08571428571428572,
+"share_neg_with_signal": 0.02191897051544934
+},
+{
+"species": "Lepiota cristata",
+"n": 18,
+"auc_recent": 0.49774568510038747,
+"share_pos_with_signal": 0.0,
+"share_neg_with_signal": 0.0045086297992250795
+},
+{
+"species": "Lactifluus piperatus",
+"n": 43,
+"auc_recent": 0.5516748453168338,
+"share_pos_with_signal": 0.11627906976744186,
+"share_neg_with_signal": 0.01305575158786168
+},
+{
+"species": "Leccinellum pseudoscabrum",
+"n": 23,
+"auc_recent": 0.4960535588442565,
+"share_pos_with_signal": 0.0,
+"share_neg_with_signal": 0.007892882311486963
+},
+{
+"species": "Cantharellus pallens",
+"n": 18,
+"auc_recent": 0.4946460021134202,
+"share_pos_with_signal": 0.0,
+"share_neg_with_signal": 0.010707995773159564
+},
+{
+"species": "Russula foetens",
+"n": 21,
+"auc_recent": 0.4951381059751973,
+"share_pos_with_signal": 0.0,
+"share_neg_with_signal": 0.009723788049605412
+},
+{
+"species": "Mycena pura",
+"n": 41,
+"auc_recent": 0.5044230120539986,
+"share_pos_with_signal": 0.024390243902439025,
+"share_neg_with_signal": 0.015523567598080722
+},
+{
+"species": "Phallus impudicus",
+"n": 42,
+"auc_recent": 0.5396130931378973,
+"share_pos_with_signal": 0.09523809523809523,
+"share_neg_with_signal": 0.017288829299273164
+},
+{
+"species": "Boletus edulis",
+"n": 72,
+"auc_recent": 0.5337263001987915,
+"share_pos_with_signal": 0.09722222222222222,
+"share_neg_with_signal": 0.029700869811187327
+},
+{
+"species": "Amanita muscaria",
+"n": 241,
+"auc_recent": 0.5787541294800627,
+"share_pos_with_signal": 0.23651452282157676,
+"share_neg_with_signal": 0.08073289436014887
+},
+{
+"species": "Clitopilus prunulus",
+"n": 21,
+"auc_recent": 0.49615980834272827,
+"share_pos_with_signal": 0.0,
+"share_neg_with_signal": 0.007680383314543405
+},
+{
+"species": "Lepiota clypeolaria",
+"n": 18,
+"auc_recent": 0.49528002817893624,
+"share_pos_with_signal": 0.0,
+"share_neg_with_signal": 0.00943994364212751
+},
+{
+"species": "Chalciporus piperatus",
+"n": 26,
+"auc_recent": 0.4962641855219567,
+"share_pos_with_signal": 0.0,
+"share_neg_with_signal": 0.007471628956086558
+},
+{
+"species": "Lactifluus volemus",
+"n": 29,
+"auc_recent": 0.49792019176536945,
+"share_pos_with_signal": 0.0,
+"share_neg_with_signal": 0.004159616469261139
+},
+{
+"species": "Volvariella bombycina",
+"n": 32,
+"auc_recent": 0.4991537973344616,
+"share_pos_with_signal": 0.0,
+"share_neg_with_signal": 0.0016924053310767928
+},
+{
+"species": "Xerocomus subtomentosus",
+"n": 31,
+"auc_recent": 0.49227894514172893,
+"share_pos_with_signal": 0.0,
+"share_neg_with_signal": 0.015442109716542095
+},
+{
+"species": "Morchella steppicola",
+"n": 15,
+"auc_recent": 0.6324036249236982,
+"share_pos_with_signal": 0.26666666666666666,
+"share_neg_with_signal": 0.001972108747710945
+},
+{
+"species": "Caloboletus calopus",
+"n": 32,
+"auc_recent": 0.5257673118961992,
+"share_pos_with_signal": 0.0625,
+"share_neg_with_signal": 0.01085960087440942
+},
+{
+"species": "Agaricus sylvaticus",
+"n": 19,
+"auc_recent": 0.4965126109623785,
+"share_pos_with_signal": 0.0,
+"share_neg_with_signal": 0.00697477807524306
+},
+{
+"species": "Suillus granulatus",
+"n": 16,
+"auc_recent": 0.5272526766218215,
+"share_pos_with_signal": 0.0625,
+"share_neg_with_signal": 0.00845248996266817
+},
+{
+"species": "Lactarius deterrimus",
+"n": 37,
+"auc_recent": 0.49121755079006774,
+"share_pos_with_signal": 0.0,
+"share_neg_with_signal": 0.01756489841986456
+},
+{
+"species": "Chlorophyllum rhacodes",
+"n": 22,
+"auc_recent": 0.49647664012402226,
+"share_pos_with_signal": 0.0,
+"share_neg_with_signal": 0.007046719751955465
+},
+{
+"species": "Lycoperdon perlatum",
+"n": 110,
+"auc_recent": 0.5178008547504399,
+"share_pos_with_signal": 0.07272727272727272,
+"share_neg_with_signal": 0.0370843083031979
+},
+{
+"species": "Meripilus giganteus",
+"n": 23,
+"auc_recent": 0.49573643410852714,
+"share_pos_with_signal": 0.0,
+"share_neg_with_signal": 0.008527131782945736
+},
+{
+"species": "Pleurotus pulmonarius",
+"n": 29,
+"auc_recent": 0.5273304549079099,
+"share_pos_with_signal": 0.06896551724137931,
+"share_neg_with_signal": 0.014241398759165257
+},
+{
+"species": "Russula integra",
+"n": 25,
+"auc_recent": 0.5517366788835636,
+"share_pos_with_signal": 0.12,
+"share_neg_with_signal": 0.016492810826050183
+},
+{
+"species": "Laccaria laccata",
+"n": 22,
+"auc_recent": 0.4952786977661898,
+"share_pos_with_signal": 0.0,
+"share_neg_with_signal": 0.009442604467620323
+},
+{
+"species": "Sarcodon imbricatus",
+"n": 28,
+"auc_recent": 0.6981469358980815,
+"share_pos_with_signal": 0.42857142857142855,
+"share_neg_with_signal": 0.032217130771942194
+},
+{
+"species": "Imleria badia",
+"n": 25,
+"auc_recent": 0.6325444037214547,
+"share_pos_with_signal": 0.28,
+"share_neg_with_signal": 0.014871722582464055
+},
+{
+"species": "Fistulina hepatica",
+"n": 27,
+"auc_recent": 0.5533898836098188,
+"share_pos_with_signal": 0.1111111111111111,
+"share_neg_with_signal": 0.004229522064006767
+},
+{
+"species": "Gomphidius glutinosus",
+"n": 15,
+"auc_recent": 0.4986617833497676,
+"share_pos_with_signal": 0.0,
+"share_neg_with_signal": 0.002676433300464854
+},
+{
+"species": "Pholiota squarrosa",
+"n": 15,
+"auc_recent": 0.4978165938864629,
+"share_pos_with_signal": 0.0,
+"share_neg_with_signal": 0.004366812227074236
+},
+{
+"species": "Paxillus involutus",
+"n": 26,
+"auc_recent": 0.4969690561781913,
+"share_pos_with_signal": 0.0,
+"share_neg_with_signal": 0.0060618876436173965
+},
+{
+"species": "Clitocybe nebularis",
+"n": 24,
+"auc_recent": 0.5181507975661898,
+"share_pos_with_signal": 0.041666666666666664,
+"share_neg_with_signal": 0.005497216153358235
+},
+{
+"species": "Armillaria mellea",
+"n": 31,
+"auc_recent": 0.543370515100923,
+"share_pos_with_signal": 0.0967741935483871,
+"share_neg_with_signal": 0.010294739811028063
+},
+{
+"species": "Amanita citrina",
+"n": 23,
+"auc_recent": 0.5269326224836841,
+"share_pos_with_signal": 0.08695652173913043,
+"share_neg_with_signal": 0.03446088794926004
+},
+{
+"species": "Leccinum scabrum",
+"n": 20,
+"auc_recent": 0.5101018107517791,
+"share_pos_with_signal": 0.05,
+"share_neg_with_signal": 0.029732966955541465
+},
+{
+"species": "Russula aurea",
+"n": 16,
+"auc_recent": 0.49820384588293304,
+"share_pos_with_signal": 0.0,
+"share_neg_with_signal": 0.003592308234133972
+},
+{
+"species": "Hygrophorus eburneus",
+"n": 17,
+"auc_recent": 0.5259372979961215,
+"share_pos_with_signal": 0.058823529411764705,
+"share_neg_with_signal": 0.006903353057199211
+}
+]
