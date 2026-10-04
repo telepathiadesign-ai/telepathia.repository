@@ -1,5 +1,10 @@
 # VPS reshape — executable plan (weekend 1)
 
+> **Execution record — 2026-10-04.** Executed by the cloud session that wrote it, after the owner's go-ahead.
+> **Phase 1 (close the public doors) was SKIPPED by owner decision** — they rely on the web terminal / code-server from other machines. Everything else ran: Phases 0, 2, 3, 4 (except the push: the GitHub App can't create repos), 5, 6, 7, 8.
+> Results: board 152 → 7 waiting · additives assessed 118 → 424 · 6 services stopped (not deleted) · tradernews paused · 7 crons paused · one Telegram bot (CLAW) · guards in place. Full log in `/root/OPSLOG.md` (lines tagged `reshape:`), backups in `/root/backups/reshape-2026-10-02/`.
+> **Owner one-taps left:** create private repo `telepathiadesign-ai/foodlabel` + `gh auth login` + `git push -u origin master` on the VPS · revoke the ClaudeTelegram bot token at @BotFather · revoke the old Aegent GitHub token · review the 87 flagged enrich drafts (`python3 agents/approve_enrich.py --list`) · merge #188 when ready.
+
 **For:** a Claude Code session (Opus or Sonnet) with the `VPS_MCP` tools connected.
 **Box:** `srv945584` · `148.230.109.154` · Ubuntu 24.04 · 2 vCPU · 7.8 GB RAM.
 **Owner:** one person, a product designer. Decisions below marked **[OWNER]** were already taken by them on 2026-10-02; do not re-ask them. Anything else: decide technically, state it in one line, keep going.
