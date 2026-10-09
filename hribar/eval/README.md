@@ -38,3 +38,17 @@ Not shipped: soil-temperature optima fitted to finds (`data/fitted_soilT_2024_20
 | **Shipped: hosts + pH + habitat types** | 0.582 / 0.600 | 0.668 / 0.643 | **0.694 / 0.689** | 0.687 / 0.668 |
 
 Literature months were rejected (wider seasons lowered the season score). Host, pH and habitat traits change the score by about ±0.01, within noise: the model cannot yet see what they describe (forest type is mapped for ~3% of cells, parks and grassland not at all). They become useful with tree-species and land-cover maps.
+
+## Round 3, 4 Oct 2026 — judged with `compare.py` (paired per-species differences, 95% bootstrap CI)
+
+| Change | Result | Shipped |
+| --- | --- | --- |
+| Literature traits (hosts, pH, habitat) | no clear change (CI spans 0) | yes, for transparency |
+| Cooling trigger (night temperatures falling) | full −0.002, CI below 0 | no |
+| Frost trigger (≥2 nights ≤ 0 °C in 10 days) | weather +0.005, CI above 0; full unchanged | yes |
+| Degree days (spring), deep soil moisture | no clear change | no |
+| Recent iNaturalist reports, 60 km / 14 days, boost ×(1 + 2·min(1, n/3)) | full +0.014, CI +0.010..+0.018; 49 species better, 10 worse | yes |
+| Topographic wetness index from the DEM | no clear change (+0.002) | yes (replaces a cruder proxy) |
+| Measured tree cover (ESA WorldCover) instead of the heuristic | habitat +0.016, CI −0.002..+0.034 | yes |
+| Rule-based grassland / town cover from land cover | habitat × season −0.012, CI below 0 | no |
+| **Learned land-cover preference per species** (`fit_landcover.py`), trained 2024–25, tested on 2026 and on held-out 1° blocks | **habitat +0.054, CI +0.034..+0.075; 24 better, 3 worse; full +0.022** | yes (refit on all years) |
