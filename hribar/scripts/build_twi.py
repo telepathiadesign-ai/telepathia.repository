@@ -43,7 +43,7 @@ sub = twi[r0:r0 + 2 * H, c0:c0 + 2 * W]
 sub = sub[:2 * H, :2 * W].reshape(H, 2, W, 2).mean(axis=(1, 3))
 lo, hi = np.percentile(sub, 2), np.percentile(sub, 98)
 v = np.clip((sub - lo) / (hi - lo), 0, 1) * 1000
-v = np.round(v).astype(np.int16)
+v = (np.round(v / 25) * 25).astype(np.int16)  # steps of 25 keep the file small
 d = np.concatenate([v[:, :1], np.diff(v, axis=1)], axis=1).astype('<i2')
 out = json.load(open('data/terrain.json'))
 out['wet_dist'] = out['wet']

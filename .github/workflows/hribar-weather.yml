@@ -1,7 +1,7 @@
 name: Hribar daily weather
 on:
   schedule:
-    - cron: '30 4 * * *'   # 07:30 Bucharest (summer time)
+    - cron: '17 1 * * *'   # 04:17 Bucharest; GitHub often starts scheduled runs hours late, and an off-peak minute helps
   workflow_dispatch: {}
   push:
     branches: [main]
