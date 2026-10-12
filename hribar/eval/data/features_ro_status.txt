@@ -1,7 +1,7 @@
 == part clim
-clim fail bio1 HTTP response code: 404
-clim fail bio10 HTTP response code: 404
-clim fail bio12 HTTP response code: 404
-clim fail bio15 HTTP response code: 404
-clim fail bio18 HTTP response code: 404
-layers ['built', 'clay', 'crop', 'elev', 'grass', 'hli', 'ph', 'sand', 'slope', 'soc', 't_abies_alba', 't_corylus_avellana', 't_fagus_sylvatica', 't_picea_abies', 't_pinus_nigra', 't_pinus_sylvestris', 't_prunus_avium', 't_quercus_cerris', 't_quercus_robur', 't_salix_caprea', 'tree', 'water']
+clim ok bio1 CHELSA 99.4
+clim ok bio10 CHELSA 201.7
+clim ok bio12 CHELSA 660.8
+clim ok bio15 CHELSA 306.6
+clim ok bio18 CHELSA 231.8
+layers ['built', 'c_bio1', 'c_bio10', 'c_bio12', 'c_bio15', 'c_bio18', 'clay', 'crop', 'elev', 'grass', 'hli', 'ph', 'sand', 'slope', 'soc', 't_abies_alba', 't_corylus_avellana', 't_fagus_sylvatica', 't_picea_abies', 't_pinus_nigra', 't_pinus_sylvestris', 't_prunus_avium', 't_quercus_cerris', 't_quercus_robur', 't_salix_caprea', 'tree', 'water']
