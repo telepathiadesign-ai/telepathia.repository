@@ -19,7 +19,7 @@ COUNTRIES = ['HU', 'SK', 'PL', 'CZ', 'UA', 'MD', 'BG', 'RS', 'AT', 'SI', 'HR',  
              'NL', 'BE', 'LU', 'ES', 'PT', 'TR', 'GE', 'RU']                                   # the rest of Europe, for the climate-niche model
 INAT = '50c9509d-22c7-4a22-a47d-8c48425ef4a7'
 BUDGET = float(os.environ.get('BUDGET_MIN', '50')) * 60
-MAX_PER = 20000  # per species x country cap
+MAX_PER = int(os.environ.get('MAX_PER', 5000))  # per species x country cap; enough for a niche model, keeps the fetch to days
 T0 = time.time()
 
 
@@ -50,6 +50,9 @@ def main():
     for r in rows:
         have[r[0]] = have.get(r[0], 0) + 1
     species.sort(key=lambda s_: have.get(s_, 0))   # species with the fewest records first: they gain the most
+    only = [x.strip() for x in os.environ.get('ONLY', '').split(',') if x.strip()]
+    if only:
+        species = [x for x in only if x in species] + [x for x in species if x not in only]
     added = 0
     for sp in species:
         if sp not in st['keys']:

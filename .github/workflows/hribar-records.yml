@@ -1,7 +1,9 @@
 name: Hribar training records
 on:
   schedule: [{ cron: '37 2 * * *' }]
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      only: { description: 'comma-separated species to fetch first', default: '' }
   push:
     branches: [main]
     paths: ['.github/workflows/hribar-records.yml', 'hribar/scripts/fetch_records.py']
@@ -19,7 +21,7 @@ jobs:
         with: { python-version: '3.12' }
       - name: Fetch GBIF records (resumes)
         id: rec
-        env: { BUDGET_MIN: '55' }
+        env: { BUDGET_MIN: '55', ONLY: '${{ github.event.inputs.only }}' }
         run: |
           set -o pipefail
           python3 scripts/fetch_records.py 2>&1 | tee records.log
