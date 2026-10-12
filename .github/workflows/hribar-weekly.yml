@@ -1,0 +1,49 @@
+name: Hribar weekly retrain
+on:
+  schedule: [{ cron: '23 3 * * 1' }]   # Monday 03:23 UTC, after the nightly records and weather jobs
+  workflow_dispatch: {}
+permissions:
+  contents: write
+concurrency: hribar-weekly
+jobs:
+  weekly:
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    defaults: { run: { working-directory: hribar } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - uses: actions/setup-node@v4
+        with: { node-version: '20' }
+      - run: pip install numpy scikit-learn requests
+      - run: npm i playwright@1.49.1 && npx playwright install --with-deps chromium
+      - name: Refresh iNaturalist archive (Romania)
+        continue-on-error: true
+        run: python3 scripts/fetch_inat_ro.py 2>&1 | tee -a weekly.log
+      - name: Refresh archived forecasts at the eval nodes
+        continue-on-error: true
+        run: python3 scripts/fetch_hist_forecast.py 2>&1 | tail -3 | tee -a weekly.log
+      - name: Export habitat at the evaluation points from the app (headless)
+        run: |
+          set -o pipefail
+          python3 build.py --test
+          mkdir -p /tmp/srv/data && cp data/*.json /tmp/srv/data/
+          sed 's/^function makeP(lon, lat){/window.__H = { get SP(){ return SP; }, get LIST(){ return LIST; }, factors: (...a) => factors(...a), makeP: (...a) => makeP(...a), wxAvail: (...a) => wxAvail(...a), get WX(){ return WX; }, findIn: (...a) => findIn(...a), get D(){ return D; } };\nfunction makeP(lon, lat){/' index.test.html > /tmp/srv/index.html
+          (cd /tmp/srv && nohup python3 -m http.server 8765 > /tmp/srv.log 2>&1 &) ; sleep 2
+          NODE_PATH=$(pwd)/node_modules node test/export_hab.js eval/data/eval_points.json eval/data/habitat_at_points.json 2>&1 | tee -a weekly.log
+      - name: Retrain and score
+        id: wk
+        run: |
+          set -o pipefail
+          python3 eval/weekly.py 2>&1 | tee -a weekly.log
+      - name: Commit
+        if: always()
+        run: |
+          git config user.name "hribar-bot"
+          git config user.email "hribar-bot@users.noreply.github.com"
+          tail -c 6000 weekly.log > eval/data/weekly_status.txt || true
+          git add eval/data/weekly_status.txt eval/data/inat_ro_fungi_2020_2026.json eval/data/hist_forecast.json eval/data/hist_forecast_status.txt 2>/dev/null || true
+          if [ "${{ steps.wk.outcome }}" = "success" ]; then git add data/reliability.json data/lc_prefs.json eval/REPORT.md; fi
+          git diff --cached --quiet || git commit -m "weekly: retrain + score report $(date -u +%Y-%m-%d)"
+          for i in 1 2 3 4; do git pull --rebase origin main && git push && break; sleep $((i*7)); done

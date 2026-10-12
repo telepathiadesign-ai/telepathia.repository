@@ -1767,8 +1767,9 @@ $('fShow').addEventListener('click', () => { closeFilters(); renderLs(); });
 
 // how well the forecast for this species did against real finds (data/reliability.json from eval/backtest.py)
 function relInfo(sp){ const r = D.reliability && D.reliability.species[sp.latin];
-  if (!r) return { level: 'untested', label: 'Forecast untested', note: 'Too few Romanian records (under 15) to test this species.' };
-  return { level: r.level, label: 'Forecast ' + r.level, note: 'Tested on ' + r.n + ' Romanian finds: ranks real finds above other fungus finds ' + Math.round(r.auc * 100) + '% of the time (50% = chance).' }; }
+  if (!r){ const c = D.lc_prefs && D.lc_prefs.species[sp.latin];
+    return { level: 'untested', label: 'Forecast untested', note: 'Too few Romanian records (under 15) to test this species.' + (c && c.src === 'neighbours' ? ' Its habitat preference was learned from ' + c.n + ' finds in neighbouring countries.' : '') }; }
+  return { level: r.level, label: 'Forecast ' + r.level, note: 'Tested on ' + r.n + ' Romanian finds it was not trained on: ranks real finds above other fungus finds ' + Math.round(r.auc * 100) + '% of the time (50% = chance).' }; }
 function litHabitat(sp, x){
   const tr = sp.tr; if (!tr || !tr.hosts) return '<p>' + esc(x.hosts || '—') + '</p>' + (tr && tr.urls && tr.urls.length ? litSources(tr) : '');
   const g = Object.entries(tr.hosts).sort((a, b) => b[1] - a[1]), lab = w => w >= 1 ? 'main' : w >= 0.7 ? 'also' : 'occasionally';

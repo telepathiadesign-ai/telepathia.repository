@@ -18,7 +18,7 @@ import backtest as B
 HERE = os.path.dirname(os.path.abspath(__file__))
 WOOD = {'wood_dead', 'wood_living', 'wood_buried', 'cones'}
 LAGS = [(3, 10), (5, 12), (7, 14), (5, 18), (7, 21), (10, 21), (10, 28), (14, 28)]
-TMS = list(range(6, 21))
+TMS = list(range(6, 21))  # plausible soil-temperature optima; wider grids chased noise (SW ran to 26 °C) and lost the hold-out gain
 TSS = [3, 4, 5, 6, 8]
 
 
@@ -102,8 +102,10 @@ def main():
                                     wv(hab['sp'][s]['t'][0], hab['sp'][s]['t'][1], tuple(hab['sp'][s]['lag']) if tuple(hab['sp'][s]['lag']) in rainF else (7, 14), hab['sp'][s]['frostTol'])[ok & (names != s)]) for s in sp_list]))
         best = max(((score(sp_list, tm, ts, lag), tm, ts, lag) for tm, ts, lag in itertools.product(TMS, TSS, LAGS)))
         out['groups'][g] = {'t': [best[1], best[2]], 'lag': list(best[3]), 'n_species': len(sp_list), 'train_auc_weather': round(best[0], 4), 'app_params_auc_weather': round(base, 4)}
-        print(f'{g}: {len(sp_list)} species, app params {base:.3f} -> group fit {best[0]:.3f}  T {best[1]}±{best[2]} rain window {best[3]}', file=sys.stderr)
-        for s in sp_list:
+        keep = best[0] >= base + 0.005
+        out['groups'][g]['used'] = keep
+        print(f'{g}: {len(sp_list)} species, app params {base:.3f} -> group fit {best[0]:.3f}  T {best[1]}±{best[2]} rain window {best[3]}' + ('' if keep else '  (no gain: app parameters kept)'), file=sys.stderr)
+        for s in (sp_list if keep else []):
             tm, ts, lag = best[1], best[2], best[3]
             if a.K > 0:
                 # per-species optimum: the T at which this species' records most exceed the background, shrunk toward the group

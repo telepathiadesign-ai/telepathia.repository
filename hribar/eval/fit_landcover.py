@@ -41,7 +41,7 @@ def features(G, lon, lat, elev):
 
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument('--train', default='2024,2025'); ap.add_argument('--out', default=os.path.join(HERE, '..', 'data', 'lc_prefs.json'))
-    ap.add_argument('--C', type=float, default=1.0)
+    ap.add_argument('--C', type=float, default=1.0); ap.add_argument('--before', default='', help='use only records observed before this date (rolling hold-out)')
     a = ap.parse_args()
     years = set(a.train.split(','))
     G = lc_grids()
@@ -51,7 +51,7 @@ def main():
     X, Y = [], []
     for o in load('inat_ro_fungi_2020_2026.json'):
         anc = o[9].split('.')
-        if o[3][:4] not in years or o[3] < D0.isoformat() or len(anc) < 6 or anc[5] not in MACRO or (o[6] is not None and o[6] > 2000):
+        if o[3][:4] not in years or o[3] < D0.isoformat() or (a.before and o[3] >= a.before) or len(anc) < 6 or anc[5] not in MACRO or (o[6] is not None and o[6] > 2000):
             continue
         k = pidx.get((round(o[4], 3), round(o[5], 3)))
         if k is None or not feat[k][3]:

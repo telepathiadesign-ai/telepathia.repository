@@ -1,3 +1,8 @@
 index.test.html
 eval/data/habitat_at_points*.json
 __pycache__/
+node_modules/
+package.json
+package-lock.json
+eval/data/lc_prefs_holdout_*.json
+eval/data/weekly_holdout_*.json

@@ -1,1 +1,286 @@
-{"source":"eval/backtest.py on iNaturalist finds in Romania 2024-2026 (target-group background); AUC of the full forecast; species with 15+ finds","species":{"Amanita muscaria":{"auc":0.759,"n":219,"level":"good"},"Auricularia auricula-judae":{"auc":0.486,"n":148,"level":"weak"},"Amanita rubescens":{"auc":0.705,"n":146,"level":"useful"},"Laetiporus sulphureus":{"auc":0.581,"n":141,"level":"weak"},"Macrolepiota procera":{"auc":0.684,"n":138,"level":"useful"},"Coprinellus micaceus":{"auc":0.69,"n":115,"level":"useful"},"Hypholoma fasciculare":{"auc":0.59,"n":112,"level":"weak"},"Lycoperdon perlatum":{"auc":0.705,"n":106,"level":"useful"},"Coprinus comatus":{"auc":0.58,"n":98,"level":"weak"},"Pleurotus ostreatus":{"auc":0.66,"n":95,"level":"useful"},"Coprinopsis picacea":{"auc":0.806,"n":91,"level":"good"},"Marasmius oreades":{"auc":0.737,"n":88,"level":"useful"},"Cerioporus squamosus":{"auc":0.491,"n":85,"level":"weak"},"Amanita regalis":{"auc":0.87,"n":71,"level":"good"},"Boletus edulis":{"auc":0.729,"n":71,"level":"useful"},"Boletus reticulatus":{"auc":0.695,"n":66,"level":"useful"},"Neoboletus erythropus":{"auc":0.779,"n":57,"level":"good"},"Cantharellus cibarius":{"auc":0.746,"n":57,"level":"useful"},"Pluteus cervinus":{"auc":0.516,"n":54,"level":"weak"},"Amanita excelsa":{"auc":0.813,"n":51,"level":"good"},"Agaricus campestris":{"auc":0.661,"n":50,"level":"useful"},"Amanita pantherina":{"auc":0.676,"n":44,"level":"useful"},"Lactifluus piperatus":{"auc":0.78,"n":42,"level":"good"},"Phallus impudicus":{"auc":0.684,"n":42,"level":"useful"},"Russula cyanoxantha":{"auc":0.711,"n":41,"level":"useful"},"Russula vesca":{"auc":0.687,"n":40,"level":"useful"},"Mycena pura":{"auc":0.704,"n":40,"level":"useful"},"Omphalotus olearius":{"auc":0.674,"n":39,"level":"useful"},"Megacollybia platyphylla":{"auc":0.734,"n":38,"level":"useful"},"Lactarius deterrimus":{"auc":0.771,"n":37,"level":"good"},"Hericium coralloides":{"auc":0.612,"n":35,"level":"weak"},"Macrolepiota mastoidea":{"auc":0.812,"n":34,"level":"good"},"Apioperdon pyriforme":{"auc":0.642,"n":33,"level":"weak"},"Xerocomellus chrysenteron":{"auc":0.647,"n":31,"level":"weak"},"Xerocomus subtomentosus":{"auc":0.528,"n":31,"level":"weak"},"Caloboletus calopus":{"auc":0.727,"n":31,"level":"useful"},"Armillaria mellea":{"auc":0.709,"n":30,"level":"useful"},"Lactifluus volemus":{"auc":0.639,"n":29,"level":"weak"},"Agrocybe praecox":{"auc":0.923,"n":28,"level":"good"},"Russula virescens":{"auc":0.723,"n":28,"level":"useful"},"Infundibulicybe geotropa":{"auc":0.797,"n":27,"level":"good"},"Volvariella bombycina":{"auc":0.451,"n":27,"level":"weak"},"Sarcodon imbricatus":{"auc":0.854,"n":26,"level":"good"},"Fistulina hepatica":{"auc":0.699,"n":26,"level":"useful"},"Paxillus involutus":{"auc":0.637,"n":26,"level":"weak"},"Morchella esculenta":{"auc":0.905,"n":25,"level":"good"},"Suillellus luridus":{"auc":0.77,"n":25,"level":"good"},"Chalciporus piperatus":{"auc":0.741,"n":25,"level":"useful"},"Pleurotus pulmonarius":{"auc":0.591,"n":25,"level":"weak"},"Imleria badia":{"auc":0.803,"n":25,"level":"good"},"Hypholoma lateritium":{"auc":0.788,"n":24,"level":"good"},"Clitocybe nebularis":{"auc":0.805,"n":24,"level":"good"},"Amanita citrina":{"auc":0.839,"n":23,"level":"good"},"Chlorophyllum rhacodes":{"auc":0.696,"n":22,"level":"useful"},"Russula integra":{"auc":0.823,"n":22,"level":"good"},"Laccaria laccata":{"auc":0.649,"n":21,"level":"weak"},"Panaeolus papilionaceus":{"auc":0.713,"n":20,"level":"useful"},"Leccinellum pseudoscabrum":{"auc":0.646,"n":20,"level":"weak"},"Clitopilus prunulus":{"auc":0.732,"n":20,"level":"useful"},"Agaricus arvensis":{"auc":0.589,"n":19,"level":"weak"},"Russula foetens":{"auc":0.609,"n":19,"level":"weak"},"Agaricus sylvaticus":{"auc":0.568,"n":19,"level":"weak"},"Meripilus giganteus":{"auc":0.635,"n":19,"level":"weak"},"Coprinopsis atramentaria":{"auc":0.635,"n":18,"level":"weak"},"Leccinum scabrum":{"auc":0.828,"n":18,"level":"good"},"Lepiota clypeolaria":{"auc":0.714,"n":17,"level":"useful"},"Hygrophorus eburneus":{"auc":0.878,"n":17,"level":"good"},"Helvella acetabulum":{"auc":0.817,"n":16,"level":"good"},"Lepiota cristata":{"auc":0.622,"n":16,"level":"weak"},"Cantharellus pallens":{"auc":0.728,"n":16,"level":"useful"},"Russula aurea":{"auc":0.779,"n":16,"level":"good"},"Bovista plumbea":{"auc":0.597,"n":15,"level":"weak"},"Panaeolus semiovatus":{"auc":0.601,"n":15,"level":"weak"},"Suillus granulatus":{"auc":0.669,"n":15,"level":"useful"},"Pholiota squarrosa":{"auc":0.686,"n":15,"level":"useful"}}}
+{
+ "source": "eval/weekly.py: full-forecast AUC on iNaturalist finds in Romania 2023-12-01..2026-10-12 (target-group background), each year scored with habitat preferences fitted on the other years; weather: era5_land.json; species with 15+ finds",
+ "updated": "2026-10-12",
+ "species": {
+  "Amanita muscaria": {
+   "auc": 0.792,
+   "n": 194,
+   "level": "good"
+  },
+  "Macrolepiota procera": {
+   "auc": 0.685,
+   "n": 98,
+   "level": "useful"
+  },
+  "Amanita rubescens": {
+   "auc": 0.707,
+   "n": 128,
+   "level": "useful"
+  },
+  "Laetiporus sulphureus": {
+   "auc": 0.602,
+   "n": 98,
+   "level": "weak"
+  },
+  "Hypholoma fasciculare": {
+   "auc": 0.633,
+   "n": 103,
+   "level": "weak"
+  },
+  "Coprinopsis picacea": {
+   "auc": 0.828,
+   "n": 68,
+   "level": "good"
+  },
+  "Pleurotus ostreatus": {
+   "auc": 0.618,
+   "n": 62,
+   "level": "weak"
+  },
+  "Marasmius oreades": {
+   "auc": 0.759,
+   "n": 65,
+   "level": "good"
+  },
+  "Auricularia auricula-judae": {
+   "auc": 0.558,
+   "n": 116,
+   "level": "weak"
+  },
+  "Lycoperdon perlatum": {
+   "auc": 0.704,
+   "n": 92,
+   "level": "useful"
+  },
+  "Coprinellus micaceus": {
+   "auc": 0.749,
+   "n": 94,
+   "level": "useful"
+  },
+  "Omphalotus olearius": {
+   "auc": 0.669,
+   "n": 29,
+   "level": "useful"
+  },
+  "Coprinus comatus": {
+   "auc": 0.639,
+   "n": 67,
+   "level": "weak"
+  },
+  "Cerioporus squamosus": {
+   "auc": 0.524,
+   "n": 64,
+   "level": "weak"
+  },
+  "Boletus edulis": {
+   "auc": 0.745,
+   "n": 60,
+   "level": "useful"
+  },
+  "Russula vesca": {
+   "auc": 0.717,
+   "n": 35,
+   "level": "useful"
+  },
+  "Armillaria mellea": {
+   "auc": 0.685,
+   "n": 20,
+   "level": "useful"
+  },
+  "Pluteus cervinus": {
+   "auc": 0.586,
+   "n": 47,
+   "level": "weak"
+  },
+  "Mycena pura": {
+   "auc": 0.733,
+   "n": 36,
+   "level": "useful"
+  },
+  "Macrolepiota mastoidea": {
+   "auc": 0.836,
+   "n": 23,
+   "level": "good"
+  },
+  "Agaricus campestris": {
+   "auc": 0.766,
+   "n": 34,
+   "level": "good"
+  },
+  "Amanita pantherina": {
+   "auc": 0.688,
+   "n": 37,
+   "level": "useful"
+  },
+  "Boletus reticulatus": {
+   "auc": 0.722,
+   "n": 56,
+   "level": "useful"
+  },
+  "Amanita regalis": {
+   "auc": 0.851,
+   "n": 68,
+   "level": "good"
+  },
+  "Neoboletus erythropus": {
+   "auc": 0.78,
+   "n": 51,
+   "level": "good"
+  },
+  "Xerocomellus chrysenteron": {
+   "auc": 0.634,
+   "n": 25,
+   "level": "weak"
+  },
+  "Leccinellum pseudoscabrum": {
+   "auc": 0.688,
+   "n": 16,
+   "level": "useful"
+  },
+  "Clitocybe nebularis": {
+   "auc": 0.752,
+   "n": 22,
+   "level": "good"
+  },
+  "Cantharellus cibarius": {
+   "auc": 0.738,
+   "n": 49,
+   "level": "useful"
+  },
+  "Megacollybia platyphylla": {
+   "auc": 0.751,
+   "n": 38,
+   "level": "good"
+  },
+  "Hypholoma lateritium": {
+   "auc": 0.751,
+   "n": 20,
+   "level": "good"
+  },
+  "Lactifluus piperatus": {
+   "auc": 0.822,
+   "n": 29,
+   "level": "good"
+  },
+  "Amanita excelsa": {
+   "auc": 0.807,
+   "n": 50,
+   "level": "good"
+  },
+  "Caloboletus calopus": {
+   "auc": 0.768,
+   "n": 29,
+   "level": "good"
+  },
+  "Infundibulicybe geotropa": {
+   "auc": 0.773,
+   "n": 17,
+   "level": "good"
+  },
+  "Russula virescens": {
+   "auc": 0.774,
+   "n": 23,
+   "level": "good"
+  },
+  "Chalciporus piperatus": {
+   "auc": 0.77,
+   "n": 18,
+   "level": "good"
+  },
+  "Agaricus sylvaticus": {
+   "auc": 0.539,
+   "n": 16,
+   "level": "weak"
+  },
+  "Lactarius deterrimus": {
+   "auc": 0.757,
+   "n": 33,
+   "level": "good"
+  },
+  "Lactifluus volemus": {
+   "auc": 0.614,
+   "n": 25,
+   "level": "weak"
+  },
+  "Volvariella bombycina": {
+   "auc": 0.549,
+   "n": 21,
+   "level": "weak"
+  },
+  "Paxillus involutus": {
+   "auc": 0.625,
+   "n": 22,
+   "level": "weak"
+  },
+  "Apioperdon pyriforme": {
+   "auc": 0.632,
+   "n": 29,
+   "level": "weak"
+  },
+  "Suillellus luridus": {
+   "auc": 0.775,
+   "n": 23,
+   "level": "good"
+  },
+  "Hericium coralloides": {
+   "auc": 0.612,
+   "n": 25,
+   "level": "weak"
+  },
+  "Lepiota cristata": {
+   "auc": 0.667,
+   "n": 15,
+   "level": "useful"
+  },
+  "Xerocomus subtomentosus": {
+   "auc": 0.555,
+   "n": 26,
+   "level": "weak"
+  },
+  "Amanita citrina": {
+   "auc": 0.821,
+   "n": 16,
+   "level": "good"
+  },
+  "Imleria badia": {
+   "auc": 0.812,
+   "n": 18,
+   "level": "good"
+  },
+  "Phallus impudicus": {
+   "auc": 0.698,
+   "n": 34,
+   "level": "useful"
+  },
+  "Russula cyanoxantha": {
+   "auc": 0.754,
+   "n": 33,
+   "level": "good"
+  },
+  "Sarcodon imbricatus": {
+   "auc": 0.874,
+   "n": 21,
+   "level": "good"
+  },
+  "Laccaria laccata": {
+   "auc": 0.577,
+   "n": 16,
+   "level": "weak"
+  },
+  "Russula integra": {
+   "auc": 0.801,
+   "n": 20,
+   "level": "good"
+  },
+  "Agrocybe praecox": {
+   "auc": 0.864,
+   "n": 20,
+   "level": "good"
+  },
+  "Russula foetens": {
+   "auc": 0.671,
+   "n": 17,
+   "level": "useful"
+  }
+ }
+}

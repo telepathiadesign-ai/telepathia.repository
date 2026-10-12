@@ -24,7 +24,7 @@ import numpy as np
 HERE = os.path.dirname(os.path.abspath(__file__))
 DATA = os.path.join(HERE, 'data')
 MACRO = {'1094814', '48341', '47380', '47350', '50815', '48717', '891028', '52526'}  # iNat classes of catalogue species
-MIN_N = 15
+MIN_N = int(os.environ.get('MIN_N', 15))
 D0 = dt.date(2023, 12, 1)
 
 
@@ -203,6 +203,7 @@ def main():
     ap.add_argument('--water', default='old', help='old | abs | rel')
     ap.add_argument('--k', type=float, default=0.85); ap.add_argument('--scale', type=float, default=15); ap.add_argument('--wr', type=float, default=0.5)
     ap.add_argument('--floor', type=float, default=0.15); ap.add_argument('--years', default='')
+    ap.add_argument('--since', default=''); ap.add_argument('--until', default='', help='date window for the evaluated finds (inclusive / exclusive)')
     ap.add_argument('--fitT', default='', help='json of fitted soil-temperature optima {species: [mean, sd, n]}')
     ap.add_argument('--params', default='', help='json {species: {t: [mean, sd], lag: [l0, l1]}} overriding the app parameters (eval/fit_timing.py)')
     ap.add_argument('--json')
@@ -230,6 +231,8 @@ def main():
         nm = ' '.join(o[1].split()[:2]); nm = alias.get(nm, nm)
         sp_rank = o[2] in ('species', 'subspecies', 'variety', 'form')
         if a.years and o[3][:4] not in a.years.split(','):
+            continue
+        if (a.since and o[3] < a.since) or (a.until and o[3] >= a.until):
             continue
         recs.append(dict(nm=nm if sp_rank else None, k=k, date=dt.date.fromisoformat(o[3]), lon=o[4], lat=o[5], e=feat[k][0], user=o[10]))
     W = Weather()
