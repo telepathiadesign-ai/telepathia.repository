@@ -1,1 +1,7 @@
-== part dem
+== part clim
+clim fail bio1 HTTP response code: 404
+clim fail bio10 HTTP response code: 404
+clim fail bio12 HTTP response code: 404
+clim fail bio15 HTTP response code: 404
+clim fail bio18 HTTP response code: 404
+layers ['built', 'clay', 'crop', 'elev', 'grass', 'hli', 'ph', 'sand', 'slope', 'soc', 'tree', 'water']
