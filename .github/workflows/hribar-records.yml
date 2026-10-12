@@ -1,0 +1,34 @@
+name: Hribar training records
+on:
+  schedule: [{ cron: '37 2 * * *' }]
+  workflow_dispatch: {}
+  push:
+    branches: [main]
+    paths: ['.github/workflows/hribar-records.yml', 'hribar/scripts/fetch_records.py']
+permissions:
+  contents: write
+concurrency: hribar-records
+jobs:
+  records:
+    runs-on: ubuntu-latest
+    timeout-minutes: 70
+    defaults: { run: { working-directory: hribar } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - name: Fetch GBIF records (resumes)
+        id: rec
+        env: { BUDGET_MIN: '55' }
+        run: |
+          set -o pipefail
+          python3 scripts/fetch_records.py 2>&1 | tee records.log
+      - name: Commit
+        if: always()
+        run: |
+          git config user.name "hribar-bot"
+          git config user.email "hribar-bot@users.noreply.github.com"
+          tail -c 3000 records.log > eval/data/records_cee_status.txt || true
+          git add eval/data/records_cee_status.txt eval/data/records_cee.json.gz eval/data/records_cee_state.json 2>/dev/null || true
+          git diff --cached --quiet || git commit -m "records: GBIF neighbour-country finds $(date -u +%Y-%m-%d)"
+          for i in 1 2 3; do git pull --rebase origin main && git push && break; sleep 5; done

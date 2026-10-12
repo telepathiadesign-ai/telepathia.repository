@@ -1,0 +1,34 @@
+name: Hribar tree-species maps
+on:
+  workflow_dispatch: {}
+  push:
+    branches: [main]
+    paths: ['.github/workflows/hribar-trees.yml', 'hribar/scripts/build_trees.py']
+permissions:
+  contents: write
+concurrency: hribar-trees
+jobs:
+  trees:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    defaults: { run: { working-directory: hribar } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - run: pip install rasterio numpy
+      - name: Build tree-species probabilities (Bonannella et al. 2022)
+        id: tr
+        run: |
+          set -o pipefail
+          python3 scripts/build_trees.py 2>&1 | tee trees.log
+      - name: Commit
+        if: always()
+        run: |
+          git config user.name "hribar-bot"
+          git config user.email "hribar-bot@users.noreply.github.com"
+          tail -c 4000 trees.log > data/trees_status.txt || true
+          git add data/trees_status.txt
+          if [ "${{ steps.tr.outcome }}" = "success" ]; then git add data/trees.json; fi
+          git diff --cached --quiet || git commit -m "layers: tree-species maps $(date -u +%Y-%m-%d)"
+          git pull --rebase origin main && git push
