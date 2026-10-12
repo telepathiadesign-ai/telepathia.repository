@@ -1,7 +1,7 @@
 == part clim
-clim fail bio1 HTTP response code: 404
-clim fail bio10 HTTP response code: 404
-clim fail bio12 HTTP response code: 404
-clim fail bio15 HTTP response code: 404
-clim fail bio18 HTTP response code: 404
-layers ['built', 'clay', 'crop', 'elev', 'grass', 'hli', 'ph', 'sand', 'slope', 'soc', 'tree', 'water']
+clim ok bio1 CHELSA 96.3
+clim ok bio10 CHELSA 191.7
+clim ok bio12 CHELSA 739.4
+clim ok bio15 CHELSA 309.1
+clim ok bio18 CHELSA 229.8
+layers ['built', 'c_bio1', 'c_bio10', 'c_bio12', 'c_bio15', 'c_bio18', 'clay', 'crop', 'elev', 'grass', 'hli', 'ph', 'sand', 'slope', 'soc', 'tree', 'water']
