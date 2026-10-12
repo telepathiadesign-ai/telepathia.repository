@@ -34,6 +34,6 @@ jobs:
           git config user.email "hribar-bot@users.noreply.github.com"
           F=$([ "${{ matrix.region }}" = ro ] && echo data/features.json || echo eval/data/features_wide.json)
           grep -v '^retry' features.log | tail -c 5000 > eval/data/features_${{ matrix.region }}_status.txt || true
-          git add eval/data/features_${{ matrix.region }}_status.txt; [ -f "$F" ] && git add "$F"
+          git add eval/data/features_${{ matrix.region }}_status.txt; [ -f "$F" ] && git add "$F"; [ -f data/climate.json ] && git add data/climate.json
           git diff --cached --quiet || git commit -m "layers: habitat features ${{ matrix.region }} $(date -u +%Y-%m-%d)"
           for i in 1 2 3 4; do git pull --rebase origin main && git push && break; sleep $((i*7)); done

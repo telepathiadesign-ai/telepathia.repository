@@ -127,6 +127,17 @@ def LC_FEAT(r):
     return features(_LCG, r['lon'], r['lat'], r['e'])
 
 
+_NG = None
+
+
+def NICHE_G():
+    global _NG
+    from fit_habitat import Grids
+    if _NG is None:
+        _NG = Grids([os.path.join(HERE, '..', 'data', 'features.json'), os.path.join(HERE, 'data', 'features_wide.json')])
+    return _NG
+
+
 HABP = json.load(open(os.environ['HAB_PREFS'])) if os.environ.get('HAB_PREFS') else None
 HAB_FLOOR = float(os.environ.get('HAB_FLOOR', 0.3))
 _HG = None
@@ -255,8 +266,15 @@ def main():
         isp = np.array([r['nm'] == s for r in recs])
         H = hv[[r['k'] for r in recs]]
         if LCP and s in LCP['species']:
-            c = LCP['species'][s]; Xf = np.array([LC_FEAT(r) for r in recs]); z = Xf @ np.array(c['w']) + c['b']
-            H = H * (0.3 + 0.7 * np.minimum(1, (1 / (1 + np.exp(-z))) / c['mx']))
+            c = LCP['species'][s]
+            if c.get('src') == 'niche':
+                from fit_niche import predict as niche_predict
+                nm_ = {'species': {s: c}, 'mu': LCP['niche']['mu'], 'sd': LCP['niche']['sd']}
+                pr = np.array([(niche_predict(nm_, s, NICHE_G().raw(r['lon'], r['lat'])) or 0.0) for r in recs])
+                H = H * (0.3 + 0.7 * np.minimum(1, pr / c['mx']))
+            else:
+                Xf = np.array([LC_FEAT(r) for r in recs]); z = Xf @ np.array(c['w']) + c['b']
+                H = H * (0.3 + 0.7 * np.minimum(1, (1 / (1 + np.exp(-z))) / c['mx']))
         if HABP and s in HABP['species']:
             H = H * HAB_MULT(s, recs)
         S = np.array([season_f(months, r['date']) for r in recs])

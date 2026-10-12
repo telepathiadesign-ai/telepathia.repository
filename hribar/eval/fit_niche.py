@@ -5,8 +5,7 @@ out on purpose: it is a proxy for climate that does not transfer between countri
 in Poland and a montane one in Romania). Climate does transfer.
 
 Features: tree, grass, crop, built, water shares (ESA WorldCover); bio10 mean temperature of the warmest quarter and its
-square; bio12 annual precipitation (m) and its square; bio15 precipitation seasonality; bio1 annual mean temperature
-(CHELSA V2.1). Output: data/lc_prefs.json-compatible entries with keys 'niche' so the app can tell them apart:
+square; bio12 annual precipitation (m) and its square; bio15 precipitation seasonality (CHELSA V2.1). Output: data/lc_prefs.json-compatible entries with keys 'niche' so the app can tell them apart:
 {species: {w: [...], b, mx, n, src: 'niche', mu: [...], sd: [...]}}, applied as 0.3 + 0.7 * min(1, p / mx).
 
     python3 eval/fit_niche.py --out eval/data/niche.json [--wx 0.3] [--ro-only] [--before 2026-01-01] [--train 2024,2025]
@@ -20,15 +19,15 @@ from backtest import load, MACRO, D0
 from fit_habitat import Grids
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-KEYS = ['tree', 'grass', 'crop', 'built', 'water', 'bio10', 'bio10_2', 'bio12', 'bio12_2', 'bio15', 'bio1']
+KEYS = ['tree', 'grass', 'crop', 'built', 'water', 'bio10', 'bio10_2', 'bio12', 'bio12_2', 'bio15']
 
 
 def niche_feats(v):
     if v is None or v.get('c_bio10', -32768) <= -32768 or v.get('c_bio12', -32768) <= -32768:
         return None
     g = lambda k: max(0.0, float(v.get(k, 0))) / 100.0
-    t10 = v['c_bio10'] / 10.0; p = v['c_bio12'] / 1000.0; s15 = v.get('c_bio15', 0) / 10.0; t1 = v.get('c_bio1', 0) / 10.0
-    return [g('tree'), g('grass'), g('crop'), g('built'), g('water'), t10, t10 * t10, p, p * p, s15 / 100.0, t1]
+    t10 = v['c_bio10'] / 10.0; p = v['c_bio12'] / 1000.0; s15 = v.get('c_bio15', 0) / 10.0
+    return [g('tree'), g('grass'), g('crop'), g('built'), g('water'), t10, t10 * t10, p, p * p, s15 / 100.0]
 
 
 def records(train_years=None, before=None, ro_only=False):
@@ -89,13 +88,27 @@ def predict(model, s, v):
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument('--out', required=True); ap.add_argument('--wx', type=float, default=0.3); ap.add_argument('--C', type=float, default=0.5)
     ap.add_argument('--train', default=''); ap.add_argument('--before', default=''); ap.add_argument('--ro-only', action='store_true'); ap.add_argument('--min', type=int, default=15)
+    ap.add_argument('--merge', default='', help='lc_prefs file: replace its non-Romanian entries (src neighbours / niche) with niche entries, keep Romanian models')
     a = ap.parse_args()
     G = Grids([os.path.join(HERE, '..', 'data', 'features.json'), os.path.join(HERE, 'data', 'features_wide.json')])
     recs, cat = records(set(a.train.split(',')) if a.train else None, a.before or None, a.ro_only)
     m = fit(recs, cat, G, a.C, a.wx, a.min)
     m['source'] = f'eval/fit_niche.py: logistic climate-niche model (C={a.C}, other-country weight {a.wx}); ESA WorldCover 2021 + CHELSA V2.1 bioclim; target-group background'
-    json.dump(m, open(a.out, 'w'), separators=(',', ':'))
-    print('wrote', a.out, len(m['species']), 'species')
+    if a.merge:
+        base = json.load(open(a.merge))
+        base['species'] = {k: v for k, v in base['species'].items() if v.get('src') not in ('neighbours', 'niche')}
+        n_ro = len(base['species']); added = 0
+        for k, v in m['species'].items():
+            if k not in base['species']:
+                base['species'][k] = v; added += 1
+        base['niche'] = {'keys': m['keys'], 'mu': m['mu'], 'sd': m['sd']}
+        base['source'] = (base.get('source', '').split('; species with too few')[0] +
+                          '; species with too few Romanian finds: climate-niche model (eval/fit_niche.py, src=niche) on finds across Europe')
+        json.dump(base, open(a.out, 'w'), separators=(',', ':'))
+        print(f'merged: {n_ro} Romanian models kept, {added} niche models added -> {a.out}')
+    else:
+        json.dump(m, open(a.out, 'w'), separators=(',', ':'))
+        print('wrote', a.out, len(m['species']), 'species')
 
 
 if __name__ == '__main__':

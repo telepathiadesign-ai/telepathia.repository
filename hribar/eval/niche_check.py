@@ -15,7 +15,7 @@ from fit_habitat import Grids
 from fit_niche import niche_feats, records
 
 ap = argparse.ArgumentParser(); ap.add_argument('--wx', type=float, default=0.3); ap.add_argument('--C', type=float, default=0.5)
-ap.add_argument('--ro-only', action='store_true'); ap.add_argument('--floor', type=float, default=0.3); ap.add_argument('--min-test', type=int, default=10)
+ap.add_argument('--ro-only', action='store_true'); ap.add_argument('--exonly', action='store_true', help='train the niche model on other countries only (transfer test)'); ap.add_argument('--floor', type=float, default=0.3); ap.add_argument('--min-test', type=int, default=10)
 a = ap.parse_args()
 HERE = os.path.dirname(os.path.abspath(__file__))
 LG = lc_grids(); FG = Grids([os.path.join(HERE, '..', 'data', 'features.json'), os.path.join(HERE, 'data', 'features_wide.json')])
@@ -64,14 +64,15 @@ for s in sorted(set(n for n in NM if n)):
         if ntr_ro >= 10:
             m = LogisticRegression(class_weight='balanced', max_iter=500).fit(XL[tr], NM[tr] == s)
             p = m.predict_proba(XL)[:, 1]; lc[te] = np.minimum(1, p[te] / np.percentile(p[tr & (NM == s)], 90))
-        Xtr = np.vstack([XN[tr], XNX]); ytr = np.concatenate([NM[tr] == s, NX == s]); wtr = np.concatenate([np.ones(tr.sum()), np.full(len(EX), a.wx)])
+        trn = tr & (not a.exonly)
+        Xtr = np.vstack([XN[trn], XNX]); ytr = np.concatenate([NM[trn] == s, NX == s]); wtr = np.concatenate([np.ones(trn.sum()), np.full(len(EX), a.wx)])
         if ytr.sum() < 10:
             continue
         sw = wtr * np.where(ytr, 0.5 / wtr[ytr].sum(), 0.5 / wtr[~ytr].sum()) * len(ytr)
         mu, sd = Xtr.mean(0), Xtr.std(0) + 1e-6
         m = LogisticRegression(C=a.C, max_iter=1000).fit((Xtr - mu) / sd, ytr, sample_weight=sw)
         p = m.predict_proba((XN - mu) / sd)[:, 1]
-        pref = np.percentile(p[tr & (NM == s)], 90) if (tr & (NM == s)).sum() >= 5 else np.percentile(m.predict_proba((Xtr - mu) / sd)[:, 1][ytr], 90)
+        pref = np.percentile(p[tr & (NM == s)], 90) if (tr & (NM == s)).sum() >= 5 and not a.exonly else np.percentile(m.predict_proba((Xtr - mu) / sd)[:, 1][ytr], 90)
         nc[te] = np.minimum(1, p[te] / pref)
     ok = te_all & ~np.isnan(nc)
     pos = ok & (NM == s); neg = ok & (NM != s)
@@ -79,16 +80,19 @@ for s in sorted(set(n for n in NM if n)):
         continue
     H = np.array(hab['sp'][s]['h'])[K]; fl = a.floor
     has_lc = not np.isnan(lc[ok]).all()
+    okl = ok & ~np.isnan(lc); mix = fl + (1 - fl) * np.sqrt(np.maximum(0, lc) * np.maximum(0, nc))
     rows.append((s, int(pos.sum()), auc(H[pos], H[neg]),
                  auc((H * (fl + (1 - fl) * lc))[pos & ~np.isnan(lc)], (H * (fl + (1 - fl) * lc))[neg & ~np.isnan(lc)]) if has_lc else None,
-                 auc((H * (fl + (1 - fl) * nc))[pos], (H * (fl + (1 - fl) * nc))[neg]), auc(nc[pos], nc[neg])))
+                 auc((H * (fl + (1 - fl) * nc))[pos], (H * (fl + (1 - fl) * nc))[neg]), auc(nc[pos], nc[neg]),
+                 auc((H * mix)[pos & okl], (H * mix)[neg & okl]) if has_lc else None))
 rng = np.random.default_rng(1)
 both = [r for r in rows if r[3] is not None]
 print(f'species {len(rows)} (with a Romanian land-cover model: {len(both)})')
 print(f'  median habitat AUC: rule {np.median([r[2] for r in rows]):.3f} | rule x niche {np.median([r[4] for r in rows]):.3f} | niche alone {np.median([r[5] for r in rows]):.3f}')
 if both:
     print(f'  on the {len(both)} with a land-cover model: rule x land cover {np.median([r[3] for r in both]):.3f} | rule x niche {np.median([r[4] for r in both]):.3f}')
-for lab, d in (('rule x niche vs rule (all)', np.array([r[4] - r[2] for r in rows])), ('rule x niche vs rule x land cover', np.array([r[4] - r[3] for r in both]))):
+for lab, d in (('rule x niche vs rule (all)', np.array([r[4] - r[2] for r in rows])), ('rule x niche vs rule x land cover', np.array([r[4] - r[3] for r in both])),
+               ('rule x sqrt(land cover x niche) vs rule x land cover', np.array([r[6] - r[3] for r in both]))):
     if len(d):
         bs = [rng.choice(d, len(d)).mean() for _ in range(5000)]
         print(f'  {lab}: mean {d.mean():+.4f}  95% CI [{np.percentile(bs, 2.5):+.4f}, {np.percentile(bs, 97.5):+.4f}]  better {(d > 0.005).sum()} worse {(d < -0.005).sum()}')
