@@ -12,7 +12,7 @@ OUT = os.path.join(ROOT, 'eval', 'data', 'eobs_rain.json')
 BUCKET = 'https://knmi-ecad-assets-prd.s3.amazonaws.com'
 PREFIX = 'ensembles/data/Grid_0.1deg_reg_ensemble/'
 T0 = dt.date(2023, 12, 1)
-log = lambda *a: print(*a, file=sys.stderr, flush=True)
+log = lambda *a, **k: print(*a, file=sys.stderr, flush=True, **k)
 
 
 def listing():
