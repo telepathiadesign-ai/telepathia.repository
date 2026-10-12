@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
-"""More finds for training: GBIF occurrences (includes iNaturalist research-grade) of every catalogue species in
-Romania's neighbours and the wider Carpathian region, 2018 onwards. Runs nightly on GitHub Actions with a time budget
+"""More finds for training: GBIF occurrences (includes iNaturalist research-grade) of every catalogue species across
+Europe, neighbours first, 2018 onwards. Used with climate layers sampled at the points, so a species' niche learned in
+Poland or Austria transfers to Romania through climate rather than elevation. Runs nightly on GitHub Actions with a time budget
 and resumes where it stopped, until every species x country is done.
 
 Output: eval/data/records_cee.json.gz  -> {"rows": [[species, date, lon, lat, country, uncertainty_m, source], ...]}
@@ -13,7 +14,9 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.join(HERE, '..')
 OUT = os.path.join(ROOT, 'eval', 'data', 'records_cee.json.gz')
 STATE = os.path.join(ROOT, 'eval', 'data', 'records_cee_state.json')
-COUNTRIES = ['HU', 'SK', 'PL', 'CZ', 'UA', 'MD', 'BG', 'RS', 'AT', 'SI', 'HR']
+COUNTRIES = ['HU', 'SK', 'PL', 'CZ', 'UA', 'MD', 'BG', 'RS', 'AT', 'SI', 'HR',           # neighbours and the Carpathian arc first
+             'DE', 'CH', 'IT', 'FR', 'BA', 'ME', 'MK', 'AL', 'GR', 'LT', 'LV', 'EE', 'BY', 'DK', 'SE', 'NO', 'FI', 'GB', 'IE',
+             'NL', 'BE', 'LU', 'ES', 'PT', 'TR', 'GE', 'RU']                                   # the rest of Europe, for the climate-niche model
 INAT = '50c9509d-22c7-4a22-a47d-8c48425ef4a7'
 BUDGET = float(os.environ.get('BUDGET_MIN', '50')) * 60
 MAX_PER = 20000  # per species x country cap
