@@ -111,3 +111,8 @@ E-OBS v33 gauge-based daily rain (0.5° box mean at each node) in place of model
 874 vs 537 mm/yr, daily r = 0.45) yet the forecast does not care: timing is dominated by temperature, season and the
 recent-reports signal, and the water term is relative per place. Satellite rain (IMERG) is less accurate than gauges in
 mountains, so it was not pursued.
+
+### D6 forest loss, 12 Oct 2026
+Hansen Global Forest Change v1.12 (30 m): % of each 0.01° cell lost in the last 10 and 4 years, added to the Romanian
+land-cover model. Held-out 2026: habitat −0.004 (CI −0.009..+0.001); 2025: +0.001 (CI −0.003..+0.006). No gain; not shipped.
+Leaf type as a learned input (beyond its use in the host factor): +0.002 / −0.001, no gain.
