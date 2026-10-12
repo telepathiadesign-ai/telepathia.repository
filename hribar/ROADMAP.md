@@ -43,3 +43,4 @@ Where we are (held-out): habitat AUC ~0.68 median for the 28 species with enough
 - A2 learned habitat: built and tested (`eval/fit_habitat.py`, `eval/spatial_habitat.py`). No gain over learned land cover; target 0.70 not met.
 - A3 records: met (species with 15+ finds 75 → 186 after one night; job continues nightly). Shipped as neighbour-trained land-cover models for 128 more species (habitat +0.027..+0.030, full +0.012..+0.016, CI above 0 on two periods).
 - A4, A5: next.
+- 12 Oct, later: climate-niche habitat model shipped for the 128 species without a Romanian model (transfer test +0.041 vs rules, equal to a Romania-trained model). Field log live (B2). Reliability now a true hold-out (56 species). A4 waits for the archived-forecast file.

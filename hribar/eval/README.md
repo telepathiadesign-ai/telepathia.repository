@@ -79,3 +79,28 @@ but clearly better than the rules. The app labels which one a species uses.
 Not shipped: tree maps, soil texture / carbon, heat load. With current find counts they do not add skill over land cover
 and elevation. The A2 target (median held-out habitat AUC ≥ 0.70) is not met: best is 0.67–0.69 depending on the test.
 Revisit once records reach ~50 finds per species, or with a model that shares strength across species.
+
+## Round 5, 12 Oct 2026 — climate niche, field log, honest reliability
+
+Prompted by a side-by-side with Sporecast for *Psilocybe semilanceata*: our habitat painted the whole Transylvanian
+plateau "High" (catalogue elevation 1200 ± 1280 m, open land scored 1.0, no climate in the habitat term); theirs showed
+only the montane pastures, which is the real ecology.
+
+New inputs: CHELSA V2.1 bioclim (bio1, bio10, bio12, bio15, bio18) on both grids (`scripts/build_features.py` part `clim`);
+`data/climate.json` carries bio10/bio12/bio15 to the app.
+
+| Test | Result | Shipped |
+| --- | --- | --- |
+| Elevation optimum fitted on pooled RO + neighbour finds (`fit_elev.py`) | wrong on inspection: *Amanita muscaria* becomes lowland (Polish records). Elevation does not transfer between countries. | no |
+| Climate-niche model (`fit_niche.py`: land cover + bio10, bio10², bio12, bio12², bio15; no elevation), spatial blocks, vs rule-based habitat | **+0.048, CI +0.025..+0.072; 30 better / 9 worse** | — |
+| same, vs the Romania-trained land-cover model (34 species with both) | +0.004, CI −0.016..+0.027 (equal) | — |
+| **Transfer: niche model trained on other countries only, scored on Romanian 2026 blocks**, vs rules | **+0.041, CI +0.021..+0.064; 25 better / 6 worse**; vs Romania-trained land cover +0.002 (equal) | **yes, for the 128 species without a Romanian model** |
+| (for comparison) elevation-based neighbour model, same transfer test | +0.031 vs rules, −0.018 vs Romania-trained | replaced |
+| Romanian land-cover × niche (geometric mean) | −0.002 vs land cover alone | no |
+
+Also this round: the field log (found it / nothing here) stored in the artifact database — the first source of true
+absences; `reliability.json` is now cross-fitted (each year scored with habitat preferences fitted on the other years,
+`eval/weekly.py`, weekly GitHub job): 56 species rated (24 good / 16 useful / 16 weak) instead of 75 partly in-sample.
+
+Open: timing per feeding group in forecast space (A4) waits for `eval/data/hist_forecast.json` (archived Open-Meteo
+forecasts at the 40 nodes). In ERA5 space the per-group fit gave full AUC +0.011 (CI +0.001..+0.022) on 2026.
