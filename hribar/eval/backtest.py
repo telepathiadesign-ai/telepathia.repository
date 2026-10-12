@@ -58,11 +58,12 @@ def gauss(x, m, s):
 class Weather:
     """ERA5-Land daily series at 0.5° nodes; nearest-node lookup with a lapse-rate correction for soil temperature."""
     def __init__(self):
-        p = os.path.join(DATA, 'era5_land.json')
+        name = os.environ.get('WX_FILE', 'era5_land.json')  # era5_land.json (reanalysis) or hist_forecast.json (archived forecasts = what the app sees)
+        p = os.path.join(DATA, os.path.basename(name))
         self.ok = os.path.exists(p)
         if not self.ok:
             return
-        raw = load('era5_land.json')
+        raw = load(os.path.basename(name))
         self.nodes = {}
         for k, v in raw.items():
             lon, lat = map(float, k.split(','))
@@ -203,6 +204,7 @@ def main():
     ap.add_argument('--k', type=float, default=0.85); ap.add_argument('--scale', type=float, default=15); ap.add_argument('--wr', type=float, default=0.5)
     ap.add_argument('--floor', type=float, default=0.15); ap.add_argument('--years', default='')
     ap.add_argument('--fitT', default='', help='json of fitted soil-temperature optima {species: [mean, sd, n]}')
+    ap.add_argument('--params', default='', help='json {species: {t: [mean, sd], lag: [l0, l1]}} overriding the app parameters (eval/fit_timing.py)')
     ap.add_argument('--json')
     a = ap.parse_args()
     water = a.water if a.water == 'old' else make_water(a.water, a.k, a.scale, a.wr, a.floor)
@@ -237,11 +239,14 @@ def main():
             counts[r['nm']] += 1
     species = sorted([s for s, n in counts.items() if n >= MIN_N], key=lambda s: -counts[s])
     fitT = load(a.fitT) if a.fitT else {}
+    PARAMS = json.load(open(a.params)).get('species', {}) if a.params else {}
     rows = []
     for s in species:
         sp = dict(hab['sp'][s])
         if s in fitT:
             sp['t'] = [fitT[s][0], fitT[s][1] - 1]
+        if a.params and s in PARAMS:
+            sp.update({k: v for k, v in PARAMS[s].items() if k in ('t', 'lag')})
         hv = np.array(sp["h"])
         months = [int(x) for x in sp['months']] if isinstance(sp['months'], str) else sp['months']
         isp = np.array([r['nm'] == s for r in recs])
