@@ -1,27 +1,6 @@
 Traceback (most recent call last):
-  File "/home/runner/work/telepathia.repository/telepathia.repository/hribar/scripts/fetch_eobs.py", line 72, in <module>
+  File "/home/runner/work/telepathia.repository/telepathia.repository/hribar/scripts/fetch_eobs.py", line 73, in <module>
     main()
-  File "/home/runner/work/telepathia.repository/telepathia.repository/hribar/scripts/fetch_eobs.py", line 32, in main
-    keys = [k for k in listing() if re.search(r'rr_ens_mean_0\.1deg_reg_.*\.nc$', k)]
-                       ^^^^^^^^^
-  File "/home/runner/work/telepathia.repository/telepathia.repository/hribar/scripts/fetch_eobs.py", line 22, in listing
-    x = urllib.request.urlopen(u, timeout=60).read().decode()
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/urllib/request.py", line 215, in urlopen
-    return opener.open(url, data, timeout)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/urllib/request.py", line 521, in open
-    response = meth(req, response)
-               ^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/urllib/request.py", line 630, in http_response
-    response = self.parent.error(
-               ^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/urllib/request.py", line 559, in error
-    return self._call_chain(*args)
-           ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/urllib/request.py", line 492, in _call_chain
-    result = func(*args)
-             ^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/urllib/request.py", line 639, in http_error_default
-    raise HTTPError(req.full_url, code, msg, hdrs, fp)
-urllib.error.HTTPError: HTTP Error 403: Forbidden
+  File "/home/runner/work/telepathia.repository/telepathia.repository/hribar/scripts/fetch_eobs.py", line 40, in main
+    log('E-OBS candidates found:', *found, sep='\n  ')
+TypeError: <lambda>() got an unexpected keyword argument 'sep'
