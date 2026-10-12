@@ -1,6 +1,12 @@
-Traceback (most recent call last):
-  File "/home/runner/work/telepathia.repository/telepathia.repository/hribar/scripts/fetch_eobs.py", line 73, in <module>
-    main()
-  File "/home/runner/work/telepathia.repository/telepathia.repository/hribar/scripts/fetch_eobs.py", line 40, in main
-    log('E-OBS candidates found:', *found, sep='\n  ')
-TypeError: <lambda>() got an unexpected keyword argument 'sep'
+E-OBS candidates found:
+  ensembles/data/Grid_0.1deg_reg_ensemble/rr_ens_mean_0.1deg_reg_2011-2025_v33.0e.nc
+  ensembles/data/Grid_0.1deg_reg_ensemble/rr_ens_mean_0.1deg_reg_2011-2025_v32.0e.nc
+  ensembles/data/Grid_0.1deg_reg_ensemble/rr_ens_mean_0.1deg_reg_2011-2024_v31.0e.nc
+  ensembles/data/Grid_0.1deg_reg_ensemble/rr_ens_mean_0.1deg_reg_2011-2024_v30.0e.nc
+  ensembles/data/Grid_0.1deg_reg_ensemble/rr_ens_mean_0.1deg_reg_v33.0e.nc
+  ensembles/data/Grid_0.1deg_reg_ensemble/rr_ens_mean_0.1deg_reg_v32.0e.nc
+  ensembles/data/Grid_0.1deg_reg_ensemble/rr_ens_mean_0.1deg_reg_v31.0e.nc
+  ensembles/data/Grid_0.1deg_reg_ensemble/rr_ens_mean_0.1deg_reg_v30.0e.nc
+download ensembles/data/Grid_0.1deg_reg_ensemble/rr_ens_mean_0.1deg_reg_2011-2025_v33.0e.nc
+  days 2023-12-01 .. 2025-12-31
+wrote /home/runner/work/telepathia.repository/telepathia.repository/hribar/scripts/../eval/data/eobs_rain.json 109 nodes, through 2025-12-31
