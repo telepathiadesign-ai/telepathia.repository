@@ -214,6 +214,51 @@ def part_dlt(out):
                    'broad': out['dlt_broad'], 'conif': out['dlt_conif']}, open('data/leaftype.json', 'w'), separators=(',', ':'))
 
 
+def part_chm(out):
+    """ETH Global Canopy Height 2020 (Lang et al. 2023, 10 m, Sentinel-2 + GEDI lidar, CC BY 4.0), 3° cloud-optimised tiles.
+    Per 0.01° cell: mean canopy height of forest pixels (height >= 3 m) in dm, and share of pixels taller than 20 m (%)."""
+    import urllib.request, re
+    base = 'https://share.phys.ethz.ch/~pf/nlangdata/ETH_GlobalCanopyHeight_10m_2020_version1/'
+    idx = urllib.request.urlopen(base, timeout=60).read().decode(errors='replace')
+    subs = sorted(set(re.findall(r'href="([^"?]*3deg[^"]*/)"', idx))) or ['3deg_cogs/']
+    log('chm subdirs', subs)
+    sub = base + subs[0]
+    names = sorted(set(re.findall(r'href="([^"]*_Map\.tif)"', urllib.request.urlopen(sub, timeout=60).read().decode(errors='replace'))))
+    log('chm tiles listed', len(names), names[:3])
+    tiles = {}
+    for n in names:
+        m = re.search(r'([NS])(\d{2})([EW])(\d{3})', n)
+        if m:
+            la = int(m.group(2)) * (1 if m.group(1) == 'N' else -1); lo = int(m.group(4)) * (1 if m.group(3) == 'E' else -1)
+            tiles[(la, lo)] = sub + n.split('/')[-1]
+    SUBC = 5   # ~200 m samples per 0.01° cell edge... read at 20 m effective via average of 10 m pixels below
+    hsum = np.zeros((H, W), np.float32); hcnt = np.zeros((H, W), np.float32); tall = np.zeros((H, W), np.float32); allc = np.zeros((H, W), np.float32)
+    for (la, lo), url in sorted(tiles.items()):
+        w0, s0, e0, n0 = max(lo, LO0), max(la, LA0), min(lo + 3, LO0 + W * ST), min(la + 3, LA0 + H * ST)
+        if w0 >= e0 or s0 >= n0:
+            continue
+        c0, c1 = int(round((w0 - LO0) / ST)), int(round((e0 - LO0) / ST)); r0, r1 = int(round((s0 - LA0) / ST)), int(round((n0 - LA0) / ST))
+        try:
+            with rasterio.Env(**ENV), rasterio.open('/vsicurl/' + url) as src:
+                a = src.read(1, window=from_bounds(w0, s0, e0, n0, src.transform), out_shape=((r1 - r0) * SUBC, (c1 - c0) * SUBC),
+                             resampling=Resampling.nearest).astype(np.float32)
+        except Exception as e:
+            log('chm skip', la, lo, str(e)[:120]); continue
+        a[a >= 255] = np.nan
+        blk = a[::-1].reshape(r1 - r0, SUBC, c1 - c0, SUBC)
+        fin = np.isfinite(blk); fo = fin & (blk >= 3)
+        hsum[r0:r1, c0:c1] += np.where(fo, blk, 0).sum(axis=(1, 3)); hcnt[r0:r1, c0:c1] += fo.sum(axis=(1, 3))
+        tall[r0:r1, c0:c1] += (fin & (blk >= 20)).sum(axis=(1, 3)); allc[r0:r1, c0:c1] += fin.sum(axis=(1, 3))
+        log('chm ok', la, lo)
+    with np.errstate(all='ignore'):
+        out['chm_mean'] = enc(np.where(hcnt > 0, 10 * hsum / hcnt, np.where(allc > 0, 0, np.nan)))
+        out['chm_tall'] = enc(np.where(allc > 0, 100 * tall / allc, np.nan))
+    log('chm done', 'cells', int((allc > 0).sum()), 'mean forest height m', round(float(np.nansum(hsum) / max(1, np.nansum(hcnt))), 1))
+    if REG == 'ro':
+        json.dump({'source': 'ETH Global Canopy Height 2020 (10 m), mean forest height (dm) and share of pixels taller than 20 m, CC BY 4.0',
+                   'mean': out['chm_mean'], 'tall': out['chm_tall']}, open('data/canopy.json', 'w'), separators=(',', ':'))
+
+
 def part_trees(out):
     sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
     from build_trees import find_records  # noqa
