@@ -1,0 +1,54 @@
+ok 25.5,45.5 days 1044 elev 1056.0 missing soilT 0
+retry 0 <urlopen error _ssl.c:993: The handshake operation timed out>
+ok 27.5,47 days 1044 elev 266.0 missing soilT 0
+retry 0 <urlopen error _ssl.c:993: The handshake operation timed out>
+ok 23.5,46.5 days 1044 elev 790.0 missing soilT 0
+retry 0 <urlopen error _ssl.c:993: The handshake operation timed out>
+retry 0 <urlopen error _ssl.c:993: The handshake operation timed out>
+ok 22.5,46.5 days 1044 elev 317.0 missing soilT 0
+retry 0 <urlopen error _ssl.c:993: The handshake operation timed out>
+ok 26,44.5 days 1044 elev 89.0 missing soilT 0
+retry 0 <urlopen error _ssl.c:993: The handshake operation timed out>
+retry 0 <urlopen error _ssl.c:993: The handshake operation timed out>
+ok 23.5,47 days 1044 elev 411.0 missing soilT 0
+retry 0 <urlopen error _ssl.c:993: The handshake operation timed out>
+retry 0 <urlopen error _ssl.c:993: The handshake operation timed out>
+ok 24.5,45.5 days 1044 elev 1770.0 missing soilT 0
+retry 0 <urlopen error _ssl.c:993: The handshake operation timed out>
+ok 25.5,47.5 days 1044 elev 1140.0 missing soilT 0
+retry 0 <urlopen error _ssl.c:993: The handshake operation timed out>
+ok 23,46.5 days 1044 elev 1421.0 missing soilT 0
+retry 0 <urlopen error _ssl.c:993: The handshake operation timed out>
+retry 0 <urlopen error _ssl.c:993: The handshake operation timed out>
+ok 25,45.5 days 1044 elev 2254.0 missing soilT 0
+retry 0 <urlopen error _ssl.c:993: The handshake operation timed out>
+ok 21.5,46 days 1044 elev 203.0 missing soilT 0
+retry 0 <urlopen error _ssl.c:993: The handshake operation timed out>
+retry 0 <urlopen error _ssl.c:993: The handshake operation timed out>
+ok 23,45.5 days 1044 elev 491.0 missing soilT 0
+retry 0 <urlopen error _ssl.c:993: The handshake operation timed out>
+retry 0 <urlopen error _ssl.c:993: The handshake operation timed out>
+ok 26,46 days 1044 elev 716.0 missing soilT 0
+retry 0 <urlopen error _ssl.c:993: The handshake operation timed out>
+retry 0 <urlopen error _ssl.c:993: The handshake operation timed out>
+ok 25.5,46.5 days 1044 elev 866.0 missing soilT 0
+retry 0 <urlopen error _ssl.c:993: The handshake operation timed out>
+retry 0 <urlopen error _ssl.c:993: The handshake operation timed out>
+ok 26,47 days 1044 elev 888.0 missing soilT 0
+retry 0 <urlopen error _ssl.c:993: The handshake operation timed out>
+retry 0 <urlopen error _ssl.c:993: The handshake operation timed out>
+ok 23,46 days 1044 elev 572.0 missing soilT 0
+retry 0 <urlopen error _ssl.c:993: The handshake operation timed out>
+retry 0 <urlopen error _ssl.c:993: The handshake operation timed out>
+ok 22,47 days 1044 elev 179.0 missing soilT 0
+retry 0 <urlopen error _ssl.c:993: The handshake operation timed out>
+retry 0 <urlopen error _ssl.c:993: The handshake operation timed out>
+ok 25,46 days 1044 elev 583.0 missing soilT 0
+retry 0 <urlopen error _ssl.c:993: The handshake operation timed out>
+ok 28.5,44 days 1044 elev 57.0 missing soilT 0
+retry 0 <urlopen error _ssl.c:993: The handshake operation timed out>
+retry 0 <urlopen error _ssl.c:993: The handshake operation timed out>
+ok 22,46.5 days 1044 elev 128.0 missing soilT 0
+retry 0 <urlopen error _ssl.c:993: The handshake operation timed out>
+ok 25.5,45 days 1044 elev 356.0 missing soilT 0
+retry 0 <urlopen error _ssl.c:993: The handshake operation timed out>
