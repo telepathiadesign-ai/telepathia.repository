@@ -14,7 +14,7 @@ from fit_landcover import lc_grids, features
 from fit_habitat import Grids, featurize, records
 
 ap = argparse.ArgumentParser(); ap.add_argument('--wide', action='store_true'); ap.add_argument('--C', type=float, default=0.3)
-ap.add_argument('--floor', type=float, default=0.3)
+ap.add_argument('--floor', type=float, default=0.3); ap.add_argument('--wx', type=float, default=1.0)
 a = ap.parse_args()
 HERE = os.path.dirname(os.path.abspath(__file__))
 LG = lc_grids(); FG = Grids([os.path.join(HERE, '..', 'data', 'features.json'), os.path.join(HERE, 'data', 'features_wide.json')])
@@ -71,7 +71,9 @@ for s in sorted(set(n for n in NM if n)):
         p = m.predict_proba(XL)[:, 1]; lc[te] = np.minimum(1, p[te] / np.percentile(p[tr & (NM == s)], 90))
         Xtr = np.vstack([XH[tr], XHX]); ytr = np.concatenate([NM[tr] == s, NX == s]) if len(EX) else NM[tr] == s
         mu, sd = Xtr.mean(0), Xtr.std(0) + 1e-6
-        m = LogisticRegression(C=a.C, class_weight='balanced', max_iter=1000).fit((Xtr - mu) / sd, ytr)
+        swt = np.concatenate([np.ones(tr.sum()), np.full(len(EX), a.wx)])
+        swt = swt * np.where(ytr, 0.5 / (swt * ytr).sum(), 0.5 / (swt * ~ytr).sum()) * len(ytr)
+        m = LogisticRegression(C=a.C, max_iter=1000).fit((Xtr - mu) / sd, ytr, sample_weight=swt)
         p = m.predict_proba((XH - mu) / sd)[:, 1]; hb[te] = np.minimum(1, p[te] / np.percentile(p[tr & (NM == s)], 90))
     ok = te_all & ~np.isnan(lc) & ~np.isnan(hb)
     pos = ok & (NM == s); neg = ok & (NM != s)
