@@ -304,6 +304,52 @@ def part_gfc(out):
     log('gfc done', 'mean loss 10 y %', round(float(np.nansum(l10) / max(1, np.nansum(n)) * 100), 2))
 
 
+def part_pasture(out):
+    """Grazing proxy from OpenStreetMap (Overpass): sheepfolds ("stână", named or tagged) and pasture/meadow land use.
+    Per 0.01° cell: number of sheepfolds within ~3 km (stana3) and % of the cell mapped as pasture or meadow (pasture)."""
+    import urllib.request, urllib.parse
+    if REG != 'ro':
+        log('pasture: Romania only'); return
+    q = """[out:json][timeout:600];area["ISO3166-1"="RO"][admin_level=2]->.a;
+(node(area.a)[name~"^St[âa]n[aă]",i];way(area.a)[name~"^St[âa]n[aă]",i];node(area.a)[building=sheepfold];way(area.a)[building=sheepfold];
+ node(area.a)["animal_keeping"="sheep"];way(area.a)["animal_keeping"="sheep"];);out center;"""
+    q2 = """[out:json][timeout:900];area["ISO3166-1"="RO"][admin_level=2]->.a;(way(area.a)[landuse=meadow];way(area.a)[meadow=pasture];way(area.a)[landuse=pasture];);out geom;"""
+    def ov(qq):
+        for h in ('https://overpass-api.de/api/interpreter', 'https://overpass.kumi.systems/api/interpreter'):
+            for k in range(3):
+                try:
+                    return json.load(urllib.request.urlopen(h, data=urllib.parse.urlencode({'data': qq}).encode(), timeout=900))['elements']
+                except Exception as e:
+                    log('overpass retry', h.split('/')[2], k, str(e)[:80]); time.sleep(30 * (k + 1))
+        raise RuntimeError('overpass unreachable')
+    st = ov(q)
+    pts = [(e.get('lon') or e['center']['lon'], e.get('lat') or e['center']['lat']) for e in st if 'lon' in e or 'center' in e]
+    log('sheepfolds', len(pts))
+    cnt = np.zeros((H, W), np.float32)
+    for lo, la in pts:
+        c, r = int((lo - LO0) / ST), int((la - LA0) / ST)
+        if 0 <= r < H and 0 <= c < W:
+            cnt[r, c] += 1
+    from scipy.ndimage import uniform_filter
+    near = uniform_filter(cnt, size=5, mode='constant') * 25   # sheepfolds within the 5x5-cell (~4 km) window
+    out['stana3'] = enc(near * 10)
+    from rasterio.features import rasterize
+    from shapely.geometry import Polygon
+    shapes = []
+    for e in ov(q2):
+        g = e.get('geometry')
+        if g and len(g) >= 4 and g[0] == g[-1]:
+            shapes.append((Polygon([(p['lon'], p['lat']) for p in g]), 1))
+    log('pasture polygons', len(shapes))
+    SUBP = 10
+    tf = from_origin(LO0, LA0 + H * ST, ST / SUBP, ST / SUBP)
+    fine = rasterize(shapes, out_shape=(H * SUBP, W * SUBP), transform=tf, fill=0, dtype='uint8') if shapes else np.zeros((H * SUBP, W * SUBP), np.uint8)
+    share = fine[::-1].reshape(H, SUBP, W, SUBP).mean(axis=(1, 3)) * 100
+    out['pasture'] = enc(share)
+    json.dump({'source': 'OpenStreetMap contributors (ODbL): sheepfolds within ~4 km (x10) and % of cell mapped as pasture/meadow',
+               'stana': out['stana3'], 'pasture': out['pasture']}, open('data/pasture.json', 'w'), separators=(',', ':'))
+
+
 def part_trees(out):
     sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
     from build_trees import find_records  # noqa

@@ -29,7 +29,7 @@ def lc_grids():
 
 
 EXTRA = [x for x in os.environ.get('EXTRA', '').split(',') if x]   # extra per-cell layers from data/features.json, e.g. EXTRA=chm_mean,chm_tall
-EXTRA_SCALE = {'chm_mean': 300.0, 'chm_tall': 100.0, 'dlt_broad': 100.0, 'dlt_conif': 100.0, 'gfc_loss': 100.0, 'gfc_loss4': 100.0, 'grass_mgmt': 100.0}
+EXTRA_SCALE = {'chm_mean': 300.0, 'chm_tall': 100.0, 'dlt_broad': 100.0, 'dlt_conif': 100.0, 'gfc_loss': 100.0, 'gfc_loss4': 100.0, 'stana3': 30.0, 'pasture': 100.0}
 _FG = None
 
 
