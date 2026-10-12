@@ -29,17 +29,18 @@ def listing():
 
 def main():
     import xarray as xr
-    keys = [k for k in listing() if re.search(r'rr_ens_mean_0\.1deg_reg_.*\.nc$', k)]
-    log('E-OBS rain files:', *keys, sep='\n  ')
-    # prefer the shortest file that reaches back to T0; add any "recent"/monthly update files after it
-    def years(k):
-        m = re.search(r'(\d{4})-(\d{4})', k); return (int(m.group(1)), int(m.group(2))) if m else (1950, 9999)
-    def ver(k):
-        m = re.search(r'v(\d+)\.(\d+)e', k); return (int(m.group(1)), int(m.group(2))) if m else (0, 0)
-    base = sorted([k for k in keys if years(k)[0] <= T0.year and 'recent' not in k and 'month' not in k], key=lambda k: (-ver(k)[0], -ver(k)[1], years(k)[0] * -1))
-    if not base:
-        sys.exit('no suitable E-OBS file')
-    picks = [base[0]] + sorted([k for k in keys if ('recent' in k or 'month' in k) and k not in base[:1]], key=ver)[-3:]
+    def exists(k):
+        try:
+            urllib.request.urlopen(urllib.request.Request(f'{BUCKET}/{k}', method='HEAD'), timeout=30); return True
+        except Exception:
+            return False
+    cands = [f'{PREFIX}rr_ens_mean_0.1deg_reg_{per}_v{v}.0e.nc' for v in (33, 32, 31, 30) for per in ('2011-2025', '2011-2024')]
+    cands += [f'{PREFIX}rr_ens_mean_0.1deg_reg_v{v}.0e.nc' for v in (33, 32, 31, 30)]
+    found = [k for k in cands if exists(k)]
+    log('E-OBS candidates found:', *found, sep='\n  ')
+    if not found:
+        sys.exit('no E-OBS rain file found at the known names')
+    picks = found[:1]
     nodes = json.load(open(os.path.join(ROOT, 'eval', 'data', 'era5_nodes.json')))
     series = {f'{lon:g},{lat:g}': {} for lon, lat in nodes}
     for k in picks:
