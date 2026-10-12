@@ -126,6 +126,21 @@ def LC_FEAT(r):
     return features(_LCG, r['lon'], r['lat'], r['e'])
 
 
+HABP = json.load(open(os.environ['HAB_PREFS'])) if os.environ.get('HAB_PREFS') else None
+HAB_FLOOR = float(os.environ.get('HAB_FLOOR', 0.3))
+_HG = None
+
+
+def HAB_MULT(s, recs):
+    global _HG
+    from fit_habitat import Grids, predict
+    if _HG is None:
+        _HG = Grids([os.path.join(HERE, '..', 'data', 'features.json'), os.path.join(HERE, 'data', 'features_wide.json')])
+    c = HABP['species'][s]
+    p = np.array([(predict(HABP, s, _HG.raw(r['lon'], r['lat'])) or 0.0) for r in recs])
+    return HAB_FLOOR + (1 - HAB_FLOOR) * np.minimum(1, p / c['mx'])
+
+
 RECENT_KM = float(os.environ.get('RECENT_KM', 0)); RECENT_D = int(os.environ.get('RECENT_D', 10)); RECENT_B = float(os.environ.get('RECENT_B', 1.0))
 TRIG = set(filter(None, os.environ.get('TRIG', '').split(',')))
 
@@ -234,6 +249,8 @@ def main():
         if LCP and s in LCP['species']:
             c = LCP['species'][s]; Xf = np.array([LC_FEAT(r) for r in recs]); z = Xf @ np.array(c['w']) + c['b']
             H = H * (0.3 + 0.7 * np.minimum(1, (1 / (1 + np.exp(-z))) / c['mx']))
+        if HABP and s in HABP['species']:
+            H = H * HAB_MULT(s, recs)
         S = np.array([season_f(months, r['date']) for r in recs])
         res = dict(species=s, n=int(isp.sum()), auc_hab=auc(H[isp], H[~isp]), auc_season=auc(S[isp], S[~isp]), auc_hab_season=auc((H * S)[isp], (H * S)[~isp]))
         if W.ok:
