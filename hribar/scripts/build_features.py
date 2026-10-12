@@ -218,12 +218,21 @@ def part_chm(out):
     """ETH Global Canopy Height 2020 (Lang et al. 2023, 10 m, Sentinel-2 + GEDI lidar, CC BY 4.0), 3° cloud-optimised tiles.
     Per 0.01° cell: mean canopy height of forest pixels (height >= 3 m) in dm, and share of pixels taller than 20 m (%)."""
     import urllib.request, re
+    if REG != 'ro':
+        log('chm: Romania only (the shared server rate-limits)'); return
+    def fetch(u):
+        for k in range(6):
+            try:
+                return urllib.request.urlopen(urllib.request.Request(u, headers={'User-Agent': 'hribar-research'}), timeout=60).read().decode(errors='replace')
+            except Exception as e:
+                log('chm retry', k, str(e)[:80]); time.sleep(60 * (k + 1))
+        raise RuntimeError('chm index unreachable')
     base = 'https://share.phys.ethz.ch/~pf/nlangdata/ETH_GlobalCanopyHeight_10m_2020_version1/'
-    idx = urllib.request.urlopen(base, timeout=60).read().decode(errors='replace')
+    idx = fetch(base)
     subs = sorted(set(re.findall(r'href="([^"?]*3deg[^"]*/)"', idx))) or ['3deg_cogs/']
     log('chm subdirs', subs)
     sub = base + subs[0]
-    names = sorted(set(re.findall(r'href="([^"]*_Map\.tif)"', urllib.request.urlopen(sub, timeout=60).read().decode(errors='replace'))))
+    names = sorted(set(re.findall(r'href="([^"]*_Map\.tif)"', fetch(sub))))
     log('chm tiles listed', len(names), names[:3])
     tiles = {}
     for n in names:
@@ -244,6 +253,7 @@ def part_chm(out):
                              resampling=Resampling.nearest).astype(np.float32)
         except Exception as e:
             log('chm skip', la, lo, str(e)[:120]); continue
+        time.sleep(5)
         a[a >= 255] = np.nan
         blk = a[::-1].reshape(r1 - r0, SUBC, c1 - c0, SUBC)
         fin = np.isfinite(blk); fo = fin & (blk >= 3)
