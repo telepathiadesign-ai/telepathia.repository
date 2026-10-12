@@ -104,3 +104,10 @@ absences; `reliability.json` is now cross-fitted (each year scored with habitat 
 
 Open: timing per feeding group in forecast space (A4) waits for `eval/data/hist_forecast.json` (archived Open-Meteo
 forecasts at the 40 nodes). In ERA5 space the per-group fit gave full AUC +0.011 (CI +0.001..+0.022) on 2026.
+
+### D3 observed rain, 12 Oct 2026
+E-OBS v33 gauge-based daily rain (0.5° box mean at each node) in place of modelled rain, 2024-25: weather +0.004
+(CI −0.003..+0.010), full +0.001 (CI −0.003..+0.005). No gain. Model and gauges disagree a lot locally (Brașov node:
+874 vs 537 mm/yr, daily r = 0.45) yet the forecast does not care: timing is dominated by temperature, season and the
+recent-reports signal, and the water term is relative per place. Satellite rain (IMERG) is less accurate than gauges in
+mountains, so it was not pursued.
