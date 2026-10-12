@@ -1,0 +1,33 @@
+name: Hribar observed rain (E-OBS)
+on:
+  workflow_dispatch: {}
+  push:
+    branches: [main]
+    paths: ['.github/workflows/hribar-eobs.yml', 'hribar/scripts/fetch_eobs.py']
+permissions:
+  contents: write
+concurrency: hribar-eobs
+jobs:
+  eobs:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    defaults: { run: { working-directory: hribar } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - run: pip install numpy xarray netCDF4
+      - name: Fetch E-OBS rain at the eval nodes
+        id: eo
+        run: |
+          set -o pipefail
+          python3 scripts/fetch_eobs.py 2>&1 | tee eobs.log
+      - name: Commit
+        if: always()
+        run: |
+          git config user.name "hribar-bot"
+          git config user.email "hribar-bot@users.noreply.github.com"
+          tail -c 4000 eobs.log > eval/data/eobs_status.txt || true
+          git add eval/data/eobs_status.txt; [ -f eval/data/eobs_rain.json ] && git add eval/data/eobs_rain.json
+          git diff --cached --quiet || git commit -m "eval: E-OBS observed rain at nodes $(date -u +%Y-%m-%d)"
+          for i in 1 2 3 4; do git pull --rebase origin main && git push && break; sleep $((i*7)); done

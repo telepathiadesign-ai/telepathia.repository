@@ -55,6 +55,9 @@ def gauss(x, m, s):
     return math.exp(-((x - m) ** 2) / (2 * s * s))
 
 
+RAIN_ALT = json.load(open(os.path.join(DATA, os.environ['RAIN_FILE']))) if os.environ.get('RAIN_FILE') else None
+
+
 class Weather:
     """ERA5-Land daily series at 0.5° nodes; nearest-node lookup with a lapse-rate correction for soil temperature."""
     def __init__(self):
@@ -71,6 +74,12 @@ class Weather:
             arr = {name: np.array([np.nan if x is None else x for x in vals], dtype=float) for name, vals in v['d'].items()}
             if v.get('P'):  # ERA5-Land daily precipitation is empty in the archive API; ERA5 (0.25°) is used for rain
                 arr['precipitation_sum'] = np.array([np.nan if x is None else x for x in v['P']], dtype=float)
+            if RAIN_ALT and k in RAIN_ALT:   # observed rain (E-OBS) replaces modelled rain where it has data; model fills the gaps
+                alt = RAIN_ALT[k]; off = (dt.date.fromisoformat(alt['t0']) - t0).days; pr = arr['precipitation_sum'].copy()
+                for j, x in enumerate(alt['P']):
+                    if x is not None and 0 <= j + off < len(pr):
+                        pr[j + off] = x
+                arr['precipitation_sum'] = pr
             sm = arr['soil_moisture_0_to_7cm_mean']; arr['_p10'] = float(np.nanpercentile(sm, 10)); arr['_p90'] = float(np.nanpercentile(sm, 90))
             sd = arr['soil_moisture_7_to_28cm_mean']; arr['_p10d'] = float(np.nanpercentile(sd, 10)); arr['_p90d'] = float(np.nanpercentile(sd, 90))
             if np.isnan(arr['precipitation_sum']).all():
