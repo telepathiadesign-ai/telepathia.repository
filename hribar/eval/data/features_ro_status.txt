@@ -1,9 +1,3 @@
-== part dlt
-dlt row ok 43
-dlt row ok 44
-dlt row ok 45
-dlt row ok 46
-dlt row ok 47
-dlt row ok 48
-dlt ok broadleaf mean 28.3 conifer mean 5.6 cells 366985
+== part chm
+part failed chm HTTP Error 429: Too Many Requests
 layers ['built', 'c_bio1', 'c_bio10', 'c_bio12', 'c_bio15', 'c_bio18', 'clay', 'crop', 'dlt_broad', 'dlt_conif', 'elev', 'grass', 'hli', 'ph', 'sand', 'slope', 'soc', 't_abies_alba', 't_corylus_avellana', 't_fagus_sylvatica', 't_picea_abies', 't_pinus_nigra', 't_pinus_sylvestris', 't_prunus_avium', 't_quercus_cerris', 't_quercus_robur', 't_salix_caprea', 'tree', 'water']
