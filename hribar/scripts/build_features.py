@@ -13,7 +13,7 @@ Layers (all south-first rows, int16 row-delta + zlib + base64, -1 / -32768 = no 
   trees one layer per species, mean realized probability %                     Bonannella et al. 2022, CC BY 4.0
   clim  c_bio1, c_bio10 (degC x10), c_bio12, c_bio18 (mm), c_bio15 (x10)            CHELSA V2.1 1981-2010, CC0
 """
-import base64, json, math, os, sys, zlib
+import base64, json, math, os, sys, time, zlib
 import numpy as np
 import rasterio
 from rasterio.enums import Resampling
@@ -169,6 +169,49 @@ def part_clim(out):
     if REG == 'ro':   # the app's copy: only the layers the learned habitat model uses
         json.dump({'source': 'bioclim 1981-2010 (CHELSA V2.1, CC0, or WorldClim 2.1 fallback): bio10 mean T warmest quarter (degC x10), bio12 annual precipitation (mm), bio15 precipitation seasonality (x10)',
                    **{k: out[k] for k in ('c_bio10', 'c_bio12', 'c_bio15') if k in out}}, open('data/climate.json', 'w'), separators=(',', ':'))
+
+
+def part_dlt(out):
+    """Copernicus HRL Dominant Leaf Type 2018 (10 m; 1 broadleaf, 2 coniferous), public EEA ImageServer, no login.
+    Fetched per 1° tile at ~100 m (nearest), aggregated to the share of broadleaf and coniferous pixels per 0.01° cell."""
+    import urllib.request, urllib.parse, io
+    hosts = ['https://copernicus.discomap.eea.europa.eu', 'https://image.discomap.eea.europa.eu']
+    SUBD = 10
+    bl = np.full((H, W), np.nan, np.float32); co = np.full((H, W), np.nan, np.float32)
+    for la in range(int(math.floor(LA0)), int(math.ceil(LA0 + H * ST))):
+        for lo in range(int(math.floor(LO0)), int(math.ceil(LO0 + W * ST))):
+            w0, s0, e0, n0 = max(lo, LO0), max(la, LA0), min(lo + 1, LO0 + W * ST), min(la + 1, LA0 + H * ST)
+            c0, c1 = int(round((w0 - LO0) / ST)), int(round((e0 - LO0) / ST)); r0, r1 = int(round((s0 - LA0) / ST)), int(round((n0 - LA0) / ST))
+            if c1 <= c0 or r1 <= r0:
+                continue
+            q = urllib.parse.urlencode(dict(bbox=f'{w0},{s0},{e0},{n0}', bboxSR=4326, imageSR=4326, size=f'{(c1 - c0) * SUBD},{(r1 - r0) * SUBD}',
+                                            format='tiff', pixelType='U8', interpolation='RSP_NearestNeighbor', f='image'))
+            a = None
+            for h in hosts:
+                for k in range(3):
+                    try:
+                        with urllib.request.urlopen(f'{h}/arcgis/rest/services/GioLandPublic/HRL_DominantLeafType2018/ImageServer/exportImage?{q}', timeout=120) as r:
+                            data = r.read()
+                        with rasterio.MemoryFile(data) as mf, mf.open() as src:
+                            a = src.read(1)
+                        break
+                    except Exception as e:
+                        log('dlt retry', lo, la, h.split('/')[2], str(e)[:80]); time.sleep(5 * (k + 1))
+                if a is not None:
+                    break
+            if a is None or a.shape != ((r1 - r0) * SUBD, (c1 - c0) * SUBD):
+                log('dlt skip', lo, la, None if a is None else a.shape); continue
+            blk = a[::-1].reshape(r1 - r0, SUBD, c1 - c0, SUBD)
+            valid = (blk <= 2).sum(axis=(1, 3))
+            with np.errstate(all='ignore'):
+                bl[r0:r1, c0:c1] = np.where(valid > 0, 100 * (blk == 1).sum(axis=(1, 3)) / valid, np.nan)
+                co[r0:r1, c0:c1] = np.where(valid > 0, 100 * (blk == 2).sum(axis=(1, 3)) / valid, np.nan)
+        log('dlt row ok', la)
+    out['dlt_broad'] = enc(bl); out['dlt_conif'] = enc(co)
+    log('dlt ok', 'broadleaf mean', round(float(np.nanmean(bl)), 1), 'conifer mean', round(float(np.nanmean(co)), 1), 'cells', int(np.isfinite(bl).sum()))
+    if REG == 'ro':
+        json.dump({'source': 'Copernicus HRL Dominant Leaf Type 2018 (10 m), % of pixels per 0.01° cell, © EU Copernicus Land Monitoring Service',
+                   'broad': out['dlt_broad'], 'conif': out['dlt_conif']}, open('data/leaftype.json', 'w'), separators=(',', ':'))
 
 
 def part_trees(out):
