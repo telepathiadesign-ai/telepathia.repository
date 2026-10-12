@@ -142,18 +142,33 @@ def part_lc(out):
 def part_clim(out):
     """CHELSA V2.1 bioclimatic climatologies 1981-2010 (Karger et al. 2017, CC0), ~1 km: bio1 annual mean T, bio10 mean T of the
     warmest quarter, bio12 annual precipitation, bio15 precipitation seasonality, bio18 precipitation of the warmest quarter."""
-    base = 'https://os.zhdk.cloud.switch.ch/envicloud/chelsa/chelsa_V2/GLOBAL/climatologies/1981-2010/bio/CHELSA_{v}_1981-2010_V.2.1.tif'
+    bases = ['https://os.zhdk.cloud.switch.ch/chelsav2/GLOBAL/climatologies/1981-2010/bio/CHELSA_{v}_1981-2010_V.2.1.tif',
+             'https://os.zhdk.cloud.switch.ch/envicloud/chelsa/chelsa_V2/GLOBAL/climatologies/1981-2010/bio/CHELSA_{v}_1981-2010_V.2.1.tif']
+    wc = None   # fallback: WorldClim 2.1 bioclim at 2.5 arc-min (~4.6 km), one zip
     for v, conv in (('bio1', 'T'), ('bio10', 'T'), ('bio12', 'P'), ('bio15', 'S'), ('bio18', 'P')):
-        try:
-            g = warp_to_grid('/vsicurl/' + base.format(v=v), 1000)
-            if conv == 'T':
-                g = (g * 0.1 - 273.15) * 10      # stored K x10 -> degC x10
-            elif conv == 'P':
-                g = g * 0.1                      # stored kg/m2 x10 -> mm
-            out['c_' + v] = enc(g, -32768)
-            log('clim ok', v, round(float(np.nanmean(g)), 1))
-        except Exception as e:
-            log('clim fail', v, str(e)[:160])
+        g = None
+        for base in bases:
+            try:
+                g = warp_to_grid('/vsicurl/' + base.format(v=v), 1000)
+                g = (g * 0.1 - 273.15) * 10 if conv == 'T' else g * 0.1 if conv == 'P' else g   # CHELSA: K x10 / kg m-2 x10 / x10
+                log('clim ok', v, 'CHELSA', round(float(np.nanmean(g)), 1)); break
+            except Exception as e:
+                log('clim try', v, base.split('/')[3], str(e)[:100]); g = None
+        if g is None:
+            try:
+                if wc is None:
+                    import urllib.request, zipfile
+                    urllib.request.urlretrieve('https://geodata.ucdavis.edu/climate/worldclim/2_1/base/wc2.1_2.5m_bio.zip', '/tmp/wc.zip')
+                    zipfile.ZipFile('/tmp/wc.zip').extractall('/tmp/wc'); wc = '/tmp/wc'
+                g = warp_to_grid(f'{wc}/wc2.1_2.5m_bio_{v[3:]}.tif', 1000)
+                g = g * 10 if conv in ('T', 'S') else g      # WorldClim: degC / mm / unitless -> same units as above
+                log('clim ok', v, 'WorldClim 2.5m', round(float(np.nanmean(g)), 1))
+            except Exception as e:
+                log('clim fail', v, str(e)[:160]); continue
+        out['c_' + v] = enc(g, -32768)
+    if REG == 'ro':   # the app's copy: only the layers the learned habitat model uses
+        json.dump({'source': 'bioclim 1981-2010 (CHELSA V2.1, CC0, or WorldClim 2.1 fallback): bio10 mean T warmest quarter (degC x10), bio12 annual precipitation (mm), bio15 precipitation seasonality (x10)',
+                   **{k: out[k] for k in ('c_bio10', 'c_bio12', 'c_bio15') if k in out}}, open('data/climate.json', 'w'), separators=(',', ':'))
 
 
 def part_trees(out):
