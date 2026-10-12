@@ -55,6 +55,7 @@ def gauss(x, m, s):
     return math.exp(-((x - m) ** 2) / (2 * s * s))
 
 
+SEASON = json.load(open(os.path.join(DATA, os.environ['SEASON_FILE'])))['species'] if os.environ.get('SEASON_FILE') else None
 RAIN_ALT = json.load(open(os.path.join(DATA, os.environ['RAIN_FILE']))) if os.environ.get('RAIN_FILE') else None
 
 
@@ -286,7 +287,10 @@ def main():
                 H = H * (0.3 + 0.7 * np.minimum(1, (1 / (1 + np.exp(-z))) / c['mx']))
         if HABP and s in HABP['species']:
             H = H * HAB_MULT(s, recs)
-        S = np.array([season_f(months, r['date']) for r in recs])
+        if SEASON and s in SEASON:
+            cv = SEASON[s]; S = np.array([cv[min(364, r['date'].timetuple().tm_yday - 1)] for r in recs])
+        else:
+            S = np.array([season_f(months, r['date']) for r in recs])
         res = dict(species=s, n=int(isp.sum()), auc_hab=auc(H[isp], H[~isp]), auc_season=auc(S[isp], S[~isp]), auc_hab_season=auc((H * S)[isp], (H * S)[~isp]))
         if W.ok:
             wv = np.full(len(recs), np.nan)

@@ -529,8 +529,8 @@ const RAD = Math.PI / 180;
 let D;
 try {
   await window.__libs;
-  const names = ['countries','counties','places','rivers','lakes','roads','mask','glyphs','species','catalog','dem','osm','roads_ro','water_ro','weather','terrain','leaf','soil','fitted','traits','recent_finds','reliability','landcover','lc_prefs','timing','climate','leaftype'];
-  const optional = ['osm', 'roads_ro', 'water_ro', 'weather', 'terrain', 'leaf', 'soil', 'fitted', 'traits', 'recent_finds', 'reliability', 'landcover', 'lc_prefs', 'timing', 'climate', 'leaftype'];
+  const names = ['countries','counties','places','rivers','lakes','roads','mask','glyphs','species','catalog','dem','osm','roads_ro','water_ro','weather','terrain','leaf','soil','fitted','traits','recent_finds','reliability','landcover','lc_prefs','timing','climate','leaftype','season'];
+  const optional = ['osm', 'roads_ro', 'water_ro', 'weather', 'terrain', 'leaf', 'soil', 'fitted', 'traits', 'recent_finds', 'reliability', 'landcover', 'lc_prefs', 'timing', 'climate', 'leaftype', 'season'];
   const got = await Promise.all(names.map(n => fetch('data/' + n + '.json').then(r => { if (!r.ok) throw new Error(n); return r.json(); }).catch(e => { if (optional.includes(n)) return null; throw e; })));
   D = {}; names.forEach((n, k) => D[n] = got[k]);
 } catch (e) {
@@ -766,7 +766,12 @@ const tLapse = (P, i) => 38 - 0.52 * P.lat - (P.e - 150) * 0.0055 - 0.13 * (i - 
 const tAt = (P, i) => { if (WX) return P.wx ? wxSample('tsoil', i + WXOFF, P.lon, P.lat, 0.1) : null; return tLapse(P, i); };
 const DAY0 = (() => { const d = new Date(); d.setHours(0, 0, 0, 0); return d; })();
 const dateOf = i => { const d = new Date(DAY0); d.setDate(d.getDate() + i - 30); /* calendar arithmetic: safe across DST */ return { wd: ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][d.getDay()], dd: d.getDate(), m: d.getMonth(), mo: MN[d.getMonth()], iso: d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0') }; };
-function seasonF(sp, P, i){ const m = dateOf(i).m, sh = Math.round((P.lat - 46) / 9), me = ((m + sh) % 12 + 12) % 12; return sp.months[me] ? 1 : (sp.months[(me + 11) % 12] || sp.months[(me + 1) % 12]) ? 0.35 : 0; }
+// learned season (eval/fit_season.py): day-of-year density of finds in the Carpathian-Balkan band / density of all finds.
+// Held-out 2025 and 2026: season AUC +0.065 / +0.081, full forecast +0.025 / +0.017 (CI above 0). Catalogue months otherwise.
+const doyOf = i => { const d = new Date(DAY0); d.setDate(d.getDate() + i - 30); return Math.min(364, Math.round((d - new Date(d.getFullYear(), 0, 1)) / 864e5)); };
+function seasonF(sp, P, i){ const cv = D.season && D.season.species[sp.latin]; if (cv) return cv[doyOf(i)];
+  return seasonCat(sp, P, i); }
+function seasonCat(sp, P, i){ const m = dateOf(i).m, sh = Math.round((P.lat - 46) / 9), me = ((m + sh) % 12 + 12) % 12; return sp.months[me] ? 1 : (sp.months[(me + 11) % 12] || sp.months[(me + 1) % 12]) ? 0.35 : 0; }
 function hostOf(sp, P){ if (sp.grass) return 1; const v = hostRaw(sp, P); return P.leaf ? v : 0.45 + 0.55 * v; } // unmapped forest type: elevation band is a weak guess
 function hostRaw(sp, P){ const H = sp.hosts, lt = P.leaf;
   if (lt === 2) return Math.max(H.spruce, 0.55 * H.mixed);                                                     // conifer (needleleaved)
@@ -1556,7 +1561,7 @@ function detail(h, keep){
     + (P.ph !== null && sp.phOpt != null ? fRow('Soil pH', P.ph.toFixed(1), 'SoilGrids · ' + (sp.phOpt < 6 ? 'prefers acidic' : 'prefers calcareous') + ' (opt. ' + sp.phOpt.toFixed(1) + ')', F.ph) : '');
   const wxsrc = WX ? 'Open-Meteo' : null;
   if (!hab && F.nowx) rows += fRow('Weather', 'no data', P.wx ? 'date outside the weather file · refresh pending' : 'outside the Open-Meteo grid (Romania only) · try Habitat view', 0);
-  else if (!hab){ rows += fRow('Season', d.mo + (Math.round((P.lat - 46) / 9) ? ' (shifted)' : ''), 'catalog ' + seasonLabel(sp), F.season)
+  else if (!hab){ rows += fRow('Season', d.mo + ' ' + d.dd, D.season && D.season.species[sp.latin] ? 'learned from dates of ' + 'finds in the region' : 'catalog ' + seasonLabel(sp), F.season)
     + fRow('Soil temperature', F.T.toFixed(1) + ' °C', (wxsrc ? wxsrc + ' · 6 cm' : 'lapse-rate est.') + ' · opt. ' + sp.t[0] + ' ± ' + (sp.t[1] + 1).toFixed(1) + ' °C' + (sp.tGroup ? ' (fitted, ' + ({M: 'mycorrhizal', SS: 'soil saprotroph', SW: 'wood'}[sp.tGroup] || sp.tGroup) + ' group)' : sp.tFit ? ' (fitted to ' + sp.tFit + ' finds)' : ' (catalogue rule)'), F.temp)
     + fRow('Precipitation', F.rainmm.toFixed(0) + ' mm', (wxsrc || 'synthetic') + ' · Σ t−' + sp.lag[1] + '…t−' + sp.lag[0] + ' d · half-saturates near 17 mm' + (sp.tGroup ? ' · window fitted' : ''), F.rain);
     if (WX){ rows += fRow('Soil moisture', (F.smoist * 100).toFixed(0) + '% vol', wxsrc + ' · 3–9 cm · relative to this place over the last 6 weeks', F.moist);

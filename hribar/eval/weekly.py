@@ -45,6 +45,7 @@ json.dump({'source': f'eval/weekly.py: full-forecast AUC on iNaturalist finds in
                      f'habitat preferences fitted on the other years; weather: {env.get("WX_FILE", "era5_land.json")}; species with 15+ finds',
            'updated': today.isoformat(), 'species': rel}, open(os.path.join(ROOT, 'data', 'reliability.json'), 'w'), indent=1)
 
+run('eval/fit_season.py', '--before', '2099-01-01', '--out', 'data/season.json')
 run('eval/fit_landcover.py', '--train', ','.join(years), '--out', 'data/lc_prefs.json')
 run('eval/fit_niche.py', '--wx', '1', '--merge', 'data/lc_prefs.json', '--out', 'data/lc_prefs.json')
 LC = json.load(open(os.path.join(ROOT, 'data', 'lc_prefs.json')))['species']

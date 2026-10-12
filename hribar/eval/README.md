@@ -116,3 +116,15 @@ mountains, so it was not pursued.
 Hansen Global Forest Change v1.12 (30 m): % of each 0.01° cell lost in the last 10 and 4 years, added to the Romanian
 land-cover model. Held-out 2026: habitat −0.004 (CI −0.009..+0.001); 2025: +0.001 (CI −0.003..+0.006). No gain; not shipped.
 Leaf type as a learned input (beyond its use in the host factor): +0.002 / −0.001, no gain.
+
+### D11 learned fruiting season, 12 Oct 2026 — shipped
+`eval/fit_season.py`: per species, smoothed day-of-year density of finds (Romania + GBIF in the Carpathian-Pannonian-
+Balkan band) divided by the density of all finds, max = 1, floor 0.05; replaces catalogue months for 199 species.
+Fitted only on finds before the test year:
+
+| Held-out | Season AUC | Full forecast |
+| --- | --- | --- |
+| 2026 | +0.081 (CI +0.053..+0.108), 35 better / 5 worse | +0.017 (CI +0.006..+0.028) |
+| 2025 | +0.065 (CI +0.041..+0.090), 41 better / 13 worse | +0.025 (CI +0.013..+0.039) |
+
+App lookup checked equal to the file. Refit weekly.
