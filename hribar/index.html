@@ -258,6 +258,7 @@ table.ft tfoot td{border-bottom:0;font-weight:600;padding-top:9px}
 .chart text{font-family:var(--f-mono);font-size:9.5px;fill:var(--ink-3)}
 .warn{display:flex;gap:8px;align-items:center;padding:7px 10px;border-radius:8px;background:var(--tint);font-size:12px}
 .btns{display:flex;gap:8px}
+.flog{display:flex;flex-direction:column;gap:8px}.flog .btn{height:36px;font-size:13px;border-radius:18px}.flog .btn:disabled{opacity:.45}.flog .undo{background:none;border:0;color:var(--accent);font-size:12.5px;padding:0;cursor:pointer}
 .btn{flex:1;height:42px;border-radius:21px;border:0.5px solid var(--line-2);background:var(--surface);font-size:13.5px;font-weight:500}
 .btn.pri{background:var(--accent);color:var(--accent-ink);border:0;font-weight:600}
 .lbl{font-size:12px;font-weight:500;color:var(--ink-3)}
@@ -528,8 +529,8 @@ const RAD = Math.PI / 180;
 let D;
 try {
   await window.__libs;
-  const names = ['countries','counties','places','rivers','lakes','roads','mask','glyphs','species','catalog','dem','osm','roads_ro','water_ro','weather','terrain','leaf','soil','fitted','traits','recent_finds','reliability','landcover','lc_prefs'];
-  const optional = ['osm', 'roads_ro', 'water_ro', 'weather', 'terrain', 'leaf', 'soil', 'fitted', 'traits', 'recent_finds', 'reliability', 'landcover', 'lc_prefs'];
+  const names = ['countries','counties','places','rivers','lakes','roads','mask','glyphs','species','catalog','dem','osm','roads_ro','water_ro','weather','terrain','leaf','soil','fitted','traits','recent_finds','reliability','landcover','lc_prefs','timing'];
+  const optional = ['osm', 'roads_ro', 'water_ro', 'weather', 'terrain', 'leaf', 'soil', 'fitted', 'traits', 'recent_finds', 'reliability', 'landcover', 'lc_prefs', 'timing'];
   const got = await Promise.all(names.map(n => fetch('data/' + n + '.json').then(r => { if (!r.ok) throw new Error(n); return r.json(); }).catch(e => { if (optional.includes(n)) return null; throw e; })));
   D = {}; names.forEach((n, k) => D[n] = got[k]);
 } catch (e) {
@@ -701,6 +702,8 @@ D.species.forEach(r => {
   sp.frostTol = !!(months[11] || months[0] || months[1]);
   if (TUNED[latin]) Object.assign(sp, TUNED[latin]);
   { const ft = D.fitted && D.fitted.fitted[latin]; if (ft){ sp.t = [ft.t[0], Math.max(2, ft.t[1] - 1)]; sp.tFit = ft.n; } }
+  // timing fitted per feeding group in forecast space (eval/fit_timing.py, data/timing.json): soil-temperature optimum and rain window
+  { const tm = D.timing && D.timing.species[latin]; if (tm){ sp.t = [tm.t[0], tm.t[1]]; sp.lag = tm.lag.slice(); sp.tFit = tm.n; sp.tGroup = tm.group; } }
   SP[latin] = sp; LIST.push(sp);
 });
 LIST.sort((a, b) => a.name.localeCompare(b.name, 'ro'));
@@ -1406,7 +1409,7 @@ function selectSpecies(id, quiet){
   S.sp = id;
   if (S.mode !== 'fruit' && S.mode !== 'habitat'){ S.mode = 'fruit'; map.setPaintProperty('cells', 'fill-color', fillColorExpr()); map.setPaintProperty('cells', 'fill-opacity', fillOpacityExpr()); renderModeSeg(); setHashParam('v', null); }
   setHashParam('sp', id === 'Boletus edulis' ? null : id);
-  renderSpecies(); refresh(); renderThumbs();
+  renderSpecies(); refresh(); renderThumbs(); if (LOGDB) renderLogLayer();
   document.querySelectorAll('#lsList [data-sp]').forEach(b => b.setAttribute('aria-current', String(b.dataset.sp === id)));
 }
 
@@ -1538,8 +1541,8 @@ function detail(h, keep){
   const wxsrc = WX ? 'Open-Meteo' : null;
   if (!hab && F.nowx) rows += fRow('Weather', 'no data', P.wx ? 'date outside the weather file · refresh pending' : 'outside the Open-Meteo grid (Romania only) · try Habitat view', 0);
   else if (!hab){ rows += fRow('Season', d.mo + (Math.round((P.lat - 46) / 9) ? ' (shifted)' : ''), 'catalog ' + seasonLabel(sp), F.season)
-    + fRow('Soil temperature', F.T.toFixed(1) + ' °C', (wxsrc ? wxsrc + ' · 6 cm' : 'lapse-rate est.') + ' · opt. ' + sp.t[0] + ' ± ' + (sp.t[1] + 1).toFixed(1) + ' °C' + (sp.tFit ? ' (fitted to ' + sp.tFit + ' finds)' : ' (catalogue rule)'), F.temp)
-    + fRow('Precipitation', F.rainmm.toFixed(0) + ' mm', (wxsrc || 'synthetic') + ' · Σ t−' + sp.lag[1] + '…t−' + sp.lag[0] + ' d · half-saturates near 17 mm', F.rain);
+    + fRow('Soil temperature', F.T.toFixed(1) + ' °C', (wxsrc ? wxsrc + ' · 6 cm' : 'lapse-rate est.') + ' · opt. ' + sp.t[0] + ' ± ' + (sp.t[1] + 1).toFixed(1) + ' °C' + (sp.tGroup ? ' (fitted, ' + ({M: 'mycorrhizal', SS: 'soil saprotroph', SW: 'wood'}[sp.tGroup] || sp.tGroup) + ' group)' : sp.tFit ? ' (fitted to ' + sp.tFit + ' finds)' : ' (catalogue rule)'), F.temp)
+    + fRow('Precipitation', F.rainmm.toFixed(0) + ' mm', (wxsrc || 'synthetic') + ' · Σ t−' + sp.lag[1] + '…t−' + sp.lag[0] + ' d · half-saturates near 17 mm' + (sp.tGroup ? ' · window fitted' : ''), F.rain);
     if (WX){ rows += fRow('Soil moisture', (F.smoist * 100).toFixed(0) + '% vol', wxsrc + ' · 3–9 cm · relative to this place over the last 6 weeks', F.moist);
       rows += fRow('Water', Math.round(F.water * 100) + '%', '70% rain + 30% moisture, never below 15%', F.water);
       if (RECENT_ISSUED) rows += fRow('Reported nearby', F.recentN ? F.recentN + '× · nearest ' + F.recentKm + ' km' : 'none', 'iNaturalist reports, 60 km, last 14 days', F.recent);
@@ -1556,6 +1559,7 @@ function detail(h, keep){
     + '<tfoot><tr><td colspan="2">Π f × ' + (hab ? '1.30' : K.toFixed(2)) + ', clipped to [0, 1]</td><td class="mono">' + F.v.toFixed(2) + '</td></tr></tfoot></table></div>'
     + '<div><div class="row" style="justify-content:space-between;margin-bottom:4px"><span class="sec">Time series at this cell</span><span class="sub mono">days from today</span></div>' + seriesChart(series, i) + '</div>'
     + '<div class="btns"><button class="btn" id="dZoom">Zoom to cell</button><button class="btn pri" id="dCopy">Copy CSV (41 days)</button></div>'
+    + '<div class="flog" id="dLog" hidden></div>'
     + '<div class="meta"><b>Measured:</b> elevation, slope, aspect (Mapzen Terrarium DEM from SRTM, resampled to ' + demStep(P.lon, P.lat) + '°)' + (LEAFG ? '; forest type where mapped (OSM leaf_type)' : '') + '. <b>Modelled:</b> ' + (WX ? 'rain, soil temperature, soil moisture, frost and snow (Open-Meteo weather model, issued ' + new Date(WX.issued).toISOString().slice(0, 16).replace('T', ' ') + ' UTC, 0.2° grid over Romania)' : 'rain and soil temperature (synthetic)') + (PHG ? '; soil pH (SoilGrids 2.0 machine-learning map, 250 m)' : '') + (WETG ? '; wetness (distance to the mapped water network)' : '') + '. <b>Rule of thumb:</b> forest cover outside OSM woodland, species parameters from the catalogue. The index is relative and not yet calibrated against finds.</div>';
   $('dZoom').onclick = () => { const z = Math.min(13, Math.max(map.getZoom() + 2.5, 9)); reduce ? map.jumpTo({ center: [P.lon, P.lat], zoom: z }) : map.flyTo({ center: [P.lon, P.lat], zoom: z, duration: 1200 }); };
   $('dCopy').onclick = () => {
@@ -1563,7 +1567,45 @@ function detail(h, keep){
     const fallback = () => { const ta = document.createElement('textarea'); ta.value = lastCSV; ta.className = 'mono'; ta.style.cssText = 'width:100%;height:140px;font-size:11px;border:0.5px solid var(--line-2);border-radius:6px;background:var(--bg);color:var(--ink)'; ta.setAttribute('aria-label', 'CSV data'); $('dCopy').closest('.btns').after(ta); ta.select(); $('dCopy').textContent = 'Select and copy below'; };
     try { navigator.clipboard.writeText(lastCSV).then(done, fallback); } catch (e) { fallback(); }
   };
+  LOGCTX = { P, sp: curSp() ? sp : null, h }; renderLogRow();
   if (!keep || VIEW !== 'cell') setView('cell'); setSel(h);
+}
+
+// ---------- field log: "found it" / "nothing here", kept in the artifact's own database (shared with whoever can open the page)
+let LOGDB = null, LOGS = [], LOGCTX = null, LOG_UNDO = null;
+const logNear = (P, sp) => LOGS.filter(l => (!sp || l.sp === sp.latin) && ((l.lon - P.lon) * Math.cos(P.lat * Math.PI / 180)) ** 2 + (l.lat - P.lat) ** 2 < (0.8 / 111) ** 2);
+async function initLog(){
+  try { if (window.claude && window.claude.use) LOGDB = await window.claude.use('db'); } catch (e) { LOGDB = null; }
+  if (!LOGDB) return;
+  LOGDB.collection('finds').onSnapshot(snap => { LOGS = snap.docs.map(d => Object.assign({ id: d.id }, d.data())); renderLogLayer(); if (LOGCTX) renderLogRow(); if (VIEW === 'species' && DET) openDetail(DET, false); },
+    e => { console.warn('field log', e.code); });
+}
+function renderLogLayer(){
+  if (!map.getSource('logs')) return;
+  const sp = curSp(), rows = LOGS.filter(l => !sp || l.sp === sp.latin);
+  map.getSource('logs').setData({ type: 'FeatureCollection', features: rows.map(l => ({ type: 'Feature', properties: { k: l.k, sp: l.sp, date: l.date }, geometry: { type: 'Point', coordinates: [l.lon, l.lat] } })) });
+}
+function renderLogRow(){
+  const el = $('dLog'); if (!el || !LOGCTX) return;
+  if (!LOGDB){ el.hidden = true; return; }
+  const { P, sp } = LOGCTX, here = logNear(P, sp), nf = here.filter(l => l.k === 'found').length, nn = here.length - nf, last = here.map(l => l.date).sort().pop();
+  el.hidden = false;
+  el.innerHTML = '<div class="row" style="justify-content:space-between"><span class="sec">Field log</span><span class="sub">' + (here.length ? nf + ' found · ' + nn + ' nothing' + (last ? ' · last ' + last : '') : 'nothing logged within 0.8 km') + '</span></div>'
+    + '<div class="btns"><button class="btn" id="dFound"' + (sp ? '' : ' disabled') + '>Found it</button><button class="btn" id="dNone"' + (sp ? '' : ' disabled') + '>Nothing here</button></div>'
+    + '<div class="sub" id="dLogNote">' + (sp ? 'Logs <i>' + esc(sp.latin) + '</i> at this cell for today, ' + dateOf(30).iso + '.' : 'Pick a species to log a find.') + '</div>';
+  if (!sp) return;
+  const write = async k => {
+    const F0 = factors(sp, P, 30);
+    const doc = { sp: sp.latin, lon: +P.lon.toFixed(5), lat: +P.lat.toFixed(5), e: Math.round(P.e), k, date: dateOf(30).iso, idx: +F0.v.toFixed(3), ts: Date.now(), model: 'hribar-0.4' };
+    for (const b of ['dFound', 'dNone']) $(b).disabled = true;
+    try {
+      const ref = await LOGDB.collection('finds').add(doc);
+      LOG_UNDO = ref; toast((k === 'found' ? 'Found it' : 'Nothing here') + ' · ' + sp.latin + ' · logged');
+      $('dLogNote').innerHTML = 'Logged for today. <button class="undo" id="dUndo">Undo</button>';
+      $('dUndo').onclick = async () => { try { await ref.delete(); toast('Log removed'); } catch (e) { toast('Could not remove the log'); } };
+    } catch (e) { toast(e && e.code === 'quota_exceeded' ? 'Log is full' : e && e.code === 'invalid_argument' ? 'You can view this page but not write to its log' : 'Could not save the log'); for (const b of ['dFound', 'dNone']) $(b).disabled = false; }
+  };
+  $('dFound').onclick = () => write('found'); $('dNone').onclick = () => write('none');
 }
 
 // ---------- map layers: picture tiles, as in AllTrails' layer picker
@@ -1808,6 +1850,7 @@ function openDetail(latin, push = true){
       '<div class="row" style="gap:8px;margin-top:6px;flex-wrap:wrap"><span class="row" style="gap:6px;padding:4px 10px;border-radius:8px;font-size:12.5px;font-weight:600;' + tintOf(e.dot) + '"><span class="dot" style="width:7px;height:7px;background:' + e.dot + '"></span>' + e.label + '</span><span class="sub">' + esc(sp.fam) + '</span></div></div>' +
       '<div class="facts"><div><small>Season</small><b>' + seasonLabel(sp) + '</b></div><div><small>Altitude</small><b>' + (x.lo || '?') + '–' + (x.hi || '?') + ' m</b></div><div><small>Feeds on</small><b>' + (TL[x.tro] || '—') + '</b></div></div>' +
       '<div class="sub" style="margin:-4px 2px 2px"><b style="color:var(--ink)">' + relInfo(sp).label + '.</b> ' + relInfo(sp).note + '</div>' +
+      (LOGDB && LOGS.some(l => l.sp === latin) ? '<div class="sub" style="margin:-4px 2px 2px">Field log: ' + LOGS.filter(l => l.sp === latin && l.k === 'found').length + ' found · ' + LOGS.filter(l => l.sp === latin && l.k !== 'found').length + ' nothing here.</div>' : '') +
       (RECENT_ISSUED ? '<div class="sub" style="margin:-4px 2px 2px">' + ((RECENT[sp.latin] || []).filter(r => r[2] >= 16).length ? 'Reported ' + (RECENT[sp.latin] || []).filter(r => r[2] >= 16).length + '× in Romania in the last 14 days (iNaturalist)' : 'No iNaturalist reports in Romania in the last 14 days') + '</div>' : '') +
       '<div class="box"><div class="hd"><h3>Next 10 days near ' + esc(where) + '</h3><span class="sub">Best spot in view</span></div>' +
         '<div class="row" style="align-items:flex-end;gap:16px"><div><div class="score" style="font-size:28px;font-family:var(--f-body);font-weight:600">' + LEVELS[bin(days[0], FB)] + '</div><div class="sub">today · index ' + days[0].toFixed(2) + '</div></div>' +
@@ -1860,6 +1903,9 @@ map.on('load', () => {
   if (!S.ov.grat){ ['grat', 'grat-lbl'].forEach(l => { try { map.setLayoutProperty(l, 'visibility', 'none'); } catch (e) {} }); }
   setTimeout(() => { const a = document.querySelector('.maplibregl-ctrl-attrib'); if (a) a.classList.remove('maplibregl-compact-show'); }, 50);
   addOsmLayers(); addRoadLayers(); addWaterLayers();
+  map.addSource('logs', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
+  map.addLayer({ id: 'logs', type: 'circle', source: 'logs', minzoom: 6, paint: { 'circle-radius': ['interpolate', ['linear'], ['zoom'], 6, 3, 12, 6], 'circle-color': ['case', ['==', ['get', 'k'], 'found'], css('--accent'), 'rgba(0,0,0,0)'], 'circle-stroke-color': ['case', ['==', ['get', 'k'], 'found'], css('--surface'), css('--ink-3')], 'circle-stroke-width': 1.5 } }, 'county-names');
+  initLog();
   const popLayers = () => POP_LAYERS.filter(l => map.getLayer(l) && map.getLayoutProperty(l, 'visibility') !== 'none');
   const featsAt = pt => { const L = popLayers(); if (!L.length) return []; const fs = map.queryRenderedFeatures([[pt.x - 7, pt.y - 7], [pt.x + 7, pt.y + 7]], { layers: L }); const rank = { 'osm-peaks': 0, 'osm-poi': 0, 'osm-access': 1, 'osm-lifts': 2, 'osm-routes': 3 }; return fs.sort((a, b) => rank[a.layer.id] - rank[b.layer.id]); };
   map.on('click', e => { if (orbit || Date.now() - orbitEnd < 350) return; const fs = featsAt(e.point); if (fs.length) showPopup(fs[0], fs[0].geometry.type === 'Point' ? fs[0].geometry.coordinates : e.lngLat); });
