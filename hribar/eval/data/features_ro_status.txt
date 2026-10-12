@@ -1,3 +1,4 @@
-== part chm
-part failed chm HTTP Error 429: Too Many Requests
-layers ['built', 'c_bio1', 'c_bio10', 'c_bio12', 'c_bio15', 'c_bio18', 'clay', 'crop', 'dlt_broad', 'dlt_conif', 'elev', 'grass', 'hli', 'ph', 'sand', 'slope', 'soc', 't_abies_alba', 't_corylus_avellana', 't_fagus_sylvatica', 't_picea_abies', 't_pinus_nigra', 't_pinus_sylvestris', 't_prunus_avium', 't_quercus_cerris', 't_quercus_robur', 't_salix_caprea', 'tree', 'water']
+== part gfc
+gfc ok 50N_020E GFC-2024-v1.12
+gfc done mean loss 10 y % 0.8
+layers ['built', 'c_bio1', 'c_bio10', 'c_bio12', 'c_bio15', 'c_bio18', 'clay', 'crop', 'dlt_broad', 'dlt_conif', 'elev', 'gfc_loss', 'gfc_loss4', 'grass', 'hli', 'ph', 'sand', 'slope', 'soc', 't_abies_alba', 't_corylus_avellana', 't_fagus_sylvatica', 't_picea_abies', 't_pinus_nigra', 't_pinus_sylvestris', 't_prunus_avium', 't_quercus_cerris', 't_quercus_robur', 't_salix_caprea', 'tree', 'water']
