@@ -11,6 +11,7 @@ Layers (all south-first rows, int16 row-delta + zlib + base64, -1 / -32768 = no 
   soil  clay, sand (g/kg), soc (dg/kg), ph (pH x10), 0-5 cm                      SoilGrids 2.0, ISRIC, CC BY 4.0
   lc    tree, grass, crop, built, water (% of cell)                              ESA WorldCover 2021, CC BY 4.0
   trees one layer per species, mean realized probability %                     Bonannella et al. 2022, CC BY 4.0
+  clim  c_bio1, c_bio10 (degC x10), c_bio12, c_bio18 (mm), c_bio15 (x10)            CHELSA V2.1 1981-2010, CC0
 """
 import base64, json, math, os, sys, zlib
 import numpy as np
@@ -23,7 +24,7 @@ from rasterio.windows import from_bounds
 REG = os.environ.get('REGION', 'ro')
 LO0, LA0, W, H = {'ro': (20.2, 43.6, 960, 470), 'wide': (13.0, 41.0, 1800, 1400)}[REG]
 ST = 0.01
-PARTS = os.environ.get('PARTS', 'dem,soil,lc,trees').split(',')
+PARTS = os.environ.get('PARTS', 'dem,soil,lc,trees,clim').split(',')
 OUT = 'data/features.json' if REG == 'ro' else 'eval/data/features_wide.json'
 ENV = dict(GDAL_DISABLE_READDIR_ON_OPEN='EMPTY_DIR', CPL_VSIL_CURL_ALLOWED_EXTENSIONS='.tif,.vrt', GDAL_HTTP_MAX_RETRY='5',
            GDAL_HTTP_RETRY_DELAY='3', VSI_CACHE='TRUE', GDAL_CACHEMAX=512)
@@ -136,6 +137,23 @@ def part_lc(out):
             log('lc ok', tile)
     for k in CL:
         out[k] = enc(np.where(cnt > 0, 100 * acc[k] / np.maximum(cnt, 1), np.nan))
+
+
+def part_clim(out):
+    """CHELSA V2.1 bioclimatic climatologies 1981-2010 (Karger et al. 2017, CC0), ~1 km: bio1 annual mean T, bio10 mean T of the
+    warmest quarter, bio12 annual precipitation, bio15 precipitation seasonality, bio18 precipitation of the warmest quarter."""
+    base = 'https://os.zhdk.cloud.switch.ch/envicloud/chelsa/chelsa_V2/GLOBAL/climatologies/1981-2010/bio/CHELSA_{v}_1981-2010_V.2.1.tif'
+    for v, conv in (('bio1', 'T'), ('bio10', 'T'), ('bio12', 'P'), ('bio15', 'S'), ('bio18', 'P')):
+        try:
+            g = warp_to_grid('/vsicurl/' + base.format(v=v), 1000)
+            if conv == 'T':
+                g = (g * 0.1 - 273.15) * 10      # stored K x10 -> degC x10
+            elif conv == 'P':
+                g = g * 0.1                      # stored kg/m2 x10 -> mm
+            out['c_' + v] = enc(g, -32768)
+            log('clim ok', v, round(float(np.nanmean(g)), 1))
+        except Exception as e:
+            log('clim fail', v, str(e)[:160])
 
 
 def part_trees(out):

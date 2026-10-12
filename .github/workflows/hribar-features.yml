@@ -2,10 +2,7 @@ name: Hribar habitat features
 on:
   workflow_dispatch:
     inputs:
-      parts: { description: 'dem,soil,lc,trees', default: 'dem,soil,lc,trees' }
-  push:
-    branches: [main]
-    paths: ['.github/workflows/hribar-features.yml', 'hribar/scripts/build_features.py', 'hribar/scripts/build_trees.py']
+      parts: { description: 'dem,soil,lc,trees,clim', default: 'dem,soil,lc,trees,clim' }
 permissions:
   contents: write
 jobs:
@@ -26,7 +23,7 @@ jobs:
       - name: Build features (${{ matrix.region }})
         env:
           REGION: ${{ matrix.region }}
-          PARTS: ${{ github.event.inputs.parts || 'dem,soil,lc,trees' }}
+          PARTS: ${{ github.event.inputs.parts || 'dem,soil,lc,trees,clim' }}
         run: |
           set -o pipefail
           python3 scripts/build_features.py 2>&1 | tee features.log
