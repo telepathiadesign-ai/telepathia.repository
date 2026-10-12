@@ -1,7 +1,17 @@
-== part clim
-clim ok bio1 CHELSA 96.3
-clim ok bio10 CHELSA 191.7
-clim ok bio12 CHELSA 739.4
-clim ok bio15 CHELSA 309.1
-clim ok bio18 CHELSA 229.8
-layers ['built', 'c_bio1', 'c_bio10', 'c_bio12', 'c_bio15', 'c_bio18', 'clay', 'crop', 'elev', 'grass', 'hli', 'ph', 'sand', 'slope', 'soc', 'tree', 'water']
+== part dlt
+dlt row ok 41
+dlt row ok 42
+dlt row ok 43
+dlt row ok 44
+dlt row ok 45
+dlt row ok 46
+dlt row ok 47
+dlt row ok 48
+dlt row ok 49
+dlt row ok 50
+dlt row ok 51
+dlt row ok 52
+dlt row ok 53
+dlt row ok 54
+dlt ok broadleaf mean 27.0 conifer mean 12.8 cells 1640215
+layers ['built', 'c_bio1', 'c_bio10', 'c_bio12', 'c_bio15', 'c_bio18', 'clay', 'crop', 'dlt_broad', 'dlt_conif', 'elev', 'grass', 'hli', 'ph', 'sand', 'slope', 'soc', 'tree', 'water']
