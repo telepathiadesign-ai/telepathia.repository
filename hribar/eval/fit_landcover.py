@@ -28,6 +28,22 @@ def lc_grids():
     return out
 
 
+EXTRA = [x for x in os.environ.get('EXTRA', '').split(',') if x]   # extra per-cell layers from data/features.json, e.g. EXTRA=chm_mean,chm_tall
+EXTRA_SCALE = {'chm_mean': 300.0, 'chm_tall': 100.0, 'dlt_broad': 100.0, 'dlt_conif': 100.0, 'gfc_loss': 100.0, 'gfc_loss4': 100.0, 'grass_mgmt': 100.0}
+_FG = None
+
+
+def extra_feats(lon, lat):
+    global _FG
+    if not EXTRA:
+        return []
+    if _FG is None:
+        from fit_habitat import Grids
+        _FG = Grids([os.path.join(HERE, '..', 'data', 'features.json')])
+    v = _FG.raw(lon, lat) or {}
+    return [max(0.0, float(v.get(k, 0))) / EXTRA_SCALE.get(k, 100.0) for k in EXTRA]
+
+
 def features(G, lon, lat, elev):
     v = []
     for k in KEYS:
@@ -36,7 +52,7 @@ def features(G, lon, lat, elev):
         val = a[r, c] if 0 <= r < x['h'] and 0 <= c < x['w'] else -1
         v.append(max(0, val) / 100.0)
     e = elev / 1000.0
-    return v + [e, e * e]
+    return v + [e, e * e] + extra_feats(lon, lat)
 
 
 def main():

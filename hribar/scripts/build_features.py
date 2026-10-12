@@ -259,6 +259,41 @@ def part_chm(out):
                    'mean': out['chm_mean'], 'tall': out['chm_tall']}, open('data/canopy.json', 'w'), separators=(',', ':'))
 
 
+def part_gfc(out):
+    """Global Forest Change (Hansen et al., UMD/Google, 30 m, CC BY 4.0): year of tree-cover loss. Per 0.01° cell: % of pixels
+    lost in the last 10 years (gfc_loss) and in the last 4 years (gfc_loss4): clear-cuts, windthrow, bark-beetle dieback."""
+    import urllib.request
+    vers = [('GFC-2024-v1.12', 24), ('GFC-2023-v1.11', 23), ('GFC-2022-v1.10', 22)]
+    SUBG = 20
+    l10 = np.zeros((H, W), np.float32); l4 = np.zeros((H, W), np.float32); n = np.zeros((H, W), np.float32)
+    for lat_top in range(int(math.ceil((LA0 + H * ST) / 10) * 10), int(LA0), -10):
+        for lon_l in range(int(math.floor(LO0 / 10) * 10), int(LO0 + W * ST), 10):
+            w0, s0, e0, n0 = max(lon_l, LO0), max(lat_top - 10, LA0), min(lon_l + 10, LO0 + W * ST), min(lat_top, LA0 + H * ST)
+            if w0 >= e0 or s0 >= n0:
+                continue
+            tname = f"{lat_top:02d}N_{lon_l:03d}E"
+            a = None
+            for v, last in vers:
+                url = f'https://storage.googleapis.com/earthenginepartners-hansen/{v}/Hansen_{v}_lossyear_{tname}.tif'
+                try:
+                    c0, c1 = int(round((w0 - LO0) / ST)), int(round((e0 - LO0) / ST)); r0, r1 = int(round((s0 - LA0) / ST)), int(round((n0 - LA0) / ST))
+                    with rasterio.Env(**ENV), rasterio.open('/vsicurl/' + url) as src:
+                        a = src.read(1, window=from_bounds(w0, s0, e0, n0, src.transform), out_shape=((r1 - r0) * SUBG, (c1 - c0) * SUBG),
+                                     resampling=Resampling.nearest)
+                    log('gfc ok', tname, v); break
+                except Exception as e:
+                    log('gfc try', tname, v, str(e)[:100])
+            if a is None:
+                continue
+            blk = a[::-1].reshape(r1 - r0, SUBG, c1 - c0, SUBG)
+            l10[r0:r1, c0:c1] += ((blk >= last - 9) & (blk > 0)).sum(axis=(1, 3)); l4[r0:r1, c0:c1] += ((blk >= last - 3) & (blk > 0)).sum(axis=(1, 3))
+            n[r0:r1, c0:c1] += SUBG * SUBG
+    with np.errstate(all='ignore'):
+        out['gfc_loss'] = enc(np.where(n > 0, 100 * l10 / n, np.nan) * 10)   # per-mille
+        out['gfc_loss4'] = enc(np.where(n > 0, 100 * l4 / n, np.nan) * 10)
+    log('gfc done', 'mean loss 10 y %', round(float(np.nansum(l10) / max(1, np.nansum(n)) * 100), 2))
+
+
 def part_trees(out):
     sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
     from build_trees import find_records  # noqa
