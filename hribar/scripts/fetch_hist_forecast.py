@@ -48,10 +48,13 @@ def main():
         key = f'{lon:g},{lat:g}'
         if key in out and out[key].get('end') == END.isoformat():
             continue
-        d = {k: [] for k in ('precipitation_sum', 'temperature_2m_min', 'soil_temperature_0_to_7cm_mean',
-                             'soil_moisture_0_to_7cm_mean', 'soil_moisture_7_to_28cm_mean', 'snow_depth_max')}
-        elev = None
-        s = T0
+        prev = out.get(key)
+        if prev and prev.get('end') and prev.get('model') == model:   # extend an existing series by the new days only
+            d, elev, s = prev['d'], prev['elev'], dt.date.fromisoformat(prev['end']) + dt.timedelta(days=1)
+        else:
+            d = {k: [] for k in ('precipitation_sum', 'temperature_2m_min', 'soil_temperature_0_to_7cm_mean',
+                                 'soil_moisture_0_to_7cm_mean', 'soil_moisture_7_to_28cm_mean', 'snow_depth_max')}
+            elev, s = None, T0
         while s <= END:
             e = min(END, dt.date(s.year, 12, 31))
             j = get(dict(latitude=lat, longitude=lon, start_date=s.isoformat(), end_date=e.isoformat(), hourly=HOURLY, daily=DAILY,
