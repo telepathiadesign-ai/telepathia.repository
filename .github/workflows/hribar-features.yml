@@ -1,0 +1,42 @@
+name: Hribar habitat features
+on:
+  workflow_dispatch:
+    inputs:
+      parts: { description: 'dem,soil,lc,trees', default: 'dem,soil,lc,trees' }
+  push:
+    branches: [main]
+    paths: ['.github/workflows/hribar-features.yml', 'hribar/scripts/build_features.py', 'hribar/scripts/build_trees.py']
+permissions:
+  contents: write
+jobs:
+  features:
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix: { region: [ro, wide] }
+    concurrency: hribar-features-${{ matrix.region }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    defaults: { run: { working-directory: hribar } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - run: pip install rasterio numpy
+      - name: Build features (${{ matrix.region }})
+        env:
+          REGION: ${{ matrix.region }}
+          PARTS: ${{ github.event.inputs.parts || 'dem,soil,lc,trees' }}
+        run: |
+          set -o pipefail
+          python3 scripts/build_features.py 2>&1 | tee features.log
+      - name: Commit
+        if: always()
+        run: |
+          git config user.name "hribar-bot"
+          git config user.email "hribar-bot@users.noreply.github.com"
+          F=$([ "${{ matrix.region }}" = ro ] && echo data/features.json || echo eval/data/features_wide.json)
+          grep -v '^retry' features.log | tail -c 5000 > eval/data/features_${{ matrix.region }}_status.txt || true
+          git add eval/data/features_${{ matrix.region }}_status.txt; [ -f "$F" ] && git add "$F"
+          git diff --cached --quiet || git commit -m "layers: habitat features ${{ matrix.region }} $(date -u +%Y-%m-%d)"
+          for i in 1 2 3 4; do git pull --rebase origin main && git push && break; sleep $((i*7)); done

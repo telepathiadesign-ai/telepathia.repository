@@ -43,7 +43,7 @@ def find_records():
                 if not m or m.group(1) not in SPECIES or not f['key'].endswith('.tif'):
                     continue
                 sp, y1 = m.group(1), int(m.group(3))
-                url = f['links'].get('self') or f"https://zenodo.org/api/records/{h['id']}/files/{f['key']}/content"
+                url = f"https://zenodo.org/records/{h['id']}/files/{f['key']}"
                 if sp not in found or y1 > found[sp][0]:
                     found[sp] = (y1, f['key'], url)
         if len(hits) < 25:
@@ -78,22 +78,28 @@ def enc(g):
     return base64.b64encode(zlib.compress(d.tobytes(), 9)).decode()
 
 
-recs = find_records()
-print('records found:', {k: v[1] for k, v in recs.items()}, file=sys.stderr)
-missing = [s for s in SPECIES if s not in recs]
-if missing:
-    print('missing species:', missing, file=sys.stderr)
-out = {'source': 'Bonannella et al. 2022, realized distribution probability (30 m, EPSG:3035), mean % per 0.01° cell, CC BY 4.0',
-       'species': {}}
-for sp, (y1, key, url) in sorted(recs.items()):
-    try:
-        g = read_species(url)
-    except Exception as e:
-        print('fail', sp, e, file=sys.stderr); continue
-    ok = np.isfinite(g)
-    print('ok', sp, key, 'cells', int(ok.sum()), 'mean', round(float(np.nanmean(g)), 1), file=sys.stderr)
-    out['species'][sp] = {'file': key, 'lo0': LO0, 'la0': LA0, 'st': ST, 'w': W, 'h': H, 'b': enc(g)}
-if not out['species']:
-    sys.exit('no species read')
-json.dump(out, open('data/trees.json', 'w'), separators=(',', ':'))
-print('wrote', len(out['species']), 'species', file=sys.stderr)
+
+def main():
+    recs = find_records()
+    print('records found:', {k: v[1] for k, v in recs.items()}, file=sys.stderr)
+    missing = [s for s in SPECIES if s not in recs]
+    if missing:
+        print('missing species:', missing, file=sys.stderr)
+    out = {'source': 'Bonannella et al. 2022, realized distribution probability (30 m, EPSG:3035), mean % per 0.01° cell, CC BY 4.0',
+           'species': {}}
+    for sp, (y1, key, url) in sorted(recs.items()):
+        try:
+            g = read_species(url)
+        except Exception as e:
+            print('fail', sp, e, file=sys.stderr); continue
+        ok = np.isfinite(g)
+        print('ok', sp, key, 'cells', int(ok.sum()), 'mean', round(float(np.nanmean(g)), 1), file=sys.stderr)
+        out['species'][sp] = {'file': key, 'lo0': LO0, 'la0': LA0, 'st': ST, 'w': W, 'h': H, 'b': enc(g)}
+    if not out['species']:
+        sys.exit('no species read')
+    json.dump(out, open('data/trees.json', 'w'), separators=(',', ':'))
+    print('wrote', len(out['species']), 'species', file=sys.stderr)
+
+
+if __name__ == '__main__':
+    main()
