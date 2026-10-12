@@ -31,7 +31,34 @@ def get(url):
     raise RuntimeError(url)
 
 
+KNOWN = {
+    'abies.alba': (6953790, '2018..2020'),
+    'castanea.sativa': (6951628, '2018..2020'),
+    'corylus.avellana': (6951687, '2002..2006'),
+    'fagus.sylvatica': (6956944, '2018..2020'),
+    'picea.abies': (6961187, '2018..2020'),
+    'pinus.nigra': (6964167, '2018..2020'),
+    'pinus.sylvestris': (6966804, '2018..2020'),
+    'prunus.avium': (6966847, '2018..2020'),
+    'quercus.cerris': (6967119, '2018..2020'),
+    'quercus.robur': (6967309, '2018..2020'),
+    'salix.caprea': (6967538, '2018..2020'),
+}
+
+
 def find_records():
+    try:
+        found = _search()
+    except Exception as e:
+        print('zenodo search failed, using known record ids:', e, file=sys.stderr); found = {}
+    for sp, (rid, yrs) in KNOWN.items():
+        if sp not in found:
+            key = f'veg_{sp}_anv.eml_p_30m_0..0cm_{yrs}_eumap_epsg3035_v0.3.tif'
+            found[sp] = (int(yrs[-4:]), key, f'https://zenodo.org/records/{rid}/files/{key}')
+    return found
+
+
+def _search():
     q = urllib.parse.quote('"realized distribution at 30m"')
     found = {}
     for page in (1, 2, 3):
