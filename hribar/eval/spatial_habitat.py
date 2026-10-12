@@ -14,7 +14,7 @@ from fit_landcover import lc_grids, features
 from fit_habitat import Grids, featurize, records
 
 ap = argparse.ArgumentParser(); ap.add_argument('--wide', action='store_true'); ap.add_argument('--C', type=float, default=0.3)
-ap.add_argument('--floor', type=float, default=0.3); ap.add_argument('--wx', type=float, default=1.0)
+ap.add_argument('--floor', type=float, default=0.3); ap.add_argument('--wx', type=float, default=1.0); ap.add_argument('--cols', default=''); ap.add_argument('--exonly', action='store_true')
 a = ap.parse_args()
 HERE = os.path.dirname(os.path.abspath(__file__))
 LG = lc_grids(); FG = Grids([os.path.join(HERE, '..', 'data', 'features.json'), os.path.join(HERE, 'data', 'features_wide.json')])
@@ -49,6 +49,8 @@ print(len(R), 'RO records,', len(EX), 'extra training records', file=sys.stderr)
 NM = np.array([r['nm'] for r in R], dtype=object); Y = np.array([r['y'] for r in R]); B = np.array([r['blk'] for r in R]); K = np.array([r['k'] for r in R])
 XL = np.array([r['xl'] for r in R]); XB = np.array([featurize(r['v']) for r in R])
 NX = np.array([r['nm'] for r in EX], dtype=object); XBX = np.array([featurize(r['v']) for r in EX]) if EX else np.zeros((0, XB.shape[1]))
+from fit_habitat import KEYS as FK
+COLS = [FK.index(c) for c in a.cols.split(',')] if a.cols else list(range(len(FK)))
 rows = []
 for s in sorted(set(n for n in NM if n)):
     if s not in hab['sp']:
@@ -69,12 +71,15 @@ for s in sorted(set(n for n in NM if n)):
             continue
         m = LogisticRegression(class_weight='balanced', max_iter=500).fit(XL[tr], NM[tr] == s)
         p = m.predict_proba(XL)[:, 1]; lc[te] = np.minimum(1, p[te] / np.percentile(p[tr & (NM == s)], 90))
-        Xtr = np.vstack([XH[tr], XHX]); ytr = np.concatenate([NM[tr] == s, NX == s]) if len(EX) else NM[tr] == s
-        mu, sd = Xtr.mean(0), Xtr.std(0) + 1e-6
-        swt = np.concatenate([np.ones(tr.sum()), np.full(len(EX), a.wx)])
+        trh = tr & (not a.exonly)
+        Xtr = np.vstack([XH[trh], XHX]); ytr = np.concatenate([NM[trh] == s, NX == s]) if len(EX) else NM[trh] == s
+        Xtr = Xtr[:, COLS]; mu, sd = Xtr.mean(0), Xtr.std(0) + 1e-6
+        if ytr.sum() < 10:
+            continue
+        swt = np.concatenate([np.ones(trh.sum()), np.full(len(EX), a.wx)])
         swt = swt * np.where(ytr, 0.5 / (swt * ytr).sum(), 0.5 / (swt * ~ytr).sum()) * len(ytr)
         m = LogisticRegression(C=a.C, max_iter=1000).fit((Xtr - mu) / sd, ytr, sample_weight=swt)
-        p = m.predict_proba((XH - mu) / sd)[:, 1]; hb[te] = np.minimum(1, p[te] / np.percentile(p[tr & (NM == s)], 90))
+        p = m.predict_proba((XH[:, COLS] - mu) / sd)[:, 1]; hb[te] = np.minimum(1, p[te] / np.percentile(p[tr & (NM == s)], 90))
     ok = te_all & ~np.isnan(lc) & ~np.isnan(hb)
     pos = ok & (NM == s); neg = ok & (NM != s)
     if pos.sum() < 5:
@@ -85,6 +90,6 @@ for s in sorted(set(n for n in NM if n)):
 rng = np.random.default_rng(1)
 print(f'species {len(rows)}  habitat AUC median: rule {np.median([r[2] for r in rows]):.3f} | x land cover {np.median([r[3] for r in rows]):.3f} '
       f'| x learned habitat {np.median([r[4] for r in rows]):.3f} | learned habitat alone {np.median([r[5] for r in rows]):.3f}')
-for i, lab in ((4, 'learned habitat vs land cover'), (5, 'habitat alone vs land cover')):
-    d = np.array([r[i] - r[3] for r in rows]); bs = [rng.choice(d, len(d)).mean() for _ in range(5000)]
+for i, lab in ((4, 'learned habitat vs land cover'), (5, 'habitat alone vs land cover'), (-4, 'learned habitat vs rule')):
+    d = np.array([(r[4] - r[2]) if i == -4 else (r[i] - r[3]) for r in rows]); bs = [rng.choice(d, len(d)).mean() for _ in range(5000)]
     print(f'{lab}: mean {d.mean():+.4f}  95% CI [{np.percentile(bs, 2.5):+.4f}, {np.percentile(bs, 97.5):+.4f}]  better {(d > 0.005).sum()} worse {(d < -0.005).sum()}')

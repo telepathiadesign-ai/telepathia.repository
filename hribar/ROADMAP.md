@@ -36,3 +36,10 @@ Where we are (held-out): habitat AUC ~0.68 median for the 28 species with enough
 1. Host: VPS (private, already has nginx + certificate) or Cloudflare Pages.
 2. Logged finds: shared and anonymous, or private per person.
 3. Scope: confirm using neighbouring countries' records to train (recommended).
+
+## Status, 12 Oct 2026
+
+- A1 tree maps: built (10 of 11 species; chestnut timed out). Tested; no gain on Romanian finds. Not shipped.
+- A2 learned habitat: built and tested (`eval/fit_habitat.py`, `eval/spatial_habitat.py`). No gain over learned land cover; target 0.70 not met.
+- A3 records: met (species with 15+ finds 75 → 186 after one night; job continues nightly). Shipped as neighbour-trained land-cover models for 128 more species (habitat +0.027..+0.030, full +0.012..+0.016, CI above 0 on two periods).
+- A4, A5: next.

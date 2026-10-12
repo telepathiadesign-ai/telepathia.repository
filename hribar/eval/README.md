@@ -52,3 +52,30 @@ Literature months were rejected (wider seasons lowered the season score). Host, 
 | Measured tree cover (ESA WorldCover) instead of the heuristic | habitat +0.016, CI −0.002..+0.034 | yes |
 | Rule-based grassland / town cover from land cover | habitat × season −0.012, CI below 0 | no |
 | **Learned land-cover preference per species** (`fit_landcover.py`), trained 2024–25, tested on 2026 and on held-out 1° blocks | **habitat +0.054, CI +0.034..+0.075; 24 better, 3 worse; full +0.022** | yes (refit on all years) |
+
+## Round 4 (Sprint A), 12 Oct 2026
+
+New inputs: `data/features.json` / `eval/data/features_wide.json` (`scripts/build_features.py`, GitHub job `hribar-features`):
+Copernicus DEM (elevation, slope, heat load), SoilGrids 0–5 cm (clay, sand, organic carbon, pH), ESA WorldCover shares,
+and 10 tree-species realized-probability maps (Bonannella et al. 2022). Training records from neighbouring countries:
+`eval/data/records_cee.json.gz` (GBIF, nightly job `hribar-records`; 99k rows after the first night, 75% of species × country done).
+
+| Test (habitat AUC, Romanian 2026 finds) | Result | Shipped |
+| --- | --- | --- |
+| Learned habitat on all features (land cover + DEM + soil + 10 tree species + host availability), spatial blocks | −0.006 vs learned land cover, CI spans 0 (overfits: ~26 features, 15–50 finds per species) | no |
+| Land cover + host availability from tree maps | −0.002, CI spans 0 | no |
+| Land cover + pH / heat load / slope | ±0.000, CI spans 0 | no |
+| Land cover + 5 main tree species + host | −0.008, CI spans 0 | no |
+| Neighbour-country records pooled into training (weights 0.03–1) | −0.002 to −0.009, CI spans 0 | no |
+| **Land-cover model trained on neighbour countries only**, vs rule-based habitat (spatial blocks) | **+0.031, CI +0.009..+0.058, 16 better / 4 worse** | — |
+| same, full backtest, 2026 | **habitat +0.027 (CI +0.010..+0.049), full +0.012 (CI +0.004..+0.021)** | yes |
+| same, full backtest, 2024–25 (also unseen by this model) | **habitat +0.030 (CI +0.017..+0.046), full +0.016 (CI +0.011..+0.021)** | yes |
+| App vs Python implementation, 2026 | −0.005, CI spans 0 (equivalent) | — |
+
+Shipped: `data/lc_prefs.json` now covers 203 species. 75 use the Romanian model (15+ Romanian finds); 128 use the
+neighbour-country model (`eval/fit_landcover_cee.py`, `src: neighbours`), which is worse than a Romanian model (−0.018)
+but clearly better than the rules. The app labels which one a species uses.
+
+Not shipped: tree maps, soil texture / carbon, heat load. With current find counts they do not add skill over land cover
+and elevation. The A2 target (median held-out habitat AUC ≥ 0.70) is not met: best is 0.67–0.69 depending on the test.
+Revisit once records reach ~50 finds per species, or with a model that shares strength across species.
