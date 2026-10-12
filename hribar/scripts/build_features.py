@@ -26,7 +26,7 @@ ST = 0.01
 PARTS = os.environ.get('PARTS', 'dem,soil,lc,trees').split(',')
 OUT = 'data/features.json' if REG == 'ro' else 'eval/data/features_wide.json'
 ENV = dict(GDAL_DISABLE_READDIR_ON_OPEN='EMPTY_DIR', CPL_VSIL_CURL_ALLOWED_EXTENSIONS='.tif,.vrt', GDAL_HTTP_MAX_RETRY='5',
-           GDAL_HTTP_RETRY_DELAY='3', VSI_CACHE='TRUE', GDAL_CACHEMAX='512')
+           GDAL_HTTP_RETRY_DELAY='3', VSI_CACHE='TRUE', GDAL_CACHEMAX=512)
 log = lambda *a: print(*a, file=sys.stderr, flush=True)
 
 
