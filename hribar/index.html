@@ -529,8 +529,8 @@ const RAD = Math.PI / 180;
 let D;
 try {
   await window.__libs;
-  const names = ['countries','counties','places','rivers','lakes','roads','mask','glyphs','species','catalog','dem','osm','roads_ro','water_ro','weather','terrain','leaf','soil','fitted','traits','recent_finds','reliability','landcover','lc_prefs','timing','climate'];
-  const optional = ['osm', 'roads_ro', 'water_ro', 'weather', 'terrain', 'leaf', 'soil', 'fitted', 'traits', 'recent_finds', 'reliability', 'landcover', 'lc_prefs', 'timing', 'climate'];
+  const names = ['countries','counties','places','rivers','lakes','roads','mask','glyphs','species','catalog','dem','osm','roads_ro','water_ro','weather','terrain','leaf','soil','fitted','traits','recent_finds','reliability','landcover','lc_prefs','timing','climate','leaftype'];
+  const optional = ['osm', 'roads_ro', 'water_ro', 'weather', 'terrain', 'leaf', 'soil', 'fitted', 'traits', 'recent_finds', 'reliability', 'landcover', 'lc_prefs', 'timing', 'climate', 'leaftype'];
   const got = await Promise.all(names.map(n => fetch('data/' + n + '.json').then(r => { if (!r.ok) throw new Error(n); return r.json(); }).catch(e => { if (optional.includes(n)) return null; throw e; })));
   D = {}; names.forEach((n, k) => D[n] = got[k]);
 } catch (e) {
@@ -603,6 +603,11 @@ const lcAt = (k, lon, lat) => { if (!LC[k]) return null; const v = sampleG(LC[k]
 // ---------- climate (CHELSA V2.1 bioclim 1981-2010, ~1 km): bio10 mean T of the warmest quarter (°C x10), bio12 annual precipitation (mm), bio15 seasonality (x10)
 const CLIM = {};
 if (D.climate){ try { for (const k of ['c_bio10', 'c_bio12', 'c_bio15']) CLIM[k] = await decodeGrid(D.climate[k]); } catch (e) {} }
+// ---------- dominant leaf type (Copernicus HRL 2018, 10 m -> % broadleaf / % coniferous of tree pixels per 0.01° cell)
+const DLT = {};
+if (D.leaftype){ try { DLT.b = await decodeGrid(D.leaftype.broad); DLT.c = await decodeGrid(D.leaftype.conif); } catch (e) {} }
+function dltAt(lon, lat){ if (!DLT.b) return 0; const b = sampleG(DLT.b, lon, lat), c = sampleG(DLT.c, lon, lat); if (b === null || c === null || b < 0 || c < 0 || b + c < 20) return 0;
+  const bs = b / (b + c); return bs >= 0.7 ? 1 : bs <= 0.3 ? 2 : 3; }
 const climAt = (k, lon, lat) => { if (!CLIM[k]) return null; const v = sampleG(CLIM[k], lon, lat); return v === null || v <= -32768 ? null : v; };
 // ---------- mapped forest type (OSM leaf_type, Romania): 1 broadleaf, 2 conifer, 3 mixed, 0 unknown
 let LEAFG = null;
@@ -820,7 +825,7 @@ function makeP(lon, lat){
   const north = t.aspect === null ? 0 : Math.cos(t.aspect * RAD) * Math.min(1, t.slope / 8);
   const heat = heatLoad(lat, t.slope, t.aspect);
   const wet = WETG ? Math.max(0, Math.min(1, (sampleG(WETG, lon, lat) ?? 500) / 1000)) : null;
-  const leaf = leafAt(lon, lat);
+  const leaf = leafAt(lon, lat) || dltAt(lon, lat);   // OSM leaf_type where mapped, else Copernicus dominant leaf type
   const tree = lcAt('tree', lon, lat), grass = lcAt('grass', lon, lat), built = lcAt('built', lon, lat), crop = lcAt('crop', lon, lat), water = lcAt('water', lon, lat);
   let cover = tree !== null ? tree : forestCov(lon, lat, t.e, n); if (leaf > 0) cover = Math.max(cover, 0.8); // measured tree cover where available; a leaf-tagged polygon is forest
   return { lon, lat, e: t.e, slope: t.slope, aspect: t.aspect, north, heat, wet, leaf, ph: phAt(lon, lat), n, f: cover, grass, built, crop, water, lcOk: tree !== null, bio10: climAt('c_bio10', lon, lat), bio12: climAt('c_bio12', lon, lat), bio15: climAt('c_bio15', lon, lat), land: isLand(lon, lat), wx: inWX(lon, lat), rc: {} };
@@ -1540,7 +1545,7 @@ function detail(h, keep){
   const warn = !inR ? 'Outside the latitude range the catalog covers (33–71°N).' : sp.ed === 'deadly' ? 'Deadly species.' : sp.ed === 'toxic' ? 'Poisonous species.' : sp.psy ? 'Psychoactive species.' : '';
   let rows = fRow('Latitude range', P.lat.toFixed(2) + '°', 'catalog 33–71°N', F.range)
     + fRow('Forest cover', Math.round(P.f * 100) + '%', P.lcOk ? 'ESA WorldCover 2021 · 10 m tree cover' : forestFrac(P.lon, P.lat) !== null ? 'OSM woodland · ±300 m window' : 'heuristic · no land-cover data', F.cover)
-    + fRow('Host affinity', ({ 1: 'broadleaf', 2: 'conifer', 3: 'mixed' }[P.leaf]) || (P.e > 1300 ? 'conifer band' : P.e > 800 ? 'mixed band' : P.e > 400 ? 'beech band' : 'oak band'), P.leaf ? 'catalog hosts × mapped forest type (OSM)' : 'catalog hosts × elevation band', F.host)
+    + fRow('Host affinity', ({ 1: 'broadleaf', 2: 'conifer', 3: 'mixed' }[P.leaf]) || (P.e > 1300 ? 'conifer band' : P.e > 800 ? 'mixed band' : P.e > 400 ? 'beech band' : 'oak band'), P.leaf ? (leafAt(P.lon, P.lat) ? 'catalog hosts × mapped forest type (OSM)' : 'catalog hosts × Copernicus leaf type (10 m)') : 'catalog hosts × elevation band', F.host)
     + fRow('Elevation', Math.round(P.e) + ' m', 'DEM · optimum ' + Math.round(sp.elev[0]) + ' ± ' + Math.round(sp.elev[1] * 1.6) + ' m', F.alt)
     + fRow('Aspect', aspName(P.aspect) + ' · ' + P.slope.toFixed(1) + '°', 'DEM · heat load, cool slopes favoured', F.aspect)
     + fRow('Slope', P.slope.toFixed(1) + '°', 'DEM · penalty above 35°', F.slope)

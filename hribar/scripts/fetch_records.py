@@ -46,6 +46,10 @@ def main():
     rows = json.load(gzip.open(OUT, 'rt'))['rows'] if os.path.exists(OUT) else []
     seen = {(r[0], r[1], round(r[2], 3), round(r[3], 3)) for r in rows}
     done = set(st['done'])
+    have = {}
+    for r in rows:
+        have[r[0]] = have.get(r[0], 0) + 1
+    species.sort(key=lambda s_: have.get(s_, 0))   # species with the fewest records first: they gain the most
     added = 0
     for sp in species:
         if sp not in st['keys']:
