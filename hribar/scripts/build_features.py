@@ -315,10 +315,12 @@ def part_pasture(out):
  node(area.a)["animal_keeping"="sheep"];way(area.a)["animal_keeping"="sheep"];);out center;"""
     q2 = """[out:json][timeout:900];area["ISO3166-1"="RO"][admin_level=2]->.a;(way(area.a)[landuse=meadow];way(area.a)[meadow=pasture];way(area.a)[landuse=pasture];);out geom;"""
     def ov(qq):
-        for h in ('https://overpass-api.de/api/interpreter', 'https://overpass.kumi.systems/api/interpreter'):
+        for h in ('https://overpass-api.de/api/interpreter', 'https://overpass.private.coffee/api/interpreter', 'https://overpass.kumi.systems/api/interpreter'):
             for k in range(3):
                 try:
-                    return json.load(urllib.request.urlopen(h, data=urllib.parse.urlencode({'data': qq}).encode(), timeout=900))['elements']
+                    rq = urllib.request.Request(h, data=urllib.parse.urlencode({'data': qq}).encode(),
+                                                headers={'User-Agent': 'hribar-research/1.0 (academic; github.com/telepathiadesign-ai)', 'Accept': 'application/json'})
+                    return json.load(urllib.request.urlopen(rq, timeout=900))['elements']
                 except Exception as e:
                     log('overpass retry', h.split('/')[2], k, str(e)[:80]); time.sleep(30 * (k + 1))
         raise RuntimeError('overpass unreachable')
