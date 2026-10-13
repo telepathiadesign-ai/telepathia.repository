@@ -89,3 +89,5 @@ Rule for every item: build as a GitHub job, test with the backtest (2024-25 and 
 3. D10 search trends, D11 European phenology
 4. D7 grassland, D8 snow, D9 radar moisture
 5. D12, D14 need people outside the project; D13 is ongoing
+
+- 13 Oct: VPS move parked (owner). Setup kept on the VPS at /root/hribar (repo clone, venv, memory-capped run.sh); deploy key not added; no jobs scheduled. All jobs stay on GitHub Actions.
