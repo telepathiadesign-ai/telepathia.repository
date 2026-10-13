@@ -1,0 +1,158 @@
+== part lc
+lc skip N33W012 HTTP response code: 404
+lc ok N33W009
+lc ok N33W006
+lc ok N33W003
+lc ok N33E000
+lc ok N33E003
+lc ok N33E006
+lc ok N33E009
+lc ok N33E012
+lc skip N33E015 HTTP response code: 404
+lc skip N33E018 HTTP response code: 404
+lc ok N33E021
+lc ok N33E024
+lc ok N33E027
+lc ok N33E030
+lc ok N36W012
+lc ok N36W009
+lc ok N36W006
+lc ok N36W003
+lc ok N36E000
+lc ok N36E003
+lc ok N36E006
+lc ok N36E009
+lc ok N36E012
+lc ok N36E015
+lc ok N36E018
+lc ok N36E021
+lc ok N36E024
+lc ok N36E027
+lc ok N36E030
+lc ok N39W012
+lc ok N39W009
+lc ok N39W006
+lc ok N39W003
+lc ok N39E000
+lc ok N39E003
+lc ok N39E006
+lc ok N39E009
+lc ok N39E012
+lc ok N39E015
+lc ok N39E018
+lc ok N39E021
+lc ok N39E024
+lc ok N39E027
+lc ok N39E030
+lc ok N42W012
+lc ok N42W009
+lc ok N42W006
+lc ok N42W003
+lc ok N42E000
+lc ok N42E003
+lc ok N42E006
+lc ok N42E009
+lc ok N42E012
+lc ok N42E015
+lc ok N42E018
+lc ok N42E021
+lc ok N42E024
+lc ok N42E027
+lc skip N42E030 HTTP response code: 404
+lc skip N45W012 HTTP response code: 404
+lc skip N45W009 HTTP response code: 404
+lc ok N45W006
+lc ok N45W003
+lc ok N45E000
+lc ok N45E003
+lc ok N45E006
+lc ok N45E009
+lc ok N45E012
+lc ok N45E015
+lc ok N45E018
+lc ok N45E021
+lc ok N45E024
+lc ok N45E027
+lc ok N45E030
+lc skip N48W012 HTTP response code: 404
+lc ok N48W009
+lc ok N48W006
+lc ok N48W003
+lc ok N48E000
+lc ok N48E003
+lc ok N48E006
+lc ok N48E009
+lc ok N48E012
+lc ok N48E015
+lc ok N48E018
+lc ok N48E021
+lc ok N48E024
+lc ok N48E027
+lc ok N48E030
+lc ok N51W012
+lc ok N51W009
+lc ok N51W006
+lc ok N51W003
+lc ok N51E000
+lc ok N51E003
+lc ok N51E006
+lc ok N51E009
+lc ok N51E012
+lc ok N51E015
+lc ok N51E018
+lc ok N51E021
+lc ok N51E024
+lc ok N51E027
+lc ok N51E030
+lc ok N54W012
+lc ok N54W009
+lc ok N54W006
+lc ok N54W003
+lc skip N54E000 HTTP response code: 404
+lc skip N54E003 HTTP response code: 404
+lc ok N54E006
+lc ok N54E009
+lc ok N54E012
+lc ok N54E015
+lc ok N54E018
+lc ok N54E021
+lc ok N54E024
+lc ok N54E027
+lc ok N54E030
+lc skip N57W012 HTTP response code: 404
+lc ok N57W009
+lc ok N57W006
+lc ok N57W003
+lc skip N57E000 HTTP response code: 404
+lc ok N57E003
+lc ok N57E006
+lc ok N57E009
+lc ok N57E012
+lc ok N57E015
+lc ok N57E018
+lc ok N57E021
+lc ok N57E024
+lc ok N57E027
+lc ok N57E030
+lc skip N60W012 HTTP response code: 404
+lc ok N60W009
+lc skip N60W006 HTTP response code: 404
+lc ok N60W003
+lc skip N60E000 HTTP response code: 404
+lc ok N60E003
+lc ok N60E006
+lc ok N60E009
+lc ok N60E012
+lc ok N60E015
+lc ok N60E018
+lc ok N60E021
+lc ok N60E024
+lc ok N60E027
+lc ok N60E030
+== part clim
+clim ok bio1 CHELSA 113.3
+clim ok bio10 CHELSA 187.5
+clim ok bio12 CHELSA 825.5
+clim ok bio15 CHELSA 372.7
+clim ok bio18 CHELSA 186.1
+layers ['built', 'c_bio1', 'c_bio10', 'c_bio12', 'c_bio15', 'c_bio18', 'crop', 'grass', 'tree', 'water']
