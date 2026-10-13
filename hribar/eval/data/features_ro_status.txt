@@ -1,9 +1,15 @@
 == part pasture
-overpass retry overpass-api.de 0 HTTP Error 406: Not Acceptable
-overpass retry overpass-api.de 1 HTTP Error 406: Not Acceptable
-overpass retry overpass-api.de 2 HTTP Error 406: Not Acceptable
-overpass retry overpass.kumi.systems 0 HTTP Error 504: Gateway Timeout
-overpass retry overpass.kumi.systems 1 HTTP Error 504: Gateway Timeout
-overpass retry overpass.kumi.systems 2 HTTP Error 504: Gateway Timeout
-part failed pasture overpass unreachable
-layers ['built', 'c_bio1', 'c_bio10', 'c_bio12', 'c_bio15', 'c_bio18', 'clay', 'crop', 'dlt_broad', 'dlt_conif', 'elev', 'gfc_loss', 'gfc_loss4', 'grass', 'hli', 'ph', 'sand', 'slope', 'soc', 't_abies_alba', 't_corylus_avellana', 't_fagus_sylvatica', 't_picea_abies', 't_pinus_nigra', 't_pinus_sylvestris', 't_prunus_avium', 't_quercus_cerris', 't_quercus_robur', 't_salix_caprea', 'tree', 'water']
+overpass retry overpass-api.de 0 HTTP Error 504: Gateway Timeout
+sheepfolds 342
+overpass retry overpass-api.de 0 HTTP Error 504: Gateway Timeout
+pasture polygons 24863
+== part chm
+chm retry 0 HTTP Error 500: Internal Server Error
+chm retry 1 HTTP Error 500: Internal Server Error
+chm retry 2 HTTP Error 500: Internal Server Error
+chm subdirs ['3deg_cogs/']
+chm retry 0 HTTP Error 500: Internal Server Error
+chm retry 1 HTTP Error 500: Internal Server Error
+chm tiles listed 0 []
+chm done cells 0 mean forest height m 0.0
+layers ['built', 'c_bio1', 'c_bio10', 'c_bio12', 'c_bio15', 'c_bio18', 'chm_mean', 'chm_tall', 'clay', 'crop', 'dlt_broad', 'dlt_conif', 'elev', 'gfc_loss', 'gfc_loss4', 'grass', 'hli', 'pasture', 'ph', 'sand', 'slope', 'soc', 'stana3', 't_abies_alba', 't_corylus_avellana', 't_fagus_sylvatica', 't_picea_abies', 't_pinus_nigra', 't_pinus_sylvestris', 't_prunus_avium', 't_quercus_cerris', 't_quercus_robur', 't_salix_caprea', 'tree', 'water']
