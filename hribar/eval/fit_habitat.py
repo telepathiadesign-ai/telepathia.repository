@@ -50,7 +50,7 @@ class Grids:
             if not (0 <= r < x['h'] and 0 <= c < x['w']):
                 continue
             v = {k: a[r, c] for k, (x, a) in G.items()}
-            if v.get('elev', -32768) <= -32768 or v.get('tree', -1) < 0:
+            if ('elev' in v and v['elev'] <= -32768) or v.get('tree', -1) < 0:   # the Europe grid has no elevation layer
                 continue
             return v
         return None
