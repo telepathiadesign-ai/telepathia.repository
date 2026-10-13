@@ -68,4 +68,4 @@ retry 0 HTTP Error 429: Too Many Requests
 retry 1 HTTP Error 429: Too Many Requests
 retry 0 HTTP Error 429: Too Many Requests
 retry 1 HTTP Error 429: Too Many Requests
-added 218936, total rows 605277, progress 4781/9652 species x country, no GBIF key: 1
+added 134949, total rows 740226, progress 6631/9652 species x country, no GBIF key: 1
