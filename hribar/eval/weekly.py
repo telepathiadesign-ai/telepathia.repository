@@ -23,7 +23,7 @@ rows = {}
 for y in years:
     tmp = os.path.join(HERE, 'data', f'lc_prefs_holdout_{y}.json'); res = os.path.join(HERE, 'data', f'weekly_holdout_{y}.json')
     run('eval/fit_landcover.py', '--train', ','.join(v for v in years if v != y), '--out', tmp)
-    run('eval/fit_niche.py', '--wx', '1', '--merge', tmp, '--out', tmp)
+    run('eval/fit_niche.py', '--wx', '1', '--hybrid', '--merge', tmp, '--out', tmp)
     run('eval/backtest.py', '--water', 'lag', '--scale', '25', '--wr', '0.7', '--years', y, '--json', res, *extra, LC_PREFS=tmp, MIN_N='5')
     for r in json.load(open(res))['rows']:
         if r.get('auc_full') is not None and r['n_wx'] >= 5:
@@ -47,7 +47,7 @@ json.dump({'source': f'eval/weekly.py: full-forecast AUC on iNaturalist finds in
 
 run('eval/fit_season.py', '--before', '2099-01-01', '--out', 'data/season.json')
 run('eval/fit_landcover.py', '--train', ','.join(years), '--out', 'data/lc_prefs.json')
-run('eval/fit_niche.py', '--wx', '1', '--merge', 'data/lc_prefs.json', '--out', 'data/lc_prefs.json')
+run('eval/fit_niche.py', '--wx', '1', '--hybrid', '--merge', 'data/lc_prefs.json', '--out', 'data/lc_prefs.json')
 LC = json.load(open(os.path.join(ROOT, 'data', 'lc_prefs.json')))['species']
 
 S = R['summary']; counts = {k: sum(1 for v in rel.values() if v['level'] == k) for k in ('good', 'useful', 'weak')}

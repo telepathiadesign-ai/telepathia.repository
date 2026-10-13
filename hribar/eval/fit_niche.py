@@ -88,13 +88,36 @@ def predict(model, s, v):
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument('--out', required=True); ap.add_argument('--wx', type=float, default=0.3); ap.add_argument('--C', type=float, default=0.5)
     ap.add_argument('--train', default=''); ap.add_argument('--before', default=''); ap.add_argument('--ro-only', action='store_true'); ap.add_argument('--min', type=int, default=15)
+    ap.add_argument('--hybrid', action='store_true', help='with --merge: regional model where 50+ regional finds, Europe-wide otherwise')
     ap.add_argument('--merge', default='', help='lc_prefs file: replace its non-Romanian entries (src neighbours / niche) with niche entries, keep Romanian models')
     a = ap.parse_args()
-    G = Grids([os.path.join(HERE, '..', 'data', 'features.json'), os.path.join(HERE, 'data', 'features_wide.json'), os.path.join(HERE, 'data', 'features_eu.json')])
+    G = Grids([os.path.join(HERE, '..', 'data', 'features.json'), os.path.join(HERE, 'data', 'features_wide.json')] + ([] if os.environ.get('NO_EU') else [os.path.join(HERE, 'data', 'features_eu.json')]))
     recs, cat = records(set(a.train.split(',')) if a.train else None, a.before or None, a.ro_only)
     m = fit(recs, cat, G, a.C, a.wx, a.min)
     m['source'] = f'eval/fit_niche.py: logistic climate-niche model (C={a.C}, other-country weight {a.wx}); ESA WorldCover 2021 + CHELSA V2.1 bioclim; target-group background'
-    if a.merge:
+    if a.merge and a.hybrid:
+        # regional model (Carpathian-Balkan grid) where a species has 50+ finds there, Europe-wide model otherwise.
+        # Romania hold-out (spatial blocks, trained without Romanian finds): regional +0.047 vs rules, Europe-wide +0.030.
+        os.environ['NO_EU'] = '1'
+        Gr = Grids([os.path.join(HERE, '..', 'data', 'features.json'), os.path.join(HERE, 'data', 'features_wide.json')])
+        reg = fit(recs, cat, Gr, a.C, a.wx, a.min)
+        base = json.load(open(a.merge))
+        base['species'] = {k: v for k, v in base['species'].items() if v.get('src') not in ('neighbours', 'niche')}
+        n_ro, nr, ne = len(base['species']), 0, 0
+        for s_ in set(reg['species']) | set(m['species']):
+            if s_ in base['species']:
+                continue
+            r = reg['species'].get(s_)
+            if r and r['n'] >= 50:
+                base['species'][s_] = dict(r, scope='region'); nr += 1
+            elif s_ in m['species']:
+                base['species'][s_] = dict(m['species'][s_], scope='europe', mu=m['mu'], sd=m['sd']); ne += 1
+        base['niche'] = {'keys': reg['keys'], 'mu': reg['mu'], 'sd': reg['sd']}
+        base['source'] = (base.get('source', '').split('; species with too few')[0] + '; species with too few Romanian finds: '
+                          'climate-niche model (eval/fit_niche.py --hybrid) trained on the Carpathian-Balkan region (50+ finds there) or else on all of Europe')
+        json.dump(base, open(a.out, 'w'), separators=(',', ':'))
+        print(f'hybrid: {n_ro} Romanian, {nr} regional niche, {ne} Europe niche -> {a.out}')
+    elif a.merge:
         base = json.load(open(a.merge))
         base['species'] = {k: v for k, v in base['species'].items() if v.get('src') not in ('neighbours', 'niche')}
         n_ro = len(base['species']); added = 0

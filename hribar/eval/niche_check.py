@@ -18,7 +18,7 @@ ap = argparse.ArgumentParser(); ap.add_argument('--wx', type=float, default=0.3)
 ap.add_argument('--ro-only', action='store_true'); ap.add_argument('--exonly', action='store_true', help='train the niche model on other countries only (transfer test)'); ap.add_argument('--floor', type=float, default=0.3); ap.add_argument('--min-test', type=int, default=10)
 a = ap.parse_args()
 HERE = os.path.dirname(os.path.abspath(__file__))
-LG = lc_grids(); FG = Grids([os.path.join(HERE, '..', 'data', 'features.json'), os.path.join(HERE, 'data', 'features_wide.json'), os.path.join(HERE, 'data', 'features_eu.json')])
+LG = lc_grids(); FG = Grids([os.path.join(HERE, '..', 'data', 'features.json'), os.path.join(HERE, 'data', 'features_wide.json')] + ([] if os.environ.get('NO_EU') else [os.path.join(HERE, 'data', 'features_eu.json')]))
 hab = load('habitat_at_points.json'); feat = hab['feat']
 pts = [tuple(p) for p in load('eval_points.json')]; pidx = {p: k for k, p in enumerate(pts)}
 cat = {r[0]: r for r in json.load(open(os.path.join(HERE, '..', 'data', 'catalog.json')))}

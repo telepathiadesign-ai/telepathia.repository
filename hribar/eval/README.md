@@ -128,3 +128,10 @@ Fitted only on finds before the test year:
 | 2025 | +0.065 (CI +0.041..+0.090), 41 better / 13 worse | +0.025 (CI +0.013..+0.039) |
 
 App lookup checked equal to the file. Refit weekly.
+
+### Europe-wide niche training, 13 Oct 2026
+New grid `eval/data/features_eu.json` (land cover + CHELSA, 0.02°, Europe). Romania hold-out, spatial blocks, models trained
+without any Romanian finds, rules-only baseline: Carpathian-Balkan model +0.047 (CI +0.032..+0.063), Europe-wide model +0.030
+(CI +0.015..+0.044). Western European records dilute the regional signal, so the shipped file is a hybrid: regional model
+for 140 species with 50+ finds in the region, Europe-wide for 35 rarer ones (e.g. *Psilocybe semilanceata*: 20 regional,
+730 European finds). Bug fixed on the way: the grid lookup rejected cells without elevation, i.e. the whole Europe grid.

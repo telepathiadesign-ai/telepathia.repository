@@ -279,7 +279,7 @@ def main():
             c = LCP['species'][s]
             if c.get('src') == 'niche':
                 from fit_niche import predict as niche_predict
-                nm_ = {'species': {s: c}, 'mu': LCP['niche']['mu'], 'sd': LCP['niche']['sd']}
+                nm_ = {'species': {s: c}, 'mu': c.get('mu', LCP['niche']['mu']), 'sd': c.get('sd', LCP['niche']['sd'])}
                 pr = np.array([(niche_predict(nm_, s, NICHE_G().raw(r['lon'], r['lat'])) or 0.0) for r in recs])
                 H = H * (0.3 + 0.7 * np.minimum(1, pr / c['mx']))
             else:

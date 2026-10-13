@@ -796,7 +796,7 @@ function factors(sp, P, i, habitatOnly){
   // species with <15 Romanian finds use a model fitted on GBIF finds in neighbouring countries (eval/fit_landcover_cee.py; Romania 2026: +0.027, CI +0.010..+0.049)
   // species with <15 Romanian finds: climate-niche model on finds across Europe (eval/fit_niche.py; trained without Romanian finds it matches a Romania-trained model: +0.041 vs rules, CI +0.021..+0.064)
   f.lc = 1; { const c = D.lc_prefs && D.lc_prefs.species[sp.latin]; if (c && P.lcOk){ let z = c.b;
-    if (c.src === 'niche'){ const N = D.lc_prefs.niche; if (N && P.bio10 !== null && P.bio12 !== null){ const t10 = P.bio10 / 10, pr = P.bio12 / 1000, s15 = (P.bio15 || 0) / 10;
+    if (c.src === 'niche'){ const N = c.mu ? c : D.lc_prefs.niche; if (N && P.bio10 !== null && P.bio12 !== null){ const t10 = P.bio10 / 10, pr = P.bio12 / 1000, s15 = (P.bio15 || 0) / 10;
         const x = [P.f, P.grass || 0, P.crop || 0, P.built || 0, P.water || 0, t10, t10 * t10, pr, pr * pr, s15 / 100];
         for (let k = 0; k < x.length; k++) z += c.w[k] * (x[k] - N.mu[k]) / N.sd[k]; f.lc = 0.3 + 0.7 * Math.min(1, (1 / (1 + Math.exp(-z))) / c.mx); } }
     else { const e = P.e / 1000, x = [P.f, P.grass || 0, P.crop || 0, P.built || 0, P.water || 0, e, e * e];
@@ -1559,7 +1559,7 @@ function detail(h, keep){
     + fRow('Slope', P.slope.toFixed(1) + '°', 'DEM · penalty above 35°', F.slope)
     + (P.wet !== null ? fRow('Topographic wetness', Math.round(P.wet * 100) + '%', 'distance to water · valley-bottom moisture', F.wet) : '')
     + (F.lc !== 1 ? (D.lc_prefs.species[sp.latin].src === 'niche'
-        ? fRow('Climate & land cover fit', (P.bio10 / 10).toFixed(1) + ' °C summer · ' + P.bio12 + ' mm/yr · ' + Math.round(P.f * 100) + '% trees', 'CHELSA + ESA WorldCover · niche learned from ' + D.lc_prefs.species[sp.latin].n + ' finds across Europe', F.lc)
+        ? fRow('Climate & land cover fit', (P.bio10 / 10).toFixed(1) + ' °C summer · ' + P.bio12 + ' mm/yr · ' + Math.round(P.f * 100) + '% trees', 'CHELSA + ESA WorldCover · niche learned from ' + D.lc_prefs.species[sp.latin].n + (D.lc_prefs.species[sp.latin].scope === 'region' ? ' finds in the Carpathian-Balkan region' : ' finds across Europe'), F.lc)
         : fRow('Land cover fit', Math.round(P.f * 100) + '% trees · ' + Math.round((P.grass || 0) * 100) + '% grass · ' + Math.round((P.built || 0) * 100) + '% built', 'ESA WorldCover · preference learned from ' + D.lc_prefs.species[sp.latin].n + (D.lc_prefs.species[sp.latin].src === 'neighbours' ? ' finds in neighbouring countries' : ' finds in Romania'), F.lc)) : '')
     + (P.ph !== null && sp.phOpt != null ? fRow('Soil pH', P.ph.toFixed(1), 'SoilGrids · ' + (sp.phOpt < 6 ? 'prefers acidic' : 'prefers calcareous') + ' (opt. ' + sp.phOpt.toFixed(1) + ')', F.ph) : '');
   const wxsrc = WX ? 'Open-Meteo' : null;
