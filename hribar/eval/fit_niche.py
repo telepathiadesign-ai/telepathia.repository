@@ -90,7 +90,7 @@ def main():
     ap.add_argument('--train', default=''); ap.add_argument('--before', default=''); ap.add_argument('--ro-only', action='store_true'); ap.add_argument('--min', type=int, default=15)
     ap.add_argument('--merge', default='', help='lc_prefs file: replace its non-Romanian entries (src neighbours / niche) with niche entries, keep Romanian models')
     a = ap.parse_args()
-    G = Grids([os.path.join(HERE, '..', 'data', 'features.json'), os.path.join(HERE, 'data', 'features_wide.json')])
+    G = Grids([os.path.join(HERE, '..', 'data', 'features.json'), os.path.join(HERE, 'data', 'features_wide.json'), os.path.join(HERE, 'data', 'features_eu.json')])
     recs, cat = records(set(a.train.split(',')) if a.train else None, a.before or None, a.ro_only)
     m = fit(recs, cat, G, a.C, a.wx, a.min)
     m['source'] = f'eval/fit_niche.py: logistic climate-niche model (C={a.C}, other-country weight {a.wx}); ESA WorldCover 2021 + CHELSA V2.1 bioclim; target-group background'

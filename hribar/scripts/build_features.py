@@ -22,10 +22,10 @@ from rasterio.warp import reproject, transform_bounds
 from rasterio.windows import from_bounds
 
 REG = os.environ.get('REGION', 'ro')
-LO0, LA0, W, H = {'ro': (20.2, 43.6, 960, 470), 'wide': (13.0, 41.0, 1800, 1400)}[REG]
-ST = 0.01
+LO0, LA0, W, H, ST = {'ro': (20.2, 43.6, 960, 470, 0.01), 'wide': (13.0, 41.0, 1800, 1400, 0.01),
+                      'eu': (-11.0, 35.0, 2150, 1300, 0.02)}[REG]   # eu: training grid for the climate-niche model (land cover + climate only)
 PARTS = os.environ.get('PARTS', 'dem,soil,lc,trees,clim').split(',')
-OUT = 'data/features.json' if REG == 'ro' else 'eval/data/features_wide.json'
+OUT = {'ro': 'data/features.json', 'wide': 'eval/data/features_wide.json', 'eu': 'eval/data/features_eu.json'}[REG]
 ENV = dict(GDAL_DISABLE_READDIR_ON_OPEN='EMPTY_DIR', CPL_VSIL_CURL_ALLOWED_EXTENSIONS='.tif,.vrt', GDAL_HTTP_MAX_RETRY='5',
            GDAL_HTTP_RETRY_DELAY='3', VSI_CACHE='TRUE', GDAL_CACHEMAX=512)
 log = lambda *a: print(*a, file=sys.stderr, flush=True)
@@ -121,7 +121,7 @@ def part_lc(out):
             w0, s0, e0, n0 = max(lo, LO0), max(la, LA0), min(lo + 3, LO0 + W * ST), min(la + 3, LA0 + H * ST)
             if w0 >= e0 or s0 >= n0:
                 continue
-            tile = f"N{la:02d}E{lo:03d}"
+            tile = f"N{la:02d}{'E' if lo >= 0 else 'W'}{abs(lo):03d}"
             c0, c1 = int(round((w0 - LO0) / ST)), int(round((e0 - LO0) / ST))
             r0, r1 = int(round((s0 - LA0) / ST)), int(round((n0 - LA0) / ST))
             try:
