@@ -377,8 +377,11 @@ def part_chm2(out):
     SUBC = 5
     hsum = np.zeros((H, W), np.float32); hcnt = np.zeros((H, W), np.float32); tall = np.zeros((H, W), np.float32); allc = np.zeros((H, W), np.float32)
     ok = 0
+    t_start = time.time()
     for tx in range(x0, x1 + 1):
         for ty in range(y0, y1 + 1):
+            if time.time() - t_start > 140 * 60:
+                log('chm2 time budget reached, writing what is done'); break
             url = f'/vsicurl/https://dataforgood-fb-data.s3.amazonaws.com/forests/v1/alsgedi_global_v6_float/chm/{qk(tx, ty, z)}.tif'
             try:
                 with rasterio.Env(**ENV), rasterio.open(url) as src:
@@ -393,7 +396,7 @@ def part_chm2(out):
                     dtf = from_origin(LO0 + c0 * ST, LA0 + r1 * ST, ST / SUBC, ST / SUBC)
                     lb, bb, rb, tb = transform_bounds('EPSG:4326', src.crs, LO0 + c0 * ST, LA0 + r0 * ST, LO0 + c1 * ST, LA0 + r1 * ST)
                     win = from_bounds(lb, bb, rb, tb, src.transform)
-                    f = max(1, int(20 / abs(src.transform.a)))
+                    f = max(1, int(100 / abs(src.transform.a)))   # ~100 m reads: overviews, so the whole country fits in one job
                     shp = (max(1, int(win.height / f)), max(1, int(win.width / f)))
                     a = src.read(1, window=win, out_shape=shp, resampling=Resampling.average, boundless=True, fill_value=0).astype(np.float32)
                     atf = rasterio.windows.transform(win, src.transform) * rasterio.Affine.scale(win.width / shp[1], win.height / shp[0])
