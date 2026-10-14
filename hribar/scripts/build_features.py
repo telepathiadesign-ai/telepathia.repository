@@ -361,6 +361,59 @@ def part_pasture(out):
                'stana': out['stana3'], 'pasture': out['pasture']}, open('data/pasture.json', 'w'), separators=(',', ':'))
 
 
+def part_chm2(out):
+    """Canopy height from Meta / WRI High Resolution Canopy Height (Tolan et al. 2024, 1 m, CC BY 4.0), open data on AWS:
+    tiles by Bing quadkey (zoom 9). Read at reduced resolution (~20 m) per 0.01° cell: mean height of pixels >= 3 m (dm) and
+    share of pixels taller than 20 m (%)."""
+    if REG != 'ro':
+        log('chm2: Romania only'); return
+    def qk(tx, ty, z):
+        return ''.join(str((1 if tx & (1 << (i - 1)) else 0) + (2 if ty & (1 << (i - 1)) else 0)) for i in range(z, 0, -1))
+    def tile(lon, lat, z):
+        n = 2 ** z; x = int((lon + 180) / 360 * n); y = int((1 - math.log(math.tan(math.radians(lat)) + 1 / math.cos(math.radians(lat))) / math.pi) / 2 * n)
+        return x, y
+    z = 9
+    x0, y1 = tile(LO0, LA0, z); x1, y0 = tile(LO0 + W * ST, LA0 + H * ST, z)
+    SUBC = 5
+    hsum = np.zeros((H, W), np.float32); hcnt = np.zeros((H, W), np.float32); tall = np.zeros((H, W), np.float32); allc = np.zeros((H, W), np.float32)
+    ok = 0
+    for tx in range(x0, x1 + 1):
+        for ty in range(y0, y1 + 1):
+            url = f'/vsicurl/https://dataforgood-fb-data.s3.amazonaws.com/forests/v1/alsgedi_global_v6_float/chm/{qk(tx, ty, z)}.tif'
+            try:
+                with rasterio.Env(**ENV), rasterio.open(url) as src:
+                    l, b, r, t = transform_bounds(src.crs, 'EPSG:4326', *src.bounds)
+                    w0, s0, e0, n0 = max(l, LO0), max(b, LA0), min(r, LO0 + W * ST), min(t, LA0 + H * ST)
+                    if w0 >= e0 or s0 >= n0:
+                        continue
+                    c0, c1 = int(math.ceil((w0 - LO0) / ST)), int(math.floor((e0 - LO0) / ST)); r0, r1 = int(math.ceil((s0 - LA0) / ST)), int(math.floor((n0 - LA0) / ST))
+                    if c1 <= c0 or r1 <= r0:
+                        continue
+                    dst = np.full(((r1 - r0) * SUBC, (c1 - c0) * SUBC), np.nan, np.float32)
+                    dtf = from_origin(LO0 + c0 * ST, LA0 + r1 * ST, ST / SUBC, ST / SUBC)
+                    lb, bb, rb, tb = transform_bounds('EPSG:4326', src.crs, LO0 + c0 * ST, LA0 + r0 * ST, LO0 + c1 * ST, LA0 + r1 * ST)
+                    win = from_bounds(lb, bb, rb, tb, src.transform)
+                    f = max(1, int(20 / abs(src.transform.a)))
+                    shp = (max(1, int(win.height / f)), max(1, int(win.width / f)))
+                    a = src.read(1, window=win, out_shape=shp, resampling=Resampling.average, boundless=True, fill_value=0).astype(np.float32)
+                    atf = rasterio.windows.transform(win, src.transform) * rasterio.Affine.scale(win.width / shp[1], win.height / shp[0])
+                    reproject(a, dst, src_transform=atf, src_crs=src.crs, dst_transform=dtf, dst_crs='EPSG:4326', resampling=Resampling.nearest)
+                blk = dst[::-1].reshape(r1 - r0, SUBC, c1 - c0, SUBC)
+                fin = np.isfinite(blk); fo = fin & (blk >= 3)
+                hsum[r0:r1, c0:c1] += np.where(fo, blk, 0).sum(axis=(1, 3)); hcnt[r0:r1, c0:c1] += fo.sum(axis=(1, 3))
+                tall[r0:r1, c0:c1] += (fin & (blk >= 20)).sum(axis=(1, 3)); allc[r0:r1, c0:c1] += fin.sum(axis=(1, 3))
+                ok += 1
+            except Exception as e:
+                log('chm2 skip', qk(tx, ty, z), str(e)[:90])
+    log('chm2 tiles read', ok)
+    with np.errstate(all='ignore'):
+        out['chm_mean'] = enc(np.where(hcnt > 0, 10 * hsum / hcnt, np.where(allc > 0, 0, np.nan)))
+        out['chm_tall'] = enc(np.where(allc > 0, 100 * tall / allc, np.nan))
+    log('chm2 done cells', int((allc > 0).sum()), 'mean forest height m', round(float(np.nansum(hsum) / max(1, np.nansum(hcnt))), 1))
+    if ok == 0:
+        raise RuntimeError('no canopy tiles read')
+
+
 def part_trees(out):
     sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
     from build_trees import find_records  # noqa
