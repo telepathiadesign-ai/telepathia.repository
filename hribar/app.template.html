@@ -790,10 +790,14 @@ const rangeF = P => P.lat < 33 || P.lat > 71 ? 0 : Math.min(1, (P.lat - 33) / 4,
 const K = 1.3;
 const DEDUP_DEFAULT = 0;
 const SOFT_DEFAULT = 0;
+const GRASS_DEFAULT = 0;
 const softCap = x => x <= 0.8 ? Math.max(0, x) : 0.8 + 0.2 * (1 - Math.exp(-(x - 0.8) / 0.2));
 function factors(sp, P, i, habitatOnly){
   const f = {};
   f.range = rangeF(P);
+  // GRASS (test switch): grassland species scored on mapped grassland (+ some built: lawns, parks) instead of "not forest",
+  // which also rewarded cropland (eval/audit.py: field-mushroom finds sat below the map's median)
+  if (sp.grass && ((typeof window !== 'undefined' && window.__GRASS) ?? GRASS_DEFAULT) && P.lcOk){ f.cover = 0.25 + 0.75 * Math.min(1, ((P.grass || 0) + 0.5 * (P.built || 0)) / 0.6); } else
   f.cover = sp.grass ? 0.25 + 0.75 * (1 - P.f) : sp.edge ? Math.max(P.f, 0.25 + 0.75 * (1 - P.f)) : sp.wood ? 0.5 + 0.5 * P.f : P.f; // backtest: using measured grass/built shares here made grassland and town species worse (hab×season −0.012); learned per-species preferences are next // grassland species score on open land; wood decayers also follow park, riverside and orchard trees
   f.host = hostOf(sp, P);
   f.alt = Math.max(0.4, gauss(P.e, sp.elev[0], sp.elev[1] * 1.6)); // backtest: a peak at mid-range beats a flat range (AUC 0.592 vs 0.583)
