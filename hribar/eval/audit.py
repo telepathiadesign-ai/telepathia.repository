@@ -77,8 +77,9 @@ def main():
          '(0.5 = no better than chance, 1 = always in the best cells). High = share of Romanian land at habitat >= 0.68.', '',
          '| Species | Model | RO finds | Finds percentile | High share | Rules vs learned | Flags |', '| --- | --- | --- | --- | --- | --- | --- |']
     for r in rows:
-        L.append(f"| *{r['sp']}* {names.get(r['sp'], '')} | {r.get('model', '')} | {r['n']} | {'' if r['pct'] is None else f'{r[\"pct\"]:.2f}'} | "
-                 f"{r['high']:.0%} | {'' if r['rc'] is None else f'{r[\"rc\"]:.2f}'} | {'; '.join(r['flags'])} |")
+        pct = '' if r['pct'] is None else f"{r['pct']:.2f}"
+        rc = '' if r['rc'] is None else f"{r['rc']:.2f}"
+        L.append(f"| *{r['sp']}* {names.get(r['sp'], '')} | {r.get('model', '')} | {r['n']} | {pct} | {r['high']:.0%} | {rc} | {'; '.join(r['flags'])} |")
     open(a.out, 'w').write('\n'.join(L) + '\n')
     print(f'{nflag} of {len(rows)} species flagged -> {a.out}')
     # contact sheets
