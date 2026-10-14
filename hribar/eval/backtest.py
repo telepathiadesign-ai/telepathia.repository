@@ -163,6 +163,7 @@ def HAB_MULT(s, recs):
     return HAB_FLOOR + (1 - HAB_FLOOR) * np.minimum(1, p / c['mx'])
 
 
+TRENDS_B = float(os.environ.get('TRENDS_B', 0)); TRENDS = json.load(open(os.path.join(DATA, 'trends_ro.json'))) if TRENDS_B else None
 RECENT_KM = float(os.environ.get('RECENT_KM', 0)); RECENT_D = int(os.environ.get('RECENT_D', 10)); RECENT_B = float(os.environ.get('RECENT_B', 1.0))
 TRIG = set(filter(None, os.environ.get('TRIG', '').split(',')))
 
@@ -303,6 +304,15 @@ def main():
                     wv[j] = out[0]
             ok = ~np.isnan(wv)
             F = H * S * np.nan_to_num(wv)
+            if TRENDS_B:   # D10: Google search interest that week, Romania, mapped term per genus (eval/data/trends_ro.json)
+                gen = s.split()[0]
+                term = 'hribi' if gen in ('Boletus', 'Imleria', 'Leccinum', 'Suillus', 'Xerocomus', 'Butyriboletus') else 'gălbiori' if gen in ('Cantharellus', 'Craterellus') else 'ghebe' if gen in ('Armillaria', 'Desarmillaria') else 'ciuperci'
+                ser = TRENDS[term]; keys = sorted(ser); import bisect
+                def tv(d):
+                    j = bisect.bisect_right(keys, d.isoformat()) - 1
+                    return ser[keys[j]] / 100.0 if j >= 0 else 0.0
+                tr = np.array([tv(r['date']) for r in recs])
+                F = F * (1 + TRENDS_B * tr)
             if RECENT_KM:
                 own = [r for r in recs if r['nm'] == s]; R2 = (RECENT_KM / 111.0) ** 2
                 nrec = np.array([sum(1 for q in own if 0 < (r['date'] - q['date']).days <= RECENT_D and q['user'] != r['user'] and (r['lon'] - q['lon']) ** 2 * 0.5 + (r['lat'] - q['lat']) ** 2 <= R2) for r in recs], float)

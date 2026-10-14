@@ -135,3 +135,19 @@ without any Romanian finds, rules-only baseline: Carpathian-Balkan model +0.047 
 (CI +0.015..+0.044). Western European records dilute the regional signal, so the shipped file is a hybrid: regional model
 for 140 species with 50+ finds in the region, Europe-wide for 35 rarer ones (e.g. *Psilocybe semilanceata*: 20 regional,
 730 European finds). Bug fixed on the way: the grid lookup rejected cells without elevation, i.e. the whole Europe grid.
+
+### 14 Oct 2026 — duplicate rules, audit, soft ceiling, grassland rule, pasture, search trends
+| Test (held-out 2026 unless noted) | Result | Shipped |
+| --- | --- | --- |
+| Drop catalogue tree-cover + host rules where a learned habitat model applies | full −0.011 (CI −0.019..−0.003) | no: the rules still add information |
+| … and elevation too | full −0.017 (CI −0.026..−0.008) | no |
+| Soft ceiling (index above 0.8 approaches 1 instead of being cut off) | ±0.000 | no |
+| Grassland species scored on mapped grassland instead of "not forest" | ±0.000 (5 species; field mushroom +0.026, shaggy ink cap −0.083) | no |
+| OSM sheepfolds + pasture share as learned inputs | 2026 habitat −0.006 (CI below 0); 2025 ±0 | no |
+| Google Trends (weekly, RO) as a timing boost, term per genus | 2024-25 ±0; 2026 −0.001 (CI below 0) | no: a nationwide weekly signal cannot tell one species' finds from other finds on the same day |
+
+Per-species audit (`eval/audit.py`, `AUDIT.md`, `audit_sheet_*.png`): 60 of 254 species flagged. Forest species look
+right (penny bun, fly agaric: finds at the 0.95 percentile of their own map). Open-country and generalist species
+(Agaricus, puffballs, St George's mushroom, shaggy ink cap, jelly ear, velvet shank) paint 40–90 % of Romania High and
+their finds sit near or below the map median. None of the rule fixes above helps them in the backtest, but only a
+handful of these species have enough Romanian finds to test; better data on where they grow (field logs) is the lever.
