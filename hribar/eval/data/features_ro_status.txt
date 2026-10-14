@@ -1,3 +1,1 @@
-== part chm
-chm retry 0 HTTP Error 500: Internal Server Error
-chm retry 1 HTTP Error 500: Internal Server Error
+== part chm2
