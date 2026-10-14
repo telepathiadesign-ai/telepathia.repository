@@ -221,19 +221,28 @@ def part_chm(out):
     if REG != 'ro':
         log('chm: Romania only (the shared server rate-limits)'); return
     def fetch(u):
-        for k in range(6):
+        for k in range(2):
             try:
                 return urllib.request.urlopen(urllib.request.Request(u, headers={'User-Agent': 'hribar-research'}), timeout=60).read().decode(errors='replace')
             except Exception as e:
                 log('chm retry', k, str(e)[:80]); time.sleep(60 * (k + 1))
         raise RuntimeError('chm index unreachable')
     base = 'https://share.phys.ethz.ch/~pf/nlangdata/ETH_GlobalCanopyHeight_10m_2020_version1/'
-    idx = fetch(base)
+    try:
+        idx = fetch(base)
+    except Exception:
+        idx = ''
     subs = sorted(set(re.findall(r'href="([^"?]*3deg[^"]*/)"', idx))) or ['3deg_cogs/']
     log('chm subdirs', subs)
     sub = base + subs[0]
-    names = sorted(set(re.findall(r'href="([^"]*_Map\.tif)"', fetch(sub))))
+    try:
+        names = sorted(set(re.findall(r'href="([^"]*_Map\.tif)"', fetch(sub))))
+    except Exception:
+        names = []
     log('chm tiles listed', len(names), names[:3])
+    if not names:   # listing failed: build the names directly (3-degree tiles, named by their lower-left corner)
+        names = [f'ETH_GlobalCanopyHeight_10m_2020_N{la:02d}E{lo:03d}_Map.tif' for la in range(42, 51, 3) for lo in range(18, 31, 3)]
+        log('chm using constructed tile names', len(names))
     tiles = {}
     for n in names:
         m = re.search(r'([NS])(\d{2})([EW])(\d{3})', n)
