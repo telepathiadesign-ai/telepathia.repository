@@ -27,6 +27,11 @@ __MLCSS__
   --land:#202427; --water:#101B21; --border:#9AA3AA; --county:#56606A; --road:#7D868D; --road-case:#2A3035; --label:#F2F4F6; --label-2:#C9CFD4; --halo:rgba(12,14,16,.9); --river:#4E8CAB; --river-l:#8CC3E0; --place-dot:#F2F4F6;
   --rd-mw:#7A766F; --rd-pr:#68645E; --rd-se:#57544F; --rd-lo:#626B72; --rd-case:#15191C; --forest:#23352A; --track:#B8A58E; --trail:#EBDCC6; --trail-d:#F08A70; --lift:#E4E7E9; --road-major:#6A665F; --peak:#D9A86A; --peak-l:#E8C18F; --hs-shadow:rgba(0,0,0,.55); --hs-high:rgba(190,200,208,.10); --hs-accent:rgba(0,0,0,.22); --contour:#9C8260; --contour-l:#D8BE98; --grat:rgba(228,231,233,.12);
   color-scheme:dark}
+/* scrollbars follow the theme tokens (color-scheme alone is not repainted reliably when the theme flips) */
+*{scrollbar-width:thin;scrollbar-color:var(--line-2) transparent}
+::-webkit-scrollbar{width:10px;height:10px}::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--line-2);border-radius:10px;border:3px solid transparent;background-clip:content-box}
+::-webkit-scrollbar-thumb:hover{background:var(--ink-3);background-clip:content-box}
 /* ---------- app shell ----------
    Desktop: header / [list panel | map stage]. The panel is a real grid column, so the map shrinks instead of being covered.
    Phone: header / full-bleed map, with the same panel as a draggable bottom sheet (peek, half, full). */
