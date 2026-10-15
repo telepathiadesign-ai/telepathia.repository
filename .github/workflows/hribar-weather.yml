@@ -2,6 +2,7 @@ name: Hribar daily weather
 on:
   schedule:
     - cron: '17 1 * * *'   # 04:17 Bucharest; GitHub often starts scheduled runs hours late, and an off-peak minute helps
+    - cron: '29 4 * * *'   # 07:29 Bucharest retry, before the 08:47 copy into the app, in case the first run hit Open-Meteo timeouts
   workflow_dispatch: {}
   push:
     branches: [main]
