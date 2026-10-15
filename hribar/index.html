@@ -788,9 +788,16 @@ function hostRaw(sp, P){ const H = sp.hosts, lt = P.leaf;
   return P.e > 1300 ? Math.max(H.spruce, 0.8 * H.mixed) : P.e > 800 ? Math.max(H.mixed, 0.8 * H.beech) : P.e > 400 ? Math.max(H.beech, 0.8 * H.oak) : H.oak; }
 const rangeF = P => P.lat < 33 || P.lat > 71 ? 0 : Math.min(1, (P.lat - 33) / 4, (71 - P.lat) / 4);
 const K = 1.3;
+const DEDUP_DEFAULT = 0;
+const SOFT_DEFAULT = 0;
+const GRASS_DEFAULT = 0;
+const softCap = x => x <= 0.8 ? Math.max(0, x) : 0.8 + 0.2 * (1 - Math.exp(-(x - 0.8) / 0.2));
 function factors(sp, P, i, habitatOnly){
   const f = {};
   f.range = rangeF(P);
+  // GRASS (test switch): grassland species scored on mapped grassland (+ some built: lawns, parks) instead of "not forest",
+  // which also rewarded cropland (eval/audit.py: field-mushroom finds sat below the map's median)
+  if (sp.grass && ((typeof window !== 'undefined' && window.__GRASS) ?? GRASS_DEFAULT) && P.lcOk){ f.cover = 0.25 + 0.75 * Math.min(1, ((P.grass || 0) + 0.5 * (P.built || 0)) / 0.6); } else
   f.cover = sp.grass ? 0.25 + 0.75 * (1 - P.f) : sp.edge ? Math.max(P.f, 0.25 + 0.75 * (1 - P.f)) : sp.wood ? 0.5 + 0.5 * P.f : P.f; // backtest: using measured grass/built shares here made grassland and town species worse (hab×season −0.012); learned per-species preferences are next // grassland species score on open land; wood decayers also follow park, riverside and orchard trees
   f.host = hostOf(sp, P);
   f.alt = Math.max(0.4, gauss(P.e, sp.elev[0], sp.elev[1] * 1.6)); // backtest: a peak at mid-range beats a flat range (AUC 0.592 vs 0.583)
@@ -807,6 +814,10 @@ function factors(sp, P, i, habitatOnly){
     else { const e = P.e / 1000, x = [P.f, P.grass || 0, P.crop || 0, P.built || 0, P.water || 0, e, e * e];
       for (let k = 0; k < 7; k++) z += c.w[k] * x[k]; f.lc = 0.3 + 0.7 * Math.min(1, (1 / (1 + Math.exp(-z))) / c.mx); } } }
   f.ph = (P.ph === null || sp.phOpt == null) ? 1 : 0.88 + 0.2 * Math.exp(-((P.ph - sp.phOpt) ** 2) / (2 * 1.3 * 1.3));
+  // DEDUP: where a learned habitat model applies, the catalogue rules it already covers are switched off
+  // (1: tree cover + host; 2: also elevation, which only the Romanian model learns). Test switch; see eval/README.md.
+  { const dd = (typeof window !== 'undefined' && window.__DEDUP) || DEDUP_DEFAULT, c = D.lc_prefs && D.lc_prefs.species[sp.latin];
+    if (dd && c && P.lcOk && f.lc !== 1){ f.cover = 1; f.host = 1; if (dd >= 2 && c.src !== 'niche') f.alt = 1; } }
   f.frost = 1; f.snow = 1; f.moist = 1;
   if (!habitatOnly && !wxAvail(P, i)){ f.nowx = true; f.season = seasonF(sp, P, i); f.T = null; f.temp = 0; f.rainmm = null; f.rain = 0; f.water = 0; f.raw = 0; f.v = 0; return f; }
   if (!habitatOnly){
@@ -827,7 +838,10 @@ function factors(sp, P, i, habitatOnly){
   }
   if (!habitatOnly){ const rn = recentNear(sp, P, i); f.recentN = rn.n; f.recentKm = rn.km; f.recent = 1 + 2 * Math.min(1, rn.n / 3); } // backtest: AUC +0.014 (CI +0.010..+0.018)
   const prod = f.range * f.cover * f.host * f.alt * f.aspect * f.slope * f.wet * f.ph * f.lc * (habitatOnly ? 1 : f.season * f.temp * f.water * f.frost * f.snow * f.recent);
-  f.raw = prod * (habitatOnly ? 1.3 : K); f.v = clamp01(f.raw);
+  f.raw = prod * (habitatOnly ? 1.3 : K);
+  // soft ceiling (test switch): above 0.8 the index approaches 1 smoothly instead of being cut off, so good and great
+  // places stay distinguishable for generalist species (eval/audit.py: up to 44 % of Romania sat exactly at 1.0)
+  f.v = ((typeof window !== 'undefined' && window.__SOFT) ?? SOFT_DEFAULT) ? softCap(f.raw) : clamp01(f.raw);
   return f;
 }
 const fruiting = (sp, P, i) => factors(sp, P, i).v;
