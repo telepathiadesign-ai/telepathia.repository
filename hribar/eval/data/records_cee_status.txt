@@ -1,2 +1,1 @@
-retry 0 HTTP Error 503: Backend fetch failed
-added 344878, total rows 1618432, progress 9636/9652 species x country, no GBIF key: 1
+added 23985, total rows 1642417, progress 9652/9652 species x country, no GBIF key: 1
