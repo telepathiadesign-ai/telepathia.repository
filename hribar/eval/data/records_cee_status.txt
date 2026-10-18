@@ -1,1 +1,1 @@
-added 23985, total rows 1642417, progress 9652/9652 species x country, no GBIF key: 1
+added 0, total rows 1642417, progress 9652/9652 species x country, no GBIF key: 1
