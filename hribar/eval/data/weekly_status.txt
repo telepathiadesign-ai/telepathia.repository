@@ -1,1 +1,37 @@
-iNat RO archive: +433 new, 40 updated, total 27881, latest 2026-11-08
+iNat RO archive: +210 new, 28 updated, total 28091, latest 2026-11-16
+retry 0 <urlopen error _ssl.c:994: The handshake operation timed out>
+ok 25,44 days 1079 elev 98.0 missing soilT 0
+nodes 109
+points 8483 species 254
+fitted 60 species on 10604 records -> /home/runner/work/telepathia.repository/telepathia.repository/hribar/eval/data/lc_prefs_holdout_2024.json
+1112903 records with features; 250 species fitted
+141908 records with features; 242 species fitted
+hybrid: 60 Romanian, 155 regional niche, 35 Europe niche -> /home/runner/work/telepathia.repository/telepathia.repository/hribar/eval/data/lc_prefs_holdout_2024.json
+{
+ "auc_hab": {
+  "median": 0.679,
+  "weighted": 0.692,
+  "species": 64
+ },
+ "auc_season": {
+  "median": 0.62,
+  "weighted": 0.612,
+  "species": 64
+ },
+ "auc_hab_season": {
+  "median": 0.746,
+  "weighted": 0.742,
+  "species": 64
+ },
+ "auc_weather": {
+  "median": 0.566,
+  "weighted": 0.567,
+  "species": 64
+ },
+ "auc_full": {
+  "median": 0.718,
+  "weighted": 0.718,
+  "species": 64
+ }
+} records 3102 species 64
+fitted 43 species on 8033 records -> /home/runner/work/telepathia.repository/telepathia.repository/hribar/eval/data/lc_prefs_holdout_2025.json
