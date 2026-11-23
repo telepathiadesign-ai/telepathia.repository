@@ -1,5 +1,5 @@
 {
- "run_at": "2026-11-22T12:49:00.838211Z",
+ "run_at": "2026-11-23T09:03:53.585701Z",
  "fetch": "success",
- "log_tail": "grid 0.2\u00b0 -> 49x24 = 1176 points, 12 batches\n  batch 1 ok\n  batch 2 ok\n  batch 3 ok\n  batch 4 ok\n  batch 5 ok\n  batch 6 ok\n  batch 7 ok\n  batch 8 ok\n  batch 9 ok\n  batch 10 ok\n  batch 11 ok\n  batch 12 ok\nwrote data/weather.json: t0=2026-10-23, 49x24x41\n"
+ "log_tail": "grid 0.2\u00b0 -> 49x24 = 1176 points, 12 batches\n  batch 1 ok\n  batch 2 ok\n  batch 3 ok\n  batch 4 ok\n  batch 400: HTTP 429 {\"error\":true,\"reason\":\"Minutely API request limit exceeded. Please try again in one minute.\"}\n  batch 5 ok\n  batch 6 ok\n  batch 7 ok\n  batch 8 ok\n  batch 9 ok\n  batch 10 ok\n  batch 11 ok\n  batch 12 ok\nwrote data/weather.json: t0=2026-10-24, 49x24x41\n"
 }
