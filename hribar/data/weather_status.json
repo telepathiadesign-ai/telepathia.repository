@@ -1,5 +1,5 @@
 {
- "run_at": "2026-11-24T15:10:26.448139Z",
+ "run_at": "2026-11-25T09:56:02.307979Z",
  "fetch": "success",
- "log_tail": "grid 0.2\u00b0 -> 49x24 = 1176 points, 12 batches\n  batch 1 ok\n  batch 2 ok\n  batch 3 ok\n  batch 4 ok\n  batch 5 ok\n  batch 500: HTTP 429 {\"error\":true,\"reason\":\"Minutely API request limit exceeded. Please try again in one minute.\"}\n  batch 6 ok\n  batch 7 ok\n  batch 8 ok\n  batch 9 ok\n  batch 10 ok\n  batch 11 ok\n  batch 12 ok\nwrote data/weather.json: t0=2026-10-25, 49x24x41\n"
+ "log_tail": "grid 0.2\u00b0 -> 49x24 = 1176 points, 12 batches\n  batch 0: HTTPSConnectionPool(host='api.open-meteo.com', port=443): Read timed out. (read timeout=150)\n  batch 1 ok\n  batch 2 ok\n  batch 3 ok\n  batch 4 ok\n  batch 5 ok\n  batch 6 ok\n  batch 7 ok\n  batch 8 ok\n  batch 9 ok\n  batch 10 ok\n  batch 11 ok\n  batch 12 ok\nwrote data/weather.json: t0=2026-10-26, 49x24x41\n"
 }
